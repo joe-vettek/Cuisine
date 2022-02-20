@@ -1,6 +1,0 @@
-{
-    "parent": "cuisine:block/cross_crop",
-    "textures": {
-        "crop": "cuisine:block/tomato_stage_1"
-    }
-}

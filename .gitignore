@@ -20,11 +20,9 @@ build
 # other
 eclipse
 run
-.editorconfig
-build
-classes
+/logs/
+/.factorypath
+/.apt_generated_tests/
 
-/gradlew.bat
-/gradle
-/gradlew
-/libs/ToughAsNails-1.12.2-3.1.0.129-universal.jar
+/mixin-0.8.3.jar
+/libs

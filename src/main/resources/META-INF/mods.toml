@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[38,)"
+license="ARR"
+
+[[mods]]
+modId="cuisine"
+version="${file.jarVersion}"
+displayName="Cuisine Inherited"
+authors="xueluoanping, Snownee, 3TUSK, YurisCat, WZD"
+displayURL=""
+description="Customize your food!"
+
+[[dependencies.cuisine]]
+    modId="kiwi"
+    mandatory=true
+    versionRange="[5.2.2, 6)"
+    ordering="BEFORE"
+    side="BOTH"
+
+[[dependencies.cuisine]]
+    modId="forge"
+    mandatory=true
+    versionRange="[39, )"
+    ordering="BEFORE"
+    side="BOTH"
+
