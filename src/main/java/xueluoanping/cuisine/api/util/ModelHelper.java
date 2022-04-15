@@ -67,7 +67,7 @@ public class ModelHelper {
 	}
 
 	public static BakedQuad colorQuad(int color, BakedQuad quad) {
-		ModelHelper.ColorTransformer transformer = new ModelHelper.ColorTransformer(color, quad);
+		ColorTransformer transformer = new ColorTransformer(color, quad);
 		quad.pipe(transformer);
 		return transformer.build();
 	}

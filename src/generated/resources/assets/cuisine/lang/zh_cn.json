@@ -1,0 +1,19 @@
+{
+  "block.cuisine.bamboo": "\u6DE1\u7AF9",
+  "block.cuisine.bamboo_plant": "\u6DE1\u7AF9\u7B0B",
+  "block.cuisine.bamboo_root": "\u7AF9\u6839",
+  "block.cuisine.basin": "\u76C6",
+  "block.cuisine.basin.hint": "\u00A74\u7528\u9014\uFF1A\n\u00A73\u6240\u6709\u7684\u76C6\u90FD\u53EF\u4EE5\u7528\u6765\u538B\u788E\u852C\u679C\u6216\u8005\u6D78\u6CE1\u7269\u54C1\uFF0C\u975E\u6728\u8D28\u76C6\u53EF\u4EE5\u5728\u706B\u5751\u4E0A\u52A0\u70ED\u83B7\u53D6\u7C97\u76D0",
+  "block.cuisine.ditch": "\u704C\u6E89\u6E20",
+  "block.cuisine.fire_pit": "\u706B\u5858",
+  "block.cuisine.fire_pit_with_frying_pan": "\u706B\u5858\u548C\u714E\u9505",
+  "block.cuisine.fire_pit_with_sticks": "\u70E7\u70E4\u67B6",
+  "block.cuisine.fire_pit_with_wok": "\u706B\u5858\u548C\u94C1\u9505",
+  "block.cuisine.mill": "\u78E8",
+  "cuisine": "\u6599\u7406\u5DE5\u827A\u2022\u8FFD\u5FC6\uFF08\u70DF\u706B\u4E4B\u5FC6\uFF09",
+  "fluid.cuisine.cuisine_juice": "\u4E22\u5931\u5473\u9053\u7684\u679C\u6C41",
+  "fluid.cuisine.cuisine_juice_block": "\u4E22\u5931\u5473\u9053\u7684\u679C\u6C41",
+  "fluid.cuisine.cuisine_juice_with_material": "\u6C41",
+  "item.cuisine.cuisine_juice_bucket": "\u4E22\u5931\u5473\u9053\u7684\u679C\u6C41\u6876",
+  "itemGroup.cuisine": "\u6599\u7406\u5DE5\u827A\u2022\u8FFD\u5FC6"
+}

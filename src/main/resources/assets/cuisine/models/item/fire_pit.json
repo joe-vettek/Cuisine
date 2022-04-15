@@ -1,0 +1,23 @@
+{
+  "parent": "cuisine:block/fire_pit_obj",
+  "overrides": [
+    {
+      "predicate": {
+        "cuisine:component": 1
+      },
+      "model": "cuisine:item/fire_pit_with_wok"
+    },
+    {
+      "predicate": {
+        "cuisine:component": 2
+      },
+      "model": "cuisine:item/fire_pit_with_sticks"
+    },
+    {
+      "predicate": {
+        "cuisine:component": 3
+      },
+      "model": "cuisine:item/fire_pit_with_frying_pan"
+    }
+  ]
+}

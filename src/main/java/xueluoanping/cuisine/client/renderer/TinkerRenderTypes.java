@@ -1,14 +1,11 @@
 package xueluoanping.cuisine.client.renderer;
 
-import java.util.OptionalDouble;
-
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
-
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 
+import java.util.OptionalDouble;
 
 import static xueluoanping.cuisine.Cuisine.MODID;
 
@@ -16,8 +13,8 @@ public class TinkerRenderTypes extends RenderType {
 	public TinkerRenderTypes(String name, VertexFormat format, Mode mode, int bufferSize, boolean affectsCrumbling, boolean sort, Runnable setupState, Runnable clearState) {
 		super(name, format, mode, bufferSize, affectsCrumbling, sort, setupState, clearState);
 	}
-	private static RenderType.CompositeState translucentState(RenderStateShard.ShaderStateShard p_173208_) {
-		return RenderType.CompositeState.builder()
+	private static CompositeState translucentState(ShaderStateShard p_173208_) {
+		return CompositeState.builder()
 				.setLightmapState(LIGHTMAP)
 				.setShaderState(p_173208_)
 				.setTextureState(BLOCK_SHEET_MIPPED)
@@ -59,6 +56,15 @@ public class TinkerRenderTypes extends RenderType {
 					.setCullState(NO_CULL)
 					.createCompositeState(false));
 
+	public static final RenderType FLUID = RenderType.create(resourceString("fluid"),
+			DefaultVertexFormat.NEW_ENTITY, Mode.QUADS, 256, false, true, CompositeState.builder()
+					.setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER)
+					.setTextureState(BLOCK_SHEET_MIPPED)
+					.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+					.setLightmapState(LIGHTMAP)
+					.setOverlayState(OVERLAY)
+					.createCompositeState(true));
+
 //	public static final RenderType SOLID = create(
 //			"solid",
 //			DefaultVertexFormat.BLOCK,
@@ -74,7 +80,24 @@ public class TinkerRenderTypes extends RenderType {
 //					.setCullState(NO_CULL)
 //					.createCompositeState(false));
 
-	public static final RenderType SOLID = create("solid", DefaultVertexFormat.BLOCK, VertexFormat.Mode.QUADS, 2097152, true, true, RenderType.CompositeState.builder().setLightmapState(LIGHTMAP).setShaderState(RENDERTYPE_SOLID_SHADER).setTextureState(BLOCK_SHEET_MIPPED).setCullState(NO_CULL).createCompositeState(false));
+	public static final RenderType SOLID = create("solid",
+			DefaultVertexFormat.BLOCK, Mode.QUADS, 2097152, true, true,
+			CompositeState.builder().setLightmapState(LIGHTMAP).setShaderState(RENDERTYPE_SOLID_SHADER).setTextureState(BLOCK_SHEET_MIPPED).setCullState(NO_CULL).createCompositeState(false)
+	);
 
+	private static CompositeState addState(ShaderStateShard shard) {
+		return CompositeState.builder()
+				.setLightmapState(LIGHTMAP)
+				.setShaderState(shard)
+				.setTextureState(BLOCK_SHEET_MIPPED)
+				.setTransparencyState(ADDITIVE_TRANSPARENCY)
+				.setOutputState(TRANSLUCENT_TARGET)
+				.createCompositeState(true);
+	}
+
+	public static final RenderType ADD = create("translucent",
+			DefaultVertexFormat.BLOCK, Mode.QUADS,
+			2097152, true, true,
+			addState(RENDERTYPE_TRANSLUCENT_SHADER));
 
 }

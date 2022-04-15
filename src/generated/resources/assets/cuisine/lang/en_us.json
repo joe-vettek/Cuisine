@@ -1,0 +1,19 @@
+{
+  "block.cuisine.bamboo": "Henon Bamboo Shoot",
+  "block.cuisine.bamboo_plant": "Henon bamboo",
+  "block.cuisine.bamboo_root": "Bamboo Root",
+  "block.cuisine.basin": "Basin",
+  "block.cuisine.basin.hint": "\u00A74used for\uFF1A\n\u00A73All pots can be used to crush fruits and vegetables or soak things. Non wooden pots can be heated in a fire pit to obtain coarse salt",
+  "block.cuisine.ditch": "Irrigation Canal",
+  "block.cuisine.fire_pit": "Fire Pit",
+  "block.cuisine.fire_pit_with_frying_pan": "Fire Pit With Frying Pan",
+  "block.cuisine.fire_pit_with_sticks": "Fire Pit With Sticks",
+  "block.cuisine.fire_pit_with_wok": "Fire Pit With Wok",
+  "block.cuisine.mill": "Mill",
+  "cuisine": "Cuisine: the memory of food",
+  "fluid.cuisine.cuisine_juice": "Strange Juice",
+  "fluid.cuisine.cuisine_juice_block": "Strange Juice",
+  "fluid.cuisine.cuisine_juice_with_material": "Juice",
+  "item.cuisine.cuisine_juice_bucket": "Strange Juice Bucket",
+  "itemGroup.cuisine": "Cuisine"
+}

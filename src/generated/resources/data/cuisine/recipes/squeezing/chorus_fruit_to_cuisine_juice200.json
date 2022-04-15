@@ -1,0 +1,16 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": [
+    {
+      "item": "minecraft:chorus_fruit"
+    }
+  ],
+  "result": [
+    {
+      "fluid": {
+        "id": "cuisine:cuisine_juice",
+        "amount": 200
+      }
+    }
+  ]
+}

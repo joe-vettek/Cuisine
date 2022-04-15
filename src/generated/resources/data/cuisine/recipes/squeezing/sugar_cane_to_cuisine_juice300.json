@@ -1,0 +1,16 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar_cane"
+    }
+  ],
+  "result": [
+    {
+      "fluid": {
+        "id": "cuisine:cuisine_juice",
+        "amount": 300
+      }
+    }
+  ]
+}

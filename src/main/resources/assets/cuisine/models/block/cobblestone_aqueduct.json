@@ -1,0 +1,6 @@
+{
+  "parent": "cuisine:block/aqueduct",
+  "textures": {
+    "4": "block/cobblestone"
+  }
+}

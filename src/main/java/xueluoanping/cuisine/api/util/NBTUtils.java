@@ -1,6 +1,5 @@
 package xueluoanping.cuisine.api.util;
 
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -8,16 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import snownee.kiwi.recipe.FullBlockIngredient;
-import snownee.kiwi.util.NBTHelper;
-
-import java.util.ArrayList;
-
-import static xueluoanping.cuisine.CoreModule.Basin;
 
 public class NBTUtils {
 	public static Logger logger = LogManager.getLogger();
@@ -52,27 +43,27 @@ public class NBTUtils {
 	public static ItemStack createTagFromTxtureProvider(ItemStack originStack, Block txtureBlock) {
 //		var stack = Basin.asItem().getDefaultInstance();
 
-		NBTHelper data = NBTHelper.create();
-		data.setString("Name", txtureBlock.getRegistryName().toString());
+		CompoundTag data = new CompoundTag();
+		data.putString("Name", txtureBlock.getRegistryName().toString());
 		try {
 			if (txtureBlock.asItem().getDefaultInstance().getTag() != null) {
-				data.setString("Properties", txtureBlock.defaultBlockState().toString());
+				data.putString("Properties", txtureBlock.defaultBlockState().toString());
 			}
 		} catch (Exception exception) {
 			logger.info("Can't get the properties:" + exception.getMessage() + txtureBlock.getRegistryName().toString() + "//" + txtureBlock.delegate.get().defaultBlockState().getProperties());
 		}
 
-		NBTHelper blockNBT = NBTHelper.create();
-		blockNBT.setTag("Block", data.get());
-		blockNBT.setString("Type", "Block");
+		CompoundTag blockNBT = new CompoundTag();
+		blockNBT.put("Block", data);
+		blockNBT.putString("Type", "Block");
 
-		NBTHelper particleNBT = NBTHelper.create();
-		particleNBT.setTag("particle", blockNBT.get());
+		CompoundTag particleNBT = new CompoundTag();
+		particleNBT.put("particle", blockNBT);
 
-		NBTHelper overridesNBT = NBTHelper.create();
-		overridesNBT.setTag("Overrides", particleNBT.get());
+		CompoundTag overridesNBT = new CompoundTag();
+		overridesNBT.put("Overrides", particleNBT);
 //		logger.info(overridesNBT.get().getAsString());
-		originStack.getOrCreateTag().put("BlockEntityTag", overridesNBT.get());
+		originStack.getOrCreateTag().put("BlockEntityTag", overridesNBT);
 		return originStack;
 	}
 
@@ -89,15 +80,29 @@ public class NBTUtils {
 		return Blocks.AIR;
 	}
 
-	//获取注册物品中所有符合要求的方块
-	public static ArrayList<Block> getBlockListFromRegister() {
-		ArrayList<Block> blockArrayList = new ArrayList<>();
-		ForgeRegistries.BLOCKS.getValues().stream()
-				.forEach(block -> {
-					if (FullBlockIngredient.isFullBlock(block.asItem().getDefaultInstance()))
-						blockArrayList.add(block);
-				});
-		return blockArrayList;
+//	//获取注册物品中所有符合要求的方块
+//	public static ArrayList<Block> getBlockListFromRegister() {
+//		ArrayList<Block> blockArrayList = new ArrayList<>();
+//		ForgeRegistries.BLOCKS.getValues().stream()
+//				.forEach(block -> {
+//					if (FullBlockIngredient.isFullBlock(block.asItem().getDefaultInstance()))
+//						blockArrayList.add(block);
+//				});
+//		return blockArrayList;
+//	}
+
+	//获取Block对应实例
+	public static Block getBlockFromRegisterByBlock(ResourceLocation resourceLocation) {
+		return ForgeRegistries.BLOCKS.getValue(resourceLocation);
+	}
+
+	public static ResourceLocation de(String rl) {
+		String[] s=rl.split(":");
+		if (s.length==1)
+		return new ResourceLocation(rl);
+		if (s.length==2)
+			return new ResourceLocation(s[0],s[1]);
+		else throw new ClassCastException("Cuisine: ResourceLocation can only have one colon");
 	}
 
 }

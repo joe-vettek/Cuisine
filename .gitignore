@@ -20,9 +20,6 @@ build
 # other
 eclipse
 run
-/logs/
-/.factorypath
-/.apt_generated_tests/
 
-/mixin-0.8.3.jar
-/libs
+# Files from Forge MDK
+forge*changelog.txt

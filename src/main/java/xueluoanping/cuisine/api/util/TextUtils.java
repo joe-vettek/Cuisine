@@ -21,8 +21,8 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
 import xueluoanping.cuisine.Cuisine;
+
 
 /**
  * Util for obtaining and formatting ITextComponents for use across the mod.

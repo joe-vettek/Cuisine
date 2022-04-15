@@ -1,0 +1,16 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": [
+    {
+      "tag": "minecraft:fox_food"
+    }
+  ],
+  "result": [
+    {
+      "fluid": {
+        "id": "cuisine:cuisine_juice",
+        "amount": 200
+      }
+    }
+  ]
+}

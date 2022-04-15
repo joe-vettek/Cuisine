@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "forge:obj",
+  "model": "cuisine:models/block/fire_pit_with_sticks.obj",
+  "flip-v": true,
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
+}

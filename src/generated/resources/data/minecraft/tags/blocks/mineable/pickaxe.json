@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "cuisine:pot",
-    "cuisine:fire_pit"
+    "cuisine:bamboo",
+    "cuisine:bamboo_plant"
   ]
 }

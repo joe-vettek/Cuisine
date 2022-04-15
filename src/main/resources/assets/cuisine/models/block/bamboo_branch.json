@@ -1,0 +1,33 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"top": "cuisine:block/bamboo_leaves_top",
+		"leaves": "cuisine:block/bamboo_leaves",
+		"particle": "cuisine:block/bamboo"
+	},
+	"elements": [
+		{
+			"from": [19, 0, 3],
+			"to": [29, 10, 13],
+			"faces": {
+				"north": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
+				"east": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
+				"south": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
+				"west": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
+				"up": {"uv": [0, 0, 15, 15], "texture": "#top", "tintindex": 0}
+			}
+		},
+		{
+			"from": [7.5, -0.5, 7],
+			"to": [21.5, 1.5, 9],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [7.5, 5.5, 7]},
+			"faces": {
+				"north": {"uv": [5, 0, 11, 16], "rotation": 90, "texture": "#particle", "tintindex": 0},
+				"east": {"uv": [5, 5, 0, 0], "rotation": 90, "texture": "#particle"},
+				"south": {"uv": [5, 0, 11, 16], "rotation": 270, "texture": "#particle", "tintindex": 0},
+				"up": {"uv": [5, 0, 11, 16], "rotation": 270, "texture": "#particle", "tintindex": 0},
+				"down": {"uv": [11, 16, 5, 0], "rotation": 90, "texture": "#particle", "tintindex": 0}
+			}
+		}
+	]
+}

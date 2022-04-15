@@ -19,24 +19,24 @@ import xueluoanping.cuisine.api.util.ModelHelper;
 
 
 public class FluidCuboid {
-	protected static final Map<Direction, FluidCuboid.FluidFace> DEFAULT_FACES = new EnumMap(Direction.class);
+	protected static final Map<Direction, FluidFace> DEFAULT_FACES = new EnumMap(Direction.class);
 	private final Vector3f from;
 	private final Vector3f to;
-	private final Map<Direction, FluidCuboid.FluidFace> faces;
+	private final Map<Direction, FluidFace> faces;
 	@Nullable
 	private Vector3f fromScaled;
 	@Nullable
 	private Vector3f toScaled;
 
-	public FluidCuboid(Vector3f from, Vector3f to, Map<Direction, FluidCuboid.FluidFace> faces) {
+	public FluidCuboid(Vector3f from, Vector3f to, Map<Direction, FluidFace> faces) {
 		this.from = from;
 		this.to = to;
 		this.faces = faces;
 	}
 
 	@Nullable
-	public FluidCuboid.FluidFace getFace(Direction face) {
-		return (FluidCuboid.FluidFace)this.faces.get(face);
+	public FluidFace getFace(Direction face) {
+		return (FluidFace)this.faces.get(face);
 	}
 
 	public Vector3f getFromScaled() {
@@ -60,7 +60,7 @@ public class FluidCuboid {
 	public static FluidCuboid fromJson(JsonObject json) {
 		Vector3f from = ModelHelper.arrayToVector(json, "from");
 		Vector3f to = ModelHelper.arrayToVector(json, "to");
-		Map<Direction, FluidCuboid.FluidFace> faces = getFaces(json);
+		Map<Direction, FluidFace> faces = getFaces(json);
 		return new FluidCuboid(from, to, faces);
 	}
 
@@ -75,11 +75,11 @@ public class FluidCuboid {
 		}
 	}
 
-	protected static Map<Direction, FluidCuboid.FluidFace> getFaces(JsonObject json) {
+	protected static Map<Direction, FluidFace> getFaces(JsonObject json) {
 		if (!json.has("faces")) {
 			return DEFAULT_FACES;
 		} else {
-			Map<Direction, FluidCuboid.FluidFace> faces = new EnumMap(Direction.class);
+			Map<Direction, FluidFace> faces = new EnumMap(Direction.class);
 			JsonObject object = GsonHelper.getAsJsonObject(json, "faces");
 			Iterator var3 = object.entrySet().iterator();
 
@@ -94,7 +94,7 @@ public class FluidCuboid {
 				JsonObject face = GsonHelper.convertToJsonObject((JsonElement)entry.getValue(), name);
 				boolean flowing = GsonHelper.getAsBoolean(face, "flowing", false);
 				int rotation = ModelHelper.getRotation(face, "rotation");
-				faces.put(dir, new FluidCuboid.FluidFace(flowing, rotation));
+				faces.put(dir, new FluidFace(flowing, rotation));
 			}
 
 			return faces;
@@ -109,7 +109,7 @@ public class FluidCuboid {
 		return this.to;
 	}
 
-	public Map<Direction, FluidCuboid.FluidFace> getFaces() {
+	public Map<Direction, FluidFace> getFaces() {
 		return this.faces;
 	}
 
@@ -119,13 +119,13 @@ public class FluidCuboid {
 
 		for(int var2 = 0; var2 < var1; ++var2) {
 			Direction direction = var0[var2];
-			DEFAULT_FACES.put(direction, FluidCuboid.FluidFace.NORMAL);
+			DEFAULT_FACES.put(direction, FluidFace.NORMAL);
 		}
 
 	}
 
 	public static record FluidFace(boolean isFlowing, int rotation) {
-		public static final FluidCuboid.FluidFace NORMAL = new FluidCuboid.FluidFace(false, 0);
+		public static final FluidFace NORMAL = new FluidFace(false, 0);
 
 		public FluidFace(boolean isFlowing, int rotation) {
 			this.isFlowing = isFlowing;

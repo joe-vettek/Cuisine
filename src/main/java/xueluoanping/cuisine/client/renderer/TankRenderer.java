@@ -103,7 +103,7 @@ public class TankRenderer {
 			int[] heights = calcLiquidHeights(fluids, 8000, yd * 1000 - HEIGHT_OFFSET, 100);
 
 			// rendering time
-			VertexConsumer builder = buffer.getBuffer(TinkerRenderTypes.SMELTERY_FLUID);
+			VertexConsumer builder = buffer.getBuffer(TinkerRenderTypes.FLUID);
 			float curY = FLUID_OFFSET;
 			for (int i = 0; i < fluids.size(); i++) {
 				float h = (float) heights[i] / 1000f;

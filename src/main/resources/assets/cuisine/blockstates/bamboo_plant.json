@@ -1,0 +1,100 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "type": "a_0"
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_shoot",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "type": "a_1"
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_shoot",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "type": "a_2"
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "east": "true"
+          },
+          {
+            "type": "a_2"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch",
+        "uvlock": true
+      }
+    },
+    {
+      "when":  {
+        "AND": [
+          {
+            "south": "true"
+          },
+          {
+            "type": "a_2"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when":  {
+        "AND": [
+          {
+            "west": "true"
+          },
+          {
+            "type": "a_2"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when":  {
+        "AND": [
+          {
+            "north": "true"
+          },
+          {
+            "type": "a_2"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch",
+        "y": 270,
+        "uvlock": true
+      }
+    }
+  ]
+}
+
+

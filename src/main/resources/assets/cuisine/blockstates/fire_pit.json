@@ -1,28 +1,55 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "cuisine:fire_pit.obj",
-    "custom": {
-      "flip-v": true
-    },
-    "transform": "forge:default-block"
-  },
   "variants": {
-    "facing": {
-      "north": { "y": 90  },
-      "south": { "y": 270 },
-      "west" : {          },
-      "east" : { "y": 180 }
+    "component=none,facing=north": {
+      "model": "cuisine:block/fire_pit_obj",
+      "y": 0
     },
-    "component": {
-      "none"  : { "model": "cuisine:fire_pit.obj"             },
-      "wok"   : { "model": "cuisine:fire_pit_with_wok.obj"    },
-      "sticks": { "model": "cuisine:fire_pit_with_sticks.obj" },
-      "frying_pan": { "model": "cuisine:fire_pit_with_frying_pan.obj" }
+    "component=none,facing=south": {
+      "model": "cuisine:block/fire_pit_obj",
+      "y": 180
     },
-    "fire_pit": [{ "model": "cuisine:fire_pit.obj" }],
-    "wok": [{ "model": "cuisine:fire_pit_with_wok.obj" }],
-    "bbq_rack": [{ "model": "cuisine:fire_pit_with_sticks.obj" }],
-    "frying_pan": [{ "model": "cuisine:fire_pit_with_frying_pan.obj" }]
+    "component=none,facing=west": {
+      "model": "cuisine:block/fire_pit_obj",
+      "y": 270
+    },
+    "component=none,facing=east": {
+      "model": "cuisine:block/fire_pit_obj",
+      "y": 90
+    },
+    "component=wok,facing=north": {
+      "model": "cuisine:block/fire_pit_with_wok_obj",
+      "y": 90
+    },
+    "component=wok,facing=south": {
+      "model": "cuisine:block/fire_pit_with_wok_obj",
+      "y": 270
+    },
+    "component=wok,facing=west": {
+      "model": "cuisine:block/fire_pit_with_wok_obj",
+      "y": 0
+    },
+    "component=wok,facing=east": {
+      "model": "cuisine:block/fire_pit_with_wok_obj",
+      "y": 180
+    },
+    "component=sticks,facing=north": {
+      "model": "cuisine:block/fire_pit_with_sticks_obj",
+      "y": 0
+    },
+    "component=sticks,facing=south": {
+      "model": "cuisine:block/fire_pit_with_sticks_obj",
+      "y": 180
+    },
+    "component=sticks,facing=west": {
+      "model": "cuisine:block/fire_pit_with_sticks_obj",
+      "y": 270
+    },
+    "component=sticks,facing=east": {
+      "model": "cuisine:block/fire_pit_with_sticks_obj",
+      "y": 90
+    },
+    "component=frying_pan": {
+      "model": "cuisine:block/fire_pit_with_frying_pan_obj"
+    }
   }
 }

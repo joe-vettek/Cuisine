@@ -1,0 +1,16 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": [
+    {
+      "item": "cuisine:bamboo_shoot"
+    }
+  ],
+  "result": [
+    {
+      "fluid": {
+        "id": "cuisine:cuisine_juice",
+        "amount": 250
+      }
+    }
+  ]
+}

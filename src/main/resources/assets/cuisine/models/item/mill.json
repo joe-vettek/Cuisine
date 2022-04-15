@@ -1,0 +1,17 @@
+{
+  "parent": "cuisine:block/mill_inventory",
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "cuisine:block/mill"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "cuisine:block/mill_top"
+    }
+  ]
+}

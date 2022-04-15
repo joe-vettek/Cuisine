@@ -2,10 +2,10 @@
 # Material Count: 5
 
 newmtl cobblestone
-map_Kd minecraft:blocks/cobblestone
+map_Kd minecraft:block/cobblestone
 
 newmtl cobblestone_planks_oak
-map_Kd minecraft:blocks/planks_oak
+map_Kd minecraft:block/oak_planks
 
 newmtl iron
 map_Kd cuisine:block/iron
@@ -14,4 +14,4 @@ newmtl planks
 map_Kd cuisine:block/iron
 
 newmtl planks_planks_oak
-map_Kd minecraft:blocks/planks_oak
+map_Kd minecraft:block/oak_planks
