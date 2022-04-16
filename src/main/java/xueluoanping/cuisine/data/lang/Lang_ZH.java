@@ -13,8 +13,8 @@ import xueluoanping.cuisine.register.ModContents;
 
 import java.util.function.Supplier;
 
-public class CuisineLang_ZH extends LanguageProvider {
-    public CuisineLang_ZH(DataGenerator gen) {
+public class Lang_ZH extends LanguageProvider {
+    public Lang_ZH(DataGenerator gen) {
         super(gen, Cuisine.MODID, "zh_cn");
     }
 

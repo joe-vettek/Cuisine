@@ -2,15 +2,14 @@ package xueluoanping.cuisine.data.model;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.BlockRegister;
 
 import java.util.function.Supplier;
 
-public class CuisineItemModel extends ItemModelProvider {
-    public CuisineItemModel(DataGenerator generator,  ExistingFileHelper existingFileHelper) {
+public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
+    public ItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Cuisine.MODID, existingFileHelper);
     }
     private String blockName(Supplier<? extends Block> block) {

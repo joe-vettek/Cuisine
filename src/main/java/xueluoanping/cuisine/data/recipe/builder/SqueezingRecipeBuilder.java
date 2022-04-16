@@ -27,7 +27,7 @@ public class SqueezingRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
-        consumerIn.accept(new SqueezingRecipeBuilder.Result(
+        consumerIn.accept(new Result(
                 Cuisine.rl("squeezing/" +
                         this.input.getItems()[0].getItem().getRegistryName().getPath() + "_to_"
                          + this.result.getFluid().getRegistryName().getPath()+ this.result.getAmount()),
@@ -35,7 +35,7 @@ public class SqueezingRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        consumerIn.accept(new SqueezingRecipeBuilder.Result(id, this.input, this.result));
+        consumerIn.accept(new Result(id, this.input, this.result));
 
     }
 

@@ -1,15 +1,18 @@
 package xueluoanping.cuisine.data;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.register.ModContents;
+import xueluoanping.cuisine.tag.CuisineTags;
 
-import javax.annotation.Nullable;
-
-public class CuisineTags extends BlockTagsProvider {
-    public CuisineTags(DataGenerator generatorIn, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+public class TagsDataProvider extends BlockTagsProvider {
+    public TagsDataProvider(DataGenerator generatorIn, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(generatorIn, modId, existingFileHelper);
     }
 
@@ -31,21 +34,26 @@ public class CuisineTags extends BlockTagsProvider {
                 BlockRegister.bamboo.get(),
                 BlockRegister.bamboo_plant.get()
         );
-
     }
 
     protected void registerMinecraftTags() {
-        tag(net.minecraft.tags.BlockTags.BAMBOO_PLANTABLE_ON).add(
+        tag(BlockTags.BAMBOO_PLANTABLE_ON).add(
                 BlockRegister.bamboo_plant.get());
-        tag(net.minecraft.tags.BlockTags.BAMBOO_PLANTABLE_ON).add(
+        tag(BlockTags.BAMBOO_PLANTABLE_ON).add(
                 BlockRegister.bamboo_root.get());
-        tag(xueluoanping.cuisine.tag.CuisineTags.henon_bamboo_plamtable_on).add(
-                BlockRegister.bamboo_root.get());
+
+
     }
 
     protected void registerForgeTags() {
     }
 
     protected void registerModTags() {
+		tag(CuisineTags.henon_bamboo_plamtable_on).add(
+				BlockRegister.bamboo_root.get());
+
+		tag(CuisineTags.bamboo_root_spread_on).addTags(BlockTags.DIRT);
+		tag(CuisineTags.bamboo_root_spread_on).addTags(Tags.Blocks.COBBLESTONE_MOSSY);
+		tag(CuisineTags.bamboo_root_spread_on).addTags(Tags.Blocks.GRAVEL);
     }
 }

@@ -6,8 +6,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.BlockRegister;
 
-public class CuisineBlockStates extends BlockStateProvider {
-    public CuisineBlockStates(DataGenerator gen, ExistingFileHelper exFileHelper) {
+public class BlockStatesDataProvider extends BlockStateProvider {
+    public BlockStatesDataProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
         super(gen, Cuisine.MODID, exFileHelper);
     }
 

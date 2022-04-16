@@ -1,11 +1,11 @@
 package xueluoanping.cuisine.api.type;
 
+import java.util.Locale;
+
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Locale;
 
 public enum EnumFirePitState implements StringRepresentable {
 	NONE("none"),

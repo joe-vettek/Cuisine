@@ -1,6 +1,15 @@
 package xueluoanping.cuisine.worldgen.tree;
 
+import static xueluoanping.cuisine.block.nature.BlockBambooPlant.EAST;
+import static xueluoanping.cuisine.block.nature.BlockBambooPlant.NORTH;
+import static xueluoanping.cuisine.block.nature.BlockBambooPlant.SOUTH;
+import static xueluoanping.cuisine.block.nature.BlockBambooPlant.Type;
+import static xueluoanping.cuisine.block.nature.BlockBambooPlant.WEST;
+
+import java.util.Random;
+
 import com.mojang.serialization.Codec;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -17,10 +26,6 @@ import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.nature.BlockBambooPlant;
 import xueluoanping.cuisine.register.BlockRegister;
 
-import java.util.Random;
-
-import static xueluoanping.cuisine.block.nature.BlockBambooPlant.*;
-
 public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration> {
 //    private static final BlockState BAMBOO_TRUNK = Blocks.BAMBOO.defaultBlockState().setValue(BambooBlock.AGE, Integer.valueOf(1)).setValue(BambooBlock.LEAVES, BambooLeaves.NONE).setValue(BambooBlock.STAGE, Integer.valueOf(0));
 //    private static final BlockState BAMBOO_FINAL_LARGE = BAMBOO_TRUNK.setValue(BambooBlock.LEAVES, BambooLeaves.LARGE).setValue(BambooBlock.STAGE, Integer.valueOf(1));
@@ -29,7 +34,7 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
 
     private static final BlockState BambooShoot = BlockRegister.bamboo_plant.get().defaultBlockState();
     private static final BlockState Bamboo = BlockRegister.bamboo_plant.get().defaultBlockState()
-            .setValue(BlockBambooPlant.TYPE, BlockBambooPlant.Type.A_2);
+            .setValue(BlockBambooPlant.TYPE, Type.A_2);
 
     public SimpleBambooFeature(Codec<ProbabilityFeatureConfiguration> codec) {
         super(codec);

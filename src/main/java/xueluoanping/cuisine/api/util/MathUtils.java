@@ -1,7 +1,9 @@
 package xueluoanping.cuisine.api.util;
 
+import java.util.Random;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -164,6 +166,18 @@ public class MathUtils {
                 , v2.min(Direction.Axis.X)*16, v2.min(Direction.Axis.Y)*16, v2.min(Direction.Axis.Z)*16
                 , angle);
     }
+
+	public static int getRandomSpread(Random r){
+		int select=r.nextInt(3)-1;
+		return select;
+	}
+	public static BlockPos getRandomSpreadPos(BlockPos pos,Random r){
+		int xOffset = MathUtils.getRandomSpread(r);
+		int yOffset = MathUtils.getRandomSpread(r);
+		int zOffset = MathUtils.getRandomSpread(r);
+		return pos.offset(xOffset,yOffset,zOffset);
+	}
+
 }
 
 

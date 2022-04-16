@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "side": "cuisine:block/oak_cabinet_side",
-    "front": "cuisine:block/oak_cabinet_front",
-    "top": "cuisine:block/oak_cabinet_top"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "cuisine": "料理工艺：传承",
-  "item.cuisine.mandarin": "Mandarin",
-  "block.cuisine.fire_pit": "Fire Pit",
-  "block.cuisine.cabbage": "Cabbage",
-  "block.cuisine.basin": "盆",
-  "block.cuisine.basin.hint": "用途：\n§3所有的盆都可以用来压碎蔬果或者浸泡物品，非木质盆可以在火坑上加热获取粗盐",
-  "fluid.cuisine.cuisine_juice": "果汁"
-}

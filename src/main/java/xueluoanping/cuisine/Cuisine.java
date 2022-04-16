@@ -23,12 +23,12 @@ import xueluoanping.cuisine.client.model.BlockDefinition;
 import xueluoanping.cuisine.client.model.SimpleBlockDefinition;
 import xueluoanping.cuisine.config.ClientConfig;
 import xueluoanping.cuisine.config.General;
-import xueluoanping.cuisine.data.CuisineRecipe;
-import xueluoanping.cuisine.data.CuisineTags;
-import xueluoanping.cuisine.data.lang.CuisineLang_EN;
-import xueluoanping.cuisine.data.lang.CuisineLang_ZH;
-import xueluoanping.cuisine.data.model.CuisineBlockStates;
-import xueluoanping.cuisine.data.model.CuisineItemModel;
+import xueluoanping.cuisine.data.RecipeDataProvider;
+import xueluoanping.cuisine.data.TagsDataProvider;
+import xueluoanping.cuisine.data.lang.Lang_EN;
+import xueluoanping.cuisine.data.lang.Lang_ZH;
+import xueluoanping.cuisine.data.model.BlockStatesDataProvider;
+import xueluoanping.cuisine.data.model.ItemModelProvider;
 import xueluoanping.cuisine.register.*;
 
 import java.io.File;
@@ -118,14 +118,14 @@ public final class Cuisine {
         ExistingFileHelper helper = event.getExistingFileHelper();
         if (event.includeServer()) {
             Cuisine.logger("Generate recipe");
-            CuisineTags blockTags = new CuisineTags(generator, Cuisine.MODID, helper);
-            generator.addProvider(new CuisineRecipe(generator));
+            TagsDataProvider blockTags = new TagsDataProvider(generator, Cuisine.MODID, helper);
+            generator.addProvider(new RecipeDataProvider(generator));
             generator.addProvider(blockTags);
-            generator.addProvider(new CuisineLang_EN(generator));
-            generator.addProvider(new CuisineLang_ZH(generator));
-            generator.addProvider(new CuisineBlockStates(generator, helper));
+            generator.addProvider(new Lang_EN(generator));
+            generator.addProvider(new Lang_ZH(generator));
+            generator.addProvider(new BlockStatesDataProvider(generator, helper));
 
-            generator.addProvider(new CuisineItemModel(generator, helper));
+            generator.addProvider(new ItemModelProvider(generator, helper));
 
             try {
                 File file=new File("C:\\Users\\Admin\\Downloads\\料理工艺-18\\src\\generated\\resources\\assets\\cuisine\\lang\\zh_cn.json");
@@ -136,7 +136,7 @@ public final class Cuisine {
             }
 //            generator.addProvider(new ItemTags(generator, blockTags, Cuisine.MODID, helper));
         } else if (event.includeClient()) {
-            generator.addProvider(new CuisineBlockStates(generator, helper));
+            generator.addProvider(new BlockStatesDataProvider(generator, helper));
 //            BlockStates blockStates = new BlockStates(generator, helper);
 //            generator.addProvider(blockStates);
 //            generator.addProvider(new ItemModels(generator, blockStates.models().existingFileHelper));

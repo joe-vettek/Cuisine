@@ -1,24 +1,17 @@
 {
-    "credit": "Made with Blockbench, By Lemon Slice Studio",
-    "ambientocclusion": false,
-    "textures": {
-        "blocker": "block/gravel",
-        "particle": "#blocker"
-    },
-    "elements": [
-        {
-            "from": [4, 5, 0],
-            "to": [12, 14.5, 12],
-            "faces": {
-                "north": {
-                    "uv": [4, 1.5, 12, 11],
-                    "texture": "#blocker"
-                },
-                "up": {
-                    "uv": [4, 0, 12, 12],
-                    "texture": "#blocker"
-                }
-            }
-        }
-    ]
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"blocker": "block/gravel"
+	},
+	"elements": [
+		{
+			"from": [4, 4, 0],
+			"to": [12, 13.5, 12],
+			"faces": {
+				"north": {"uv": [4, 1.5, 12, 11], "texture": "#blocker"},
+				"up": {"uv": [4, 0, 12, 12], "texture": "#blocker"}
+			}
+		}
+	]
 }

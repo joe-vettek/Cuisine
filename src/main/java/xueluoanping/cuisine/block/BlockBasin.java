@@ -1,8 +1,16 @@
 package xueluoanping.cuisine.block;
 
+import java.util.List;
+import java.util.Random;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -19,6 +27,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -26,7 +35,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -44,16 +57,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.Nullable;
+import net.minecraftforge.registries.ForgeRegistries;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.api.fluid.FluidTransferUtil;
+import xueluoanping.cuisine.api.util.NBTUtils;
 import xueluoanping.cuisine.block.entity.BasinBlockEntity;
 import xueluoanping.cuisine.register.ModContents;
-
-import java.util.List;
-import java.util.Random;
 
 public class BlockBasin extends HorizontalDirectionalBlock implements EntityBlock {
 
@@ -561,5 +570,24 @@ public class BlockBasin extends HorizontalDirectionalBlock implements EntityBloc
         }
         return stack;
     }
-
+	public boolean isFullBlock( Block block ) {
+		if (block==this) {
+			return false;
+		}
+		BlockState state = block.defaultBlockState();
+		try {
+			if (Block.isShapeFullBlock(state.getOcclusionShape(null, BlockPos.ZERO)))
+				return true;
+		} catch (Throwable e) {
+		}
+		return false;
+	}
+	@Override
+	public void fillItemCategory(CreativeModeTab p_40569_, NonNullList<ItemStack> list) {
+		ForgeRegistries.BLOCKS.getValues().forEach(block -> {
+			if(isFullBlock(block))
+				list.add(NBTUtils.createTagFromTxtureProvider(asItem().getDefaultInstance(), block));
+		});
+		super.fillItemCategory(p_40569_, list);
+	}
 }

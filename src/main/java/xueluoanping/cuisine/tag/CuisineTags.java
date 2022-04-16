@@ -10,12 +10,13 @@ import xueluoanping.cuisine.Cuisine;
 
 
 /**
- * References to tags under the Farmer's Delight namespace.
+ * References to tags under the Cuisine namespace.
  * These tags are used for mod mechanics.
  */
 public class CuisineTags {
     // Blocks that are efficiently mined with a Knife.
     public static final TagKey<Block> henon_bamboo_plamtable_on = modBlockTag("plamtable_on/henon_bamboo");
+	public static final TagKey<Block> bamboo_root_spread_on = modBlockTag("spread_on/bamboo_root");
 
 
     private static TagKey<Item> modItemTag(String path) {

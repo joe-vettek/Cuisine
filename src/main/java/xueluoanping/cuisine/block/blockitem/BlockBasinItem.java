@@ -1,24 +1,24 @@
 package xueluoanping.cuisine.block.blockitem;
 
+import java.util.Set;
+
 import com.google.common.collect.Sets;
+
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
 import xueluoanping.cuisine.api.util.NBTUtils;
 import xueluoanping.cuisine.api.util.Platform;
+import xueluoanping.cuisine.api.util.TextUtils;
 import xueluoanping.cuisine.register.ModContents;
-
-import java.util.Set;
 
 public class BlockBasinItem extends BlockItem {
     public static final Set<BlockEntityType<?>> INSTANT_UPDATE_TILES = Platform.isPhysicalClient() ? Sets.newHashSet() : null;
@@ -43,25 +43,21 @@ public class BlockBasinItem extends BlockItem {
         return super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
     }
 
-    @Override
-    public void fillItemCategory(CreativeModeTab p_40569_, NonNullList<ItemStack> list) {
-        ForgeRegistries.BLOCKS.getValues().forEach(block -> {
-            if(isFullBlock(block))
-            list.add(NBTUtils.createTagFromTxtureProvider(getDefaultInstance(), block));
-        });
-        super.fillItemCategory(p_40569_, list);
-    }
 
-    public boolean isFullBlock( Block block ) {
-        if (block.asItem()==this) {
-            return false;
-        }
-        BlockState state = block.defaultBlockState();
-        try {
-            if (Block.isShapeFullBlock(state.getOcclusionShape(null, BlockPos.ZERO)))
-                return true;
-        } catch (Throwable e) {
-        }
-        return false;
-    }
+
+
+
+	@Override
+	public MutableComponent getName(ItemStack stack) {
+		try {
+			String[] space = NBTUtils.getNameFromRetxtureStack(stack).split(":");
+//			logger.info(TextUtils.getLanguage());
+			return TextUtils.getLanguage().equals("简体中文") ?
+					NBTUtils.getBlockFromRegister(space).getName().append("").append(super.getName(stack)) :
+					NBTUtils.getBlockFromRegister(space).getName().append(" ").append(super.getName(stack));
+		} catch (Exception exception000) {
+			return (MutableComponent) super.getName(stack);
+		}
+
+	}
 }

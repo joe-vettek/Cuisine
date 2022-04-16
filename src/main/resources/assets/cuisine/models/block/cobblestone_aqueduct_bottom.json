@@ -1,6 +1,6 @@
 {
   "parent": "cuisine:block/aqueduct_bottom",
   "textures": {
-    "4": "block/cobblestone"
+    "4": "block/dirt_path_top"
   }
 }

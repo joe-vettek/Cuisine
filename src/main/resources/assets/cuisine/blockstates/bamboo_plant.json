@@ -20,7 +20,7 @@
     },
     {
       "when": {
-        "type": "a_2"
+        "type": "a_2|a_3|a_4|a_5|a_6"
       },
       "apply": {
         "model": "cuisine:block/bamboo",
@@ -34,7 +34,7 @@
             "east": "true"
           },
           {
-            "type": "a_2"
+            "type": "a_2|a_3|a_4|a_5|a_6"
           }
         ]
       },
@@ -50,7 +50,7 @@
             "south": "true"
           },
           {
-            "type": "a_2"
+            "type": "a_2|a_3|a_4|a_5|a_6"
           }
         ]
       },
@@ -67,7 +67,7 @@
             "west": "true"
           },
           {
-            "type": "a_2"
+            "type": "a_2|a_3|a_4|a_5|a_6"
           }
         ]
       },
@@ -84,7 +84,7 @@
             "north": "true"
           },
           {
-            "type": "a_2"
+            "type": "a_2|a_3|a_4|a_5|a_6"
           }
         ]
       },

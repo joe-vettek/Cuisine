@@ -1,5 +1,7 @@
 package xueluoanping.cuisine.data.recipe;
 
+import java.util.function.Consumer;
+
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -8,9 +10,7 @@ import xueluoanping.cuisine.data.recipe.builder.SqueezingRecipeBuilder;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.register.FluidRegister;
 
-import java.util.function.Consumer;
-
-public class SqueezingRecipe {
+public class SqueezingRecipeGen {
     public static void register(Consumer<FinishedRecipe> consumer) {
         SqueezingRecipeBuilder.
                 create(Ingredient.of(Items.APPLE), new FluidStack(FluidRegister.juice.get(), 200))

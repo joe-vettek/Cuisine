@@ -13,8 +13,8 @@ import xueluoanping.cuisine.register.ModContents;
 
 import java.util.function.Supplier;
 
-public class CuisineLang_EN extends LanguageProvider {
-    public CuisineLang_EN(DataGenerator gen) {
+public class Lang_EN extends LanguageProvider {
+    public Lang_EN(DataGenerator gen) {
         super(gen, Cuisine.MODID, "en_us");
         Cuisine.logger("hello");
     }
