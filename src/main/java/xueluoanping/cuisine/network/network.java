@@ -1,8 +1,12 @@
 package xueluoanping.cuisine.network;
 
+import java.util.Map;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -12,8 +16,6 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xueluoanping.cuisine.Cuisine;
-
-import java.util.Map;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class network extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setLenient()
@@ -32,8 +34,10 @@ public class network extends SimpleJsonResourceReloadListener {
         Cuisine.logger("Hello Profile");
         objects.forEach((res,json)->{
             Cuisine.logger(objects.toString(),res);
+			Cuisine.logger(Minecraft.getInstance().isLocalServer());
         });
     }
+
     @SubscribeEvent
     public static void dataLoading(AddReloadListenerEvent event) {
         event.addListener(network.instance);
