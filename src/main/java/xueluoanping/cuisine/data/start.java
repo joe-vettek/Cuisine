@@ -41,9 +41,6 @@ public class start {
             generator.addProvider(new Lang_EN(generator));
             generator.addProvider(new Lang_ZH(generator));
 
-            generator.addProvider(new BlockStatesDataProvider(generator, helper));
-            generator.addProvider(new ItemModelProvider(generator, helper));
-
             generator.addProvider(new SimpleMP(generator));
             // try {
             //     // File file=new File("");
@@ -54,7 +51,10 @@ public class start {
             // }
             //            generator.addProvider(new ItemTags(generator, blockTags, Cuisine.MODID, helper));
         } else if (event.includeClient()) {
-            generator.addProvider(new BlockStatesDataProvider(generator, helper));
+			generator.addProvider(new BlockStatesDataProvider(generator, helper));
+			generator.addProvider(new ItemModelProvider(generator, helper));
+            // generator.addProvider(new BlockStatesDataProvider(generator, helper));
+
             //            BlockStates blockStates = new BlockStates(generator, helper);
             //            generator.addProvider(blockStates);
             //            generator.addProvider(new ItemModels(generator, blockStates.models().existingFileHelper));
