@@ -190,8 +190,8 @@ dependencies {
     implementation fg.deobf("curse.maven:jade-324717:3681449")
 
 //    implementation fg.deobf("curse.maven:crafttweaker-239197:3736473")
-    runtimeOnly fg.deobf("curse.maven:minemenu-222378:3544634")
-    runtimeOnly fg.deobf("curse.maven:configured-457570:3721946")
+//    runtimeOnly fg.deobf("curse.maven:minemenu-222378:3544634")
+//    runtimeOnly fg.deobf("curse.maven:configured-457570:3721946")
 
     runtimeOnly fg.deobf("curse.maven:journeymap-32274:3696405")
 
