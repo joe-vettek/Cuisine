@@ -49,7 +49,7 @@ public class ConfigCondition implements ICondition {
     }
 
     public static class Serializer implements IConditionSerializer<ConfigCondition> {
-        public static final ConfigCondition.Serializer INSTANCE = new ConfigCondition.Serializer();
+        public static final Serializer INSTANCE = new Serializer();
 
         @Override
         public void write(JsonObject json, ConfigCondition value) {

@@ -26,11 +26,11 @@ public class TagsDataProvider extends BlockTagsProvider {
     }
 
     protected void registerBlockMineables() {
-        tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE).add(
+        tag(BlockTags.MINEABLE_WITH_AXE).add(
 				BlockEntityRegister.basin.get()
         );
 
-        tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE).add(
+        tag(BlockTags.MINEABLE_WITH_AXE).add(
                 BlockRegister.bamboo.get(),
                 BlockRegister.bamboo_plant.get()
         );

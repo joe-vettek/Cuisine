@@ -26,8 +26,8 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
+import xueluoanping.cuisine.event.DataListenerClient;
 import xueluoanping.cuisine.util.NBTUtils;
-import xueluoanping.cuisine.event.color.ColorCacheHandler;
 import xueluoanping.cuisine.register.FluidRegister;
 
 import javax.annotation.Nullable;
@@ -199,7 +199,7 @@ public class VaporizableFluid extends ForgeFlowingFluid {
         public int getColor(FluidStack stack) {
             if (VaporizableFluid.getInfo(stack) != Items.AIR) {
                 Item item = VaporizableFluid.getInfo(stack);
-                return ColorCacheHandler.getFluidColorsMap().get(item).getRGB();
+                return DataListenerClient.getFluidColorsMap().get(item).getRGB();
             }
             return super.getColor();
         }

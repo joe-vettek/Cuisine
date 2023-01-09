@@ -35,7 +35,7 @@ public class BlockCuisineCrops extends CropBlock {
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
-    public BlockCuisineCrops(BlockBehaviour.Properties properties) {
+    public BlockCuisineCrops(Properties properties) {
         super(properties);
     }
 

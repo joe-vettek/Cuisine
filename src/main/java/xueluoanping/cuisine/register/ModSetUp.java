@@ -19,7 +19,7 @@ import java.util.HashSet;
 
 // 在Forge开发里有两条总线，Mod总线和Forge总线，
 // 所有和初始化相关的事件都是在Mod总线内，其他所有事件都在Forge总线内。
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.DEDICATED_SERVER)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModSetUp {
     // public static RecipeType<BasinSqueezingRecipe> TYPE = null;
     // public static BasinSqueezingRecipe.Serializer SERIALIZER = null;

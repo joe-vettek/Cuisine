@@ -3,12 +3,15 @@ package xueluoanping.cuisine.client;
 
 import com.google.common.collect.ImmutableSet;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -62,7 +65,7 @@ public class ClientSetup {
 
             BlockEntityRenderers.register(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
             BlockEntityRenderers.register(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
-            ItemProperties.register(BlockEntityRegister.fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), EnumFirePitState::firepit);
+            ItemProperties.register(BlockEntityRegister.fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
 
         });
     }
@@ -106,4 +109,19 @@ public class ClientSetup {
     public static void registerModelLoader(ModelRegistryEvent event) {
 
     }
+
+	public static float firepit(ItemStack stack, ClientLevel clientWorld, LivingEntity livingEntity, int i) {
+
+		if (!stack.hasTag()) return 0;
+		switch (EnumFirePitState.matchWithoutError(stack)) {
+			case WOK:
+				return 1;
+			case STICKS:
+				return 2;
+			case FRYING_PAN:
+				return 3;
+			default:
+				return 0;
+		}
+	}
 }

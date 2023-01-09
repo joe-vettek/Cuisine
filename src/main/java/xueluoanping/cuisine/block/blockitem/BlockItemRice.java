@@ -18,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import xueluoanping.cuisine.Cuisine;
 
 public class BlockItemRice extends BlockItemCuisineCrop {
-    public BlockItemRice(Block p_43436_, Item.Properties p_43437_) {
+    public BlockItemRice(Block p_43436_, Properties p_43437_) {
         super(p_43436_, p_43437_);
     }
 

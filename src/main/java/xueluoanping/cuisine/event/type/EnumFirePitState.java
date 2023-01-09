@@ -2,9 +2,7 @@ package xueluoanping.cuisine.event.type;
 
 import java.util.Locale;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 public enum EnumFirePitState implements StringRepresentable {
@@ -32,18 +30,4 @@ public enum EnumFirePitState implements StringRepresentable {
 		}
 	}
 
-	public static float firepit(ItemStack stack, ClientLevel clientWorld, LivingEntity livingEntity, int i) {
-
-		if (!stack.hasTag()) return 0;
-		switch (EnumFirePitState.matchWithoutError(stack)) {
-			case WOK:
-				return 1;
-			case STICKS:
-				return 2;
-			case FRYING_PAN:
-				return 3;
-			default:
-				return 0;
-		}
-	}
 }
