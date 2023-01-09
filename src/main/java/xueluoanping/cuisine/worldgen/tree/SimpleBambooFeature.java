@@ -25,6 +25,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeat
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.nature.BlockBambooPlant;
 import xueluoanping.cuisine.register.BlockRegister;
+import xueluoanping.cuisine.register.ModConstant;
 
 public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration> {
 //    private static final BlockState BAMBOO_TRUNK = Blocks.BAMBOO.defaultBlockState().setValue(BambooBlock.AGE, Integer.valueOf(1)).setValue(BambooBlock.LEAVES, BambooLeaves.NONE).setValue(BambooBlock.STAGE, Integer.valueOf(0));
@@ -50,7 +51,7 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
         BlockPos.MutableBlockPos mutableBlockPos = baseBlockPos.mutable();
         BlockPos.MutableBlockPos mutableBlockPos1 = baseBlockPos.mutable();
 
-        Cuisine.logger(baseBlockPos, mutableBlockPos);
+        Cuisine.logger(ModConstant.DebugKey.getWord(ModConstant.DebugKey.try_place_bamboo),baseBlockPos, mutableBlockPos);
         if (level.isEmptyBlock(baseBlockPos)) {
             for (int times = 4; times > 0; times--) {
 
@@ -80,7 +81,7 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
 
             }
         }
-
+        Cuisine.logger("尝试放置竹子",i > 0);
         return i > 0;
     }
 

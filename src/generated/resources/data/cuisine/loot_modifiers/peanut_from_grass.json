@@ -1,0 +1,26 @@
+{
+  "conditions": [
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.1
+    },
+    {
+      "condition": "minecraft:block_state_property",
+      "block": "minecraft:tall_grass"
+    },
+    {
+      "condition": "minecraft:inverted",
+      "term": {
+        "condition": "minecraft:match_tool",
+        "predicate": {
+          "items": [
+            "minecraft:shears"
+          ]
+        }
+      }
+    }
+  ],
+  "item": "cuisine:peanut",
+  "count": 1,
+  "type": "cuisine:add_item"
+}

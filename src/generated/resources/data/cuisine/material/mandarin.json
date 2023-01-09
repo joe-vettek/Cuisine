@@ -1,0 +1,16 @@
+{
+  "id": "mandarin",
+  "raw_color": -1013223,
+  "cooked_color": -26860,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": -0.1,
+  "categories": [
+    "fruit"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": [
+    "juice"
+  ]
+}

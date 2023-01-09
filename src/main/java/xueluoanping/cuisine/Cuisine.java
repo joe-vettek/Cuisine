@@ -1,5 +1,7 @@
 package xueluoanping.cuisine;
 
+
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -16,22 +18,22 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import xueluoanping.cuisine.client.model.BlockDefinition;
-import xueluoanping.cuisine.client.model.SimpleBlockDefinition;
 import xueluoanping.cuisine.config.ClientConfig;
 import xueluoanping.cuisine.config.General;
 import xueluoanping.cuisine.data.RecipeDataProvider;
-import xueluoanping.cuisine.data.TagsDataProvider;
+import xueluoanping.cuisine.data.material.SimpleMP;
+import xueluoanping.cuisine.data.tag.CuisineItemTagsProvider;
+import xueluoanping.cuisine.data.tag.TagsDataProvider;
 import xueluoanping.cuisine.data.lang.Lang_EN;
 import xueluoanping.cuisine.data.lang.Lang_ZH;
+import xueluoanping.cuisine.data.loot.CuisineLootTableProvider;
+import xueluoanping.cuisine.data.loot.GLMProvider;
 import xueluoanping.cuisine.data.model.BlockStatesDataProvider;
 import xueluoanping.cuisine.data.model.ItemModelProvider;
 import xueluoanping.cuisine.register.*;
-
-import java.io.File;
+import xueluoanping.cuisine.util.Platform;
 
 @Mod(Cuisine.MODID)
 public final class Cuisine {
@@ -42,7 +44,7 @@ public final class Cuisine {
     public static final CreativeModeTab CREATIVE_TAB = new CreativeModeTab("cuisine") {
         @Override
         public ItemStack makeIcon() {
-            return ModContents.itemBasin.getDefaultInstance();
+            return ItemRegister.kitchen_knife.get().getDefaultInstance();
         }
 
         @Override
@@ -54,11 +56,11 @@ public final class Cuisine {
 
     public static void logger(Object... x) {
         if (General.bool.get()) {
-            String output = "";
+            StringBuilder output = new StringBuilder();
             for (Object i : x) {
-                output = output + i;
+                output.append("，【").append(i).append("】");
             }
-            LOGGER.info(output);
+            LOGGER.info(output.toString().substring(1));
         }
 
     }
@@ -69,20 +71,28 @@ public final class Cuisine {
     }
 
     public Cuisine() {
-//        forge run bus --> game running event
-//        mod run bus --> game init event
-//        used for mod init stage, for instance need to be not static method,  for other need to be static
-//        annotation Mod.EventBusSubscriber also need static method
+        //        forge run bus --> game running event
+        //        mod run bus --> game init event
+        //        used for mod init stage, for instance need to be not static method,  for other need to be static
+        //        annotation Mod.EventBusSubscriber also need static method
         FMLJavaModLoadingContext.get().getModEventBus().register(this);
-//        used for mod run stage
-        MinecraftForge.EVENT_BUS.register(this);
-//        try to check target mod is loading,
-//        if not we not register mod event bus
+        //        used for mod run stage
+        // MinecraftForge.EVENT_BUS.register(this);
+        //        try to check target mod is loading,
+        //        if not we not register mod event bus
         FMLLoader.getLoadingModList().getMods().forEach((info) -> {
             logger(info.getModId() + "" + MODID);
         });
+
+        ItemRegister.DRItems.register(FMLJavaModLoadingContext.get().getModEventBus());
+        IngredientRegister.DRItems.register(FMLJavaModLoadingContext.get().getModEventBus());
+
         BlockRegister.DRBlocks.register(FMLJavaModLoadingContext.get().getModEventBus());
         BlockRegister.DRBlockItems.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        CropRegister.DRBlocks.register(FMLJavaModLoadingContext.get().getModEventBus());
+        CropRegister.DRBlockItems.register(FMLJavaModLoadingContext.get().getModEventBus());
+
 
         BlockEntityRegister.DREntityBlocks.register(FMLJavaModLoadingContext.get().getModEventBus());
         BlockEntityRegister.DREntityBlockItems.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -92,57 +102,26 @@ public final class Cuisine {
         FluidRegister.DRFluidBlocks.register(FMLJavaModLoadingContext.get().getModEventBus());
         FluidRegister.DRFluidBuckets.register(FMLJavaModLoadingContext.get().getModEventBus());
 
-        BiomeDecorateRegister.DRFeatures.register(FMLJavaModLoadingContext.get().getModEventBus());
-        BiomeDecorateRegister.DRConfigured.register(FMLJavaModLoadingContext.get().getModEventBus());
-        BiomeDecorateRegister.DRPlaced.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FeatureRegister.DRFeatures.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FeatureRegister.DRConfigured.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FeatureRegister.DRPlaced.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         RecipeRegister.DRRecipeSerializer.register(FMLJavaModLoadingContext.get().getModEventBus());
         RecipeRegister.DRRecipeType.register(FMLJavaModLoadingContext.get().getModEventBus());
 
-
-//        config
+        GlobalLootModifierRegistry.GLM.register(FMLJavaModLoadingContext.get().getModEventBus());
+        //        config
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, General.COMMON_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_CONFIG);
+        if (Platform.isPhysicalClient())
+            ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_CONFIG);
         ModList.get().isLoaded("create");
     }
 
-    @SubscribeEvent
-    public void init(FMLCommonSetupEvent event) {
-
-        BlockDefinition.registerFactory(SimpleBlockDefinition.Factory.INSTANCE);
+    public static ResourceLocation res(String n) {
+        return new ResourceLocation(MODID, n);
     }
 
-    @SubscribeEvent
-    public void dataGen(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        ExistingFileHelper helper = event.getExistingFileHelper();
-        if (event.includeServer()) {
-            Cuisine.logger("Generate recipe");
-            TagsDataProvider blockTags = new TagsDataProvider(generator, Cuisine.MODID, helper);
-            generator.addProvider(new RecipeDataProvider(generator));
-            generator.addProvider(blockTags);
-            generator.addProvider(new Lang_EN(generator));
-            generator.addProvider(new Lang_ZH(generator));
-            generator.addProvider(new BlockStatesDataProvider(generator, helper));
-
-            generator.addProvider(new ItemModelProvider(generator, helper));
-
-            try {
-                File file=new File("C:\\Users\\Admin\\Downloads\\料理工艺-18\\src\\generated\\resources\\assets\\cuisine\\lang\\zh_cn.json");
-                String content= FileUtils.readFileToString(file,"UTF-8");
-                Cuisine.logger(content);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-//            generator.addProvider(new ItemTags(generator, blockTags, Cuisine.MODID, helper));
-        } else if (event.includeClient()) {
-            generator.addProvider(new BlockStatesDataProvider(generator, helper));
-//            BlockStates blockStates = new BlockStates(generator, helper);
-//            generator.addProvider(blockStates);
-//            generator.addProvider(new ItemModels(generator, blockStates.models().existingFileHelper));
-        }
-
-
+    public static String str(String n) {
+        return MODID + ":" + n;
     }
-
 }

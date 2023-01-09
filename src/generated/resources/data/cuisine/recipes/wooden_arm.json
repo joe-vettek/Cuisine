@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    " G ",
+    "I  "
+  ],
+  "key": {
+    "I": {
+      "item": "cuisine:wooden_handle"
+    },
+    "G": {
+      "item": "minecraft:slime_ball"
+    }
+  },
+  "result": {
+    "item": "cuisine:wooden_arm"
+  }
+}

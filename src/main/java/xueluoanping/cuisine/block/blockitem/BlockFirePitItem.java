@@ -5,7 +5,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import xueluoanping.cuisine.api.type.EnumFirePitState;
+import xueluoanping.cuisine.event.type.EnumFirePitState;
 
 public class BlockFirePitItem extends BlockItem {
     public BlockFirePitItem(Block block, Properties properties) {

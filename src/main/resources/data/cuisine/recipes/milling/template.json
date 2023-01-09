@@ -1,0 +1,20 @@
+{
+  "type": "cuisine:milling",
+
+  "input":[ {
+    "item": "minecraft:wheat",
+    "amount": 1
+  }],
+  "output": [{
+    "item": "cuisine:flour",
+    "amount": 1
+  }],
+  "inputFluid": {
+    "id": "minecraft:water",
+    "amount": 100
+  },
+  "outputFluid": {
+    "id": "minecraft:water",
+    "amount": 100
+  }
+}

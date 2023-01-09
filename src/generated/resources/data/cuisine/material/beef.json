@@ -1,0 +1,21 @@
+{
+  "id": "beef",
+  "raw_color": -3392460,
+  "cooked_color": -2080215,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": 0.0,
+  "categories": [
+    "meat"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": [
+    "cubed",
+    "sliced",
+    "shredded",
+    "diced",
+    "minced",
+    "paste"
+  ]
+}

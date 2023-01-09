@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "cuisine:tomato",
+    "cuisine:chili",
+    "cuisine:scallion",
+    "cuisine:turnip",
+    "cuisine:chinese_cabbage",
+    "cuisine:lettuce",
+    "cuisine:cucumber",
+    "cuisine:green_pepper",
+    "cuisine:red_pepper",
+    "cuisine:leek",
+    "cuisine:onion",
+    "cuisine:eggplant",
+    "cuisine:spinach",
+    "cuisine:bamboo_shoot"
+  ]
+}

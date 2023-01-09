@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "cuisine:chinese_cabbage",
+    "cuisine:turnip",
+    "cuisine:lettuce",
+    "cuisine:corn",
+    "cuisine:cucumber",
+    "cuisine:red_pepper",
+    "cuisine:green_pepper"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "egg",
+  "raw_color": -3491187,
+  "cooked_color": -2175888,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": 0.2,
+  "categories": [
+    "protein"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": []
+}

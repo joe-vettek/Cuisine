@@ -18,10 +18,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.api.craft.BasinSqueezingRecipe;
-import xueluoanping.cuisine.api.util.TextUtils;
+import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
+import xueluoanping.cuisine.util.TextUtils;
 import xueluoanping.cuisine.plugin.jei.JEICompact;
-import xueluoanping.cuisine.register.ModContents;
+import xueluoanping.cuisine.register.BlockEntityRegister;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ public class SqueezingCategory  implements IRecipeCategory<BasinSqueezingRecipe>
 		this.title = TextUtils.getTranslation("jei.squeezing");
 		ResourceLocation backgroundImage = new ResourceLocation(MODID, "textures/gui/jei.png");
 		background = helper.createDrawable(backgroundImage, 100,100,74,32);
-		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,  new ItemStack(ModContents.basin));
+		icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,  new ItemStack(BlockEntityRegister.basin.get()));
 		itemContainer=helper.createDrawable(JEICompact.VANILLA_RECIPE_GUI, 0, 96, 16,16);
 		fluidContainer=helper.createDrawable(backgroundImage, 0,33,20,10);
 		arrow = helper.createDrawable(JEICompact.VANILLA_RECIPE_GUI, 25, 133, 22, 15);

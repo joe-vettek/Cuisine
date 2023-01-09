@@ -6,14 +6,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.common.data.LanguageProvider;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.register.BlockEntityRegister;
-import xueluoanping.cuisine.register.BlockRegister;
-import xueluoanping.cuisine.register.FluidRegister;
-import xueluoanping.cuisine.register.ModContents;
+import xueluoanping.cuisine.register.*;
 
 import java.util.function.Supplier;
 
-public class Lang_EN extends LanguageProvider {
+public class Lang_EN extends LangHelper {
     public Lang_EN(DataGenerator gen) {
         super(gen, Cuisine.MODID, "en_us");
         Cuisine.logger("hello");
@@ -50,9 +47,46 @@ public class Lang_EN extends LanguageProvider {
         add(BlockEntityRegister.fire_pit.get().getDescriptionId().toString()+"_with_sticks", "Fire Pit With Sticks");
         add(BlockEntityRegister.fire_pit.get().getDescriptionId().toString()+"_with_frying_pan", "Fire Pit With Frying Pan");
         addBlock(BlockEntityRegister.mill,"Mill");
-        addBlock(()->ModContents.basin,"Basin");
-        addHint(()->ModContents.basin,"§4used for：\n§3All pots can be used to crush fruits and vegetables or soak things. Non wooden pots can be heated in a fire pit to obtain coarse salt");
+        addBlock(()-> BlockEntityRegister.basin.get(),"Basin");
+        addHint(()-> BlockEntityRegister.basin.get(),"§4used for：\n§3All pots can be used to crush fruits and vegetables or soak things. Non wooden pots can be heated in a fire pit to obtain coarse salt");
         addFluid(FluidRegister.juice,"Strange Juice");
         add("fluid."+Cuisine.MODID+".cuisine_juice_with_material","Juice");
+
+
+		addItem(ItemRegister.flour,"Flour");
+		addItem(ItemRegister.rice_powder,"Rice Powder");
+		addItem(ItemRegister.wooden_handle,"Wooden Handle");
+        addItem(ItemRegister.wooden_arm,"Wooden Arm");
+		addItem(ItemRegister.bamboo_charcoal,"Bamboo Charcoal");
+		addItem(ItemRegister.dough,"Dough");
+
+        addItem(ItemRegister.kitchen_knife,"Kitchen Knife");
+        addItem(ItemRegister.iron_spatula,"Iron Spatula");
+
+        addBlock(CropRegister.peanut, "Peanut");
+        addBlock(CropRegister.sesame, "Sesame");
+        addBlock(CropRegister.soybean, "Soybean");
+        addBlock(CropRegister.rice, "Rice");
+        addBlock(CropRegister.tomato, "Tomato");
+        addBlock(CropRegister.chili, "Chili");
+        addBlock(CropRegister.garlic, "Garlic");
+        addBlock(CropRegister.ginger, "Ginger");
+        addBlock(CropRegister.sichuan_pepper, "Sichuan Pepper");
+        addBlock(CropRegister.scallion, "Scallion");
+        addBlock(CropRegister.turnip, "Turnip");
+        addBlock(CropRegister.chinese_cabbage, "Chinese Cabbage");
+        addBlock(CropRegister.corn, "Corn");
+        addBlock(CropRegister.cucumber, "Cucumber");
+        addBlock(CropRegister.green_pepper, "Green Pepper");
+        addBlock(CropRegister.red_pepper, "Red Pepper");
+        addBlock(CropRegister.leek, "Leek");
+        addBlock(CropRegister.lettuce, "Lettuce");
+        addBlock(CropRegister.onion, "Onion");
+        addBlock(CropRegister.eggplant, "Eggplant");
+        addBlock(CropRegister.spinach, "Spinach");
+
+        addItem(IngredientRegister.cubed, "Cube");
+
+        addDebugKey(ModConstant.DebugKey.try_place_bamboo,"Try Place Bamboo ");
     }
 }

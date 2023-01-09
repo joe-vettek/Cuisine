@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
@@ -27,7 +25,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -51,18 +48,14 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.registries.ForgeRegistries;
-import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.api.fluid.FluidTransferUtil;
-import xueluoanping.cuisine.api.util.NBTUtils;
+import xueluoanping.cuisine.util.FluidTransferUtil;
 import xueluoanping.cuisine.block.entity.BasinBlockEntity;
-import xueluoanping.cuisine.register.ModContents;
+import xueluoanping.cuisine.register.BlockEntityRegister;
 
 public class BlockBasin extends HorizontalDirectionalBlock implements EntityBlock {
 
@@ -462,7 +455,7 @@ public class BlockBasin extends HorizontalDirectionalBlock implements EntityBloc
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level worldIn, BlockState blockState, BlockEntityType<T> p_153214_) {
 
-        return !worldIn.isClientSide ? createTickerHelper(p_153214_, ModContents.basinEntityType, BlockBasin::tickEntity) : null;
+        return !worldIn.isClientSide ? createTickerHelper(p_153214_, BlockEntityRegister.basin_entity_type.get(), BlockBasin::tickEntity) : null;
 //		return EntityBlock.super.getTicker(p_153212_, p_153213_, p_153214_);
     }
 
@@ -551,43 +544,16 @@ public class BlockBasin extends HorizontalDirectionalBlock implements EntityBloc
         super.appendHoverText(p_49816_, p_49817_, p_49818_, p_49819_);
     }
 
-    @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
-        ItemStack stack = new ItemStack(ModContents.basin);
-        try {
-            CompoundTag overridesNBT = new CompoundTag();
-            CompoundTag tile=level.getBlockEntity(pos).getUpdateTag();
-            overridesNBT.put("particle", tile.get("Overrides.particle"));
-//		logger.info(overridesNBT.get().getAsString());
-            CompoundTag Overrides = new CompoundTag();
-            Overrides.put("Overrides",overridesNBT);
-            stack.getOrCreateTag().put("BlockEntityTag", Overrides);
-            Cuisine.logger(stack.getOrCreateTag());
-        } catch (Exception ex) {
 
-//            Cuisine.logger(level.getBlockEntity(pos).serializeNBT());
 
-        }
-        return stack;
-    }
-	public boolean isFullBlock( Block block ) {
-		if (block==this) {
-			return false;
-		}
-		BlockState state = block.defaultBlockState();
-		try {
-			if (Block.isShapeFullBlock(state.getOcclusionShape(null, BlockPos.ZERO)))
-				return true;
-		} catch (Throwable e) {
-		}
-		return false;
-	}
-	@Override
-	public void fillItemCategory(CreativeModeTab p_40569_, NonNullList<ItemStack> list) {
-		ForgeRegistries.BLOCKS.getValues().forEach(block -> {
-			if(isFullBlock(block))
-				list.add(NBTUtils.createTagFromTxtureProvider(asItem().getDefaultInstance(), block));
-		});
-		super.fillItemCategory(p_40569_, list);
-	}
+//	@Override
+//	public void fillItemCategory(CreativeModeTab p_40569_, NonNullList<ItemStack> list) {
+//		ForgeRegistries.BLOCKS.getValues().forEach(block -> {
+//			if(isFullBlock(block))
+//				list.add(NBTUtils.createTagFromTxtureProvider(asItem().getDefaultInstance(), block));
+//		});
+//		super.fillItemCategory(p_40569_, list);
+//	}
+
+
 }

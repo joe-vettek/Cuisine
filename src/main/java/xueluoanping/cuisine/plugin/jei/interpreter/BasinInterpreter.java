@@ -3,7 +3,7 @@ package xueluoanping.cuisine.plugin.jei.interpreter;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.item.ItemStack;
-import xueluoanping.cuisine.api.util.NBTUtils;
+import xueluoanping.cuisine.util.NBTUtils;
 
 public class BasinInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
 	public static final BasinInterpreter INSTANCE = new BasinInterpreter();

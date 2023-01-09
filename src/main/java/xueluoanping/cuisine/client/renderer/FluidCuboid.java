@@ -14,8 +14,8 @@ import javax.annotation.Nullable;
 import net.minecraft.core.Direction;
 import net.minecraft.util.GsonHelper;
 
-import xueluoanping.cuisine.api.util.JsonHelper;
-import xueluoanping.cuisine.api.util.ModelHelper;
+import xueluoanping.cuisine.util.JsonHelper;
+import xueluoanping.cuisine.util.ModelHelper;
 
 
 public class FluidCuboid {

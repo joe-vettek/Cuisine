@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "cuisine:rice",
+    "cuisine:sesame",
+    "cuisine:soybean",
+    "cuisine:corn"
+  ]
+}

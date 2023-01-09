@@ -16,13 +16,14 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xueluoanping.cuisine.Cuisine;
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+
 public class network extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setLenient()
             .registerTypeHierarchyAdapter(Component.class, new Component.Serializer())
             .create();
 
     public static final network instance = new network(GSON, "colors_map");
+    public static final network instance2 = new network(GSON, "material");
 
     public network(Gson json, String s) {
         super(json, s);
@@ -36,11 +37,6 @@ public class network extends SimpleJsonResourceReloadListener {
             Cuisine.logger(objects.toString(),res);
 			Cuisine.logger(Minecraft.getInstance().isLocalServer());
         });
-    }
-
-    @SubscribeEvent
-    public static void dataLoading(AddReloadListenerEvent event) {
-        event.addListener(network.instance);
     }
 
 }

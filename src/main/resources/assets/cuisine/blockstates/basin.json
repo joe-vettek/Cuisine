@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "cuisine:block/retex_basin"
+      "model": "cuisine:block/basin"
     }
   }
 }

@@ -26,8 +26,8 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
-import xueluoanping.cuisine.api.util.NBTUtils;
-import xueluoanping.cuisine.api.color.ColorCacheHandler;
+import xueluoanping.cuisine.util.NBTUtils;
+import xueluoanping.cuisine.event.color.ColorCacheHandler;
 import xueluoanping.cuisine.register.FluidRegister;
 
 import javax.annotation.Nullable;

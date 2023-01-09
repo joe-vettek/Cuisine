@@ -1,0 +1,17 @@
+{
+  "id": "corn",
+  "raw_color": -3227867,
+  "cooked_color": -1912291,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": 2.0,
+  "categories": [
+    "grain"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": [
+    "minced",
+    "juice"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "entries": [
+    "cuisine:soybean_from_grass",
+    "cuisine:peanut_from_grass",
+    "cuisine:sesame_from_grass"
+  ]
+}

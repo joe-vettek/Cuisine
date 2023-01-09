@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "age=0,half=upper": {
+      "model": "cuisine:block/rice_stage_0"
+    },
+    "age=1,half=upper": {
+      "model": "cuisine:block/rice_stage_0"
+    },
+    "age=2,half=upper": {
+      "model": "cuisine:block/rice_stage_1"
+    },
+    "age=3,half=upper": {
+      "model": "cuisine:block/rice_stage_1"
+    },
+    "age=4,half=upper": {
+      "model": "cuisine:block/rice_stage_2"
+    },
+    "age=5,half=upper": {
+      "model": "cuisine:block/rice_stage_2"
+    },
+    "age=6,half=upper": {
+      "model": "cuisine:block/rice_stage_2"
+    },
+    "age=7,half=upper": {
+      "model": "cuisine:block/rice_stage_3"
+    },
+    "half=lower": {
+      "model": "cuisine:block/cucumber_void"
+    }
+  }
+}

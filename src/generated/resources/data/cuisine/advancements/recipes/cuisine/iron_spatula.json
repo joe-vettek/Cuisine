@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "cuisine:iron_spatula"
+    ]
+  },
+  "criteria": {
+    "has_wooden_handle": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cuisine:wooden_handle"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "cuisine:iron_spatula"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wooden_handle",
+      "has_the_recipe"
+    ]
+  ]
+}

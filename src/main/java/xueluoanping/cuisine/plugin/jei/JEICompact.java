@@ -16,13 +16,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.api.craft.BasinSqueezingRecipe;
+import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
 import xueluoanping.cuisine.plugin.jei.category.SqueezingCategory;
 import xueluoanping.cuisine.plugin.jei.interpreter.BasinInterpreter;
 import xueluoanping.cuisine.plugin.jei.interpreter.JuiceInterpreter;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.register.FluidRegister;
-import xueluoanping.cuisine.register.ModContents;
 import xueluoanping.cuisine.register.RecipeRegister;
 
 import java.util.IdentityHashMap;
@@ -55,7 +54,7 @@ public class JEICompact implements IModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         logger.info("Hello" + "registerItemSubtypes");
-        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModContents.itemBasin, BasinInterpreter.INSTANCE);
+//        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModContents.itemBasin, BasinInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BlockEntityRegister.fire_pit_item.get(), BasinInterpreter.INSTANCE);
         registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, FluidRegister.juice.get(), JuiceInterpreter.INSTANCE);
     }
@@ -105,7 +104,7 @@ public class JEICompact implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalyst(ModContents.itemBasin.getDefaultInstance(), squeezingType);
+        registration.addRecipeCatalyst(BlockEntityRegister.basin_item.get().getDefaultInstance(), squeezingType);
 
     }
 

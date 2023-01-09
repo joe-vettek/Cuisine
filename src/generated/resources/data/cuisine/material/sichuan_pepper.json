@@ -1,0 +1,14 @@
+{
+  "id": "sichuan_pepper",
+  "raw_color": -8511203,
+  "cooked_color": -7724009,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": 0.0,
+  "categories": [
+    "unknown"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": []
+}

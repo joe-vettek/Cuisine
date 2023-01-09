@@ -5,7 +5,6 @@ import mcp.mobius.waila.api.IWailaCommonRegistration;
 import mcp.mobius.waila.api.IWailaPlugin;
 import mcp.mobius.waila.api.WailaPlugin;
 import xueluoanping.cuisine.register.BlockEntityRegister;
-import xueluoanping.cuisine.register.ModContents;
 
 @WailaPlugin
 public class JadeCompact implements IWailaPlugin {
@@ -19,7 +18,7 @@ public class JadeCompact implements IWailaPlugin {
 	public void registerClient(IWailaClientRegistration registration) {
 		//TODO register component providers and icon providers here
 //		JadeCompact.client = registration;
-		registration.usePickedResult(ModContents.basin);
+		registration.usePickedResult(BlockEntityRegister.basin.get());
 		registration.usePickedResult(BlockEntityRegister.fire_pit.get());
 	}
 

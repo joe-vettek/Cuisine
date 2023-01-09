@@ -23,7 +23,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.block.entity.BasinBlockEntity;
-import xueluoanping.cuisine.register.ModContents;
+import xueluoanping.cuisine.register.BlockEntityRegister;
 
 import static net.minecraft.world.inventory.InventoryMenu.BLOCK_ATLAS;
 
@@ -100,7 +100,7 @@ public class TESRBasin implements BlockEntityRenderer<BasinBlockEntity> {
 
         matrixStackIn.pushPose();
         matrixStackIn.translate(0.5,0.5,0.5);
-        ItemStack stack =ModContents.basin.getCloneItemStack(null,null,basinBlockEntity.getLevel(),basinBlockEntity.getBlockPos(),null);
+        ItemStack stack = BlockEntityRegister.basin.get().getCloneItemStack(null,null,basinBlockEntity.getLevel(),basinBlockEntity.getBlockPos(),null);
 
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
         matrixStackIn.popPose();

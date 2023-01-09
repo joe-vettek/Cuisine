@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import xueluoanping.cuisine.api.util.MathUtils;
+import xueluoanping.cuisine.util.MathUtils;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.tag.CuisineTags;
 

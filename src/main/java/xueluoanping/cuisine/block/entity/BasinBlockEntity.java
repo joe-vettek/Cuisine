@@ -24,15 +24,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.api.craft.BasinSqueezingRecipe;
-import xueluoanping.cuisine.client.model.RetextureBlockEntity;
-import xueluoanping.cuisine.register.ModContents;
+import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
+import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.register.RecipeRegister;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BasinBlockEntity extends RetextureBlockEntity {
+public class BasinBlockEntity extends SyncBlockEntity {
     private final ItemStackHandler inventory;
     private final LazyOptional<IItemHandler> inputHandler;
     public int tick = 0;
@@ -49,8 +48,8 @@ public class BasinBlockEntity extends RetextureBlockEntity {
 
 
     public BasinBlockEntity(BlockPos pos, BlockState state) {
-        super(ModContents.basinEntityType, pos, state, "particle"); // all为可变贴图的key，支持多个key
-        inventory = createHandler();
+		super(BlockEntityRegister.basin_entity_type.get(),pos,state);
+		inventory = createHandler();
         inputHandler = LazyOptional.of(() -> inventory);
         tank = createFuildHandler();
         tankHandler = LazyOptional.of(() -> tank);
@@ -60,17 +59,15 @@ public class BasinBlockEntity extends RetextureBlockEntity {
 
     @Override
     public void load(CompoundTag compound) {
-        readPacketData(compound);
 //Cuisine.logger(compound);
         inventory.deserializeNBT(compound.getCompound("Items"));
         tank.deserializeNBT(compound.getCompound("Tank"));
         super.load(compound);
+        // getLevel().getEntitiesOfClass(, EntitySelector.CONTAINER_ENTITY_SELECTOR);
     }
 
     @Override
     public void saveAdditional(CompoundTag compound) {
-        writePacketData(compound);
-
         compound.put("Items", inventory.serializeNBT());
         compound.put("Tank", tank.serializeNBT());
         super.saveAdditional(compound);
@@ -97,13 +94,6 @@ public class BasinBlockEntity extends RetextureBlockEntity {
         };
     }
 
-    public String[] getTextureName() {
-        return textureName;
-    }
-
-    public void setTextureName(String[] textureName) {
-        this.textureName = textureName;
-    }
 
     public boolean addItem(ItemStack itemStack) {
         if (isEmpty() && !itemStack.isEmpty()) {

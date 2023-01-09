@@ -1,0 +1,92 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "cuisine:rice",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ],
+          "name": "cuisine:rice"
+        }
+      ]
+    },
+    {
+      "rolls": 2.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "cuisine:rice",
+              "properties": {
+                "age": "7"
+              }
+            },
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "cuisine:rice",
+              "properties": {
+                "half": "upper"
+              }
+            }
+          ],
+          "name": "cuisine:rice"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 3.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:binomial_with_bonus_count",
+              "parameters": {
+                "extra": 3,
+                "probability": 0.5714286
+              }
+            }
+          ],
+          "name": "cuisine:rice"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "cuisine:rice",
+          "properties": {
+            "age": "7"
+          }
+        },
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "cuisine:rice",
+          "properties": {
+            "half": "upper"
+          }
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ]
+}

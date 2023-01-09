@@ -1,0 +1,22 @@
+{
+  "id": "onion",
+  "raw_color": -17409,
+  "cooked_color": -12852,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": 0.0,
+  "categories": [
+    "vegetables"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": [
+    "cubed",
+    "sliced",
+    "shredded",
+    "diced",
+    "minced",
+    "paste",
+    "juice"
+  ]
+}

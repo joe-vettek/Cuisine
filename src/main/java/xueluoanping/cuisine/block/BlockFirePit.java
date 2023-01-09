@@ -35,8 +35,8 @@ import net.minecraftforge.common.ForgeHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import xueluoanping.cuisine.api.type.EnumFirePitState;
-import xueluoanping.cuisine.api.util.MathUtils;
+import xueluoanping.cuisine.event.type.EnumFirePitState;
+import xueluoanping.cuisine.util.MathUtils;
 import xueluoanping.cuisine.block.entity.FirePitBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 

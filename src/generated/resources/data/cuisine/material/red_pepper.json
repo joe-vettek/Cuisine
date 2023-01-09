@@ -1,0 +1,19 @@
+{
+  "id": "red_pepper",
+  "raw_color": -8581357,
+  "cooked_color": -7794673,
+  "water_value": 0,
+  "oil_value": 0,
+  "saturation_modifier": 0.0,
+  "categories": [
+    "vegetables"
+  ],
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "valid_forms": [
+    "sliced",
+    "shredded",
+    "minced",
+    "paste"
+  ]
+}
