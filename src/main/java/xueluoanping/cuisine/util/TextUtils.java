@@ -28,6 +28,7 @@ import xueluoanping.cuisine.Cuisine;
  * Util for obtaining and formatting ITextComponents for use across the mod.
  */
 
+// only client
 public class TextUtils
 {
 	private static final MutableComponent NO_EFFECTS = (new TranslatableComponent("effect.none")).withStyle(ChatFormatting.GRAY);

@@ -51,7 +51,7 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
         BlockPos.MutableBlockPos mutableBlockPos = baseBlockPos.mutable();
         BlockPos.MutableBlockPos mutableBlockPos1 = baseBlockPos.mutable();
 
-        Cuisine.logger(ModConstant.DebugKey.getWord(ModConstant.DebugKey.try_place_bamboo),baseBlockPos, mutableBlockPos);
+        Cuisine.logger("尝试放置竹子，",baseBlockPos, mutableBlockPos);
         if (level.isEmptyBlock(baseBlockPos)) {
             for (int times = 4; times > 0; times--) {
 

@@ -1,6 +1,7 @@
 package xueluoanping.cuisine.fluids;
 
 
+
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -209,6 +210,7 @@ public class VaporizableFluid extends ForgeFlowingFluid {
             return super.getTranslationKey(stack);
         }
 
+		// Client
         @Override
         public Component getDisplayName(FluidStack stack) {
             if (VaporizableFluid.getInfo(stack) != Items.AIR) {

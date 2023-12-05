@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    "GIG"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:orange_terracotta"
+    },
+    "G": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "result": {
+    "item": "cuisine:orange_terracotta_basin"
+  }
+}

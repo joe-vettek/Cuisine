@@ -3,11 +3,13 @@ package xueluoanping.cuisine.block;
 import java.util.List;
 import java.util.Random;
 
+
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -53,6 +55,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.block.entity.AbstractBasinBlockEntity;
 import xueluoanping.cuisine.util.FluidTransferUtil;
 import xueluoanping.cuisine.block.entity.BasinBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
@@ -95,7 +99,7 @@ public class BlockBasin extends HorizontalDirectionalBlock implements EntityBloc
 //					Minecraft.getInstance().player.getUUID());
 //		}
         if (worldIn.getBlockEntity(pos) != null
-                && worldIn.getBlockEntity(pos) instanceof BasinBlockEntity basinBlockEntity) {
+                && worldIn.getBlockEntity(pos) instanceof AbstractBasinBlockEntity basinBlockEntity) {
             if (basinBlockEntity.isEmpty()) return;
 //			if(!basinBlockEntity.hasNoFluid())return;
             basinBlockEntity.processSqueezing(worldIn);
@@ -268,9 +272,9 @@ public class BlockBasin extends HorizontalDirectionalBlock implements EntityBloc
 //				+ player.getItemInHand(handIn).getOrCreateTag()));
 
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
-        if (tileEntity instanceof BasinBlockEntity) {
+        if (tileEntity instanceof AbstractBasinBlockEntity basinBlockEntity) {
 
-            BasinBlockEntity basinBlockEntity = (BasinBlockEntity) tileEntity;
+            // BasinBlockEntity basinBlockEntity = (BasinBlockEntity) tileEntity;
             ItemStack heldStack = player.getItemInHand(handIn);
             ItemStack offhandStack = player.getOffhandItem();
 
@@ -436,38 +440,40 @@ public class BlockBasin extends HorizontalDirectionalBlock implements EntityBloc
 
     @Override
     public void randomTick(BlockState p_60551_, ServerLevel p_60552_, BlockPos p_60553_, Random p_60554_) {
-        Minecraft.getInstance().player.sendMessage(
-                new TextComponent(p_60552_.isRaining() ? "Raining" : "Not Raining"),
-                Minecraft.getInstance().player.getUUID());
+        // Minecraft.getInstance().player.sendMessage(
+        //         new TextComponent(p_60552_.isRaining() ? "Raining" : "Not Raining"),
+        //         Minecraft.getInstance().player.getUUID());
         super.randomTick(p_60551_, p_60552_, p_60553_, p_60554_);
     }
 
     @Override
     public void tick(BlockState p_60462_, ServerLevel p_60463_, BlockPos p_60464_, Random p_60465_) {
-        Minecraft.getInstance().player.sendMessage(
-                new TextComponent(p_60463_.isRaining() ? "Raining" : "Not Raining"),
-                Minecraft.getInstance().player.getUUID());
+        // Minecraft.getInstance().player.sendMessage(
+        //         new TextComponent(p_60463_.isRaining() ? "Raining" : "Not Raining"),
+        //         Minecraft.getInstance().player.getUUID());
         super.tick(p_60462_, p_60463_, p_60464_, p_60465_);
     }
 
-    //	it works when the blcok is placed
+    //	it works after the block is placed
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level worldIn, BlockState blockState, BlockEntityType<T> p_153214_) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level worldIn, BlockState blockState, BlockEntityType<T> blockEntityType) {
 
-        return !worldIn.isClientSide ? createTickerHelper(p_153214_, BlockEntityRegister.basin_entity_type.get(), BlockBasin::tickEntity) : null;
+        return !worldIn.isClientSide ?
+				createTickerHelper(blockEntityType, BlockEntityRegister.basin_entity_type.get(), BlockBasin::tickEntity) : null;
 //		return EntityBlock.super.getTicker(p_153212_, p_153213_, p_153214_);
     }
 
     @Nullable
-    protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> p_152133_, BlockEntityType<E> p_152134_, BlockEntityTicker<? super E> p_152135_) {
-        return p_152134_ == p_152133_ ? (BlockEntityTicker<A>) p_152135_ : null;
+    protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> blockEntityType, BlockEntityType<E> blockEntityType1, BlockEntityTicker<? super E> blockEntityTicker) {
+        return blockEntityType1 == blockEntityType ? (BlockEntityTicker<A>) blockEntityTicker : null;
     }
 
     //write here,server side
     private static void tickEntity(Level worldIn, BlockPos pos, BlockState blockState, BasinBlockEntity basinBlockEntity) {
 //		if (CreateCompact.isLoad())
 //			CreateCompact.tickEntity(worldIn, pos, blockState, basinBlockEntity);
+// 		Cuisine.logger(11);
         if (worldIn.isRaining() && (basinBlockEntity.hasNoFluid() || basinBlockEntity.tank.getFluid().getFluid() == Fluids.WATER)) {
             basinBlockEntity.tank.fill(new FluidStack(Fluids.WATER, 10), IFluidHandler.FluidAction.EXECUTE);
         }

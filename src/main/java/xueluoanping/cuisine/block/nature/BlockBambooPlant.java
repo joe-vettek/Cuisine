@@ -47,9 +47,9 @@ import xueluoanping.cuisine.tag.CuisineTags;
  * 技巧：如果单纯为了量产竹子，建议使用沉浸工程的园艺玻璃罩。
  *
  */
-//竹子将改为竹鞭泥土蔓延生长竹笋，竹鞭泥土最远蔓延距离为4，下雨时蔓延更快且有几率含水
-//用锄头挖掘竹鞭泥土有几率掉落竹笋，挖掘竹笋暂定不获得竹笋或获得老竹笋（老竹笋不适合做菜），耕地变为竹鞭泥土的几率更大
-//竹子种类命名为淡竹
+// 竹子将改为竹鞭泥土蔓延生长竹笋，竹鞭泥土最远蔓延距离为4，下雨时蔓延更快且有几率含水
+// 用锄头挖掘竹鞭泥土有几率掉落竹笋，挖掘竹笋暂定不获得竹笋或获得老竹笋（老竹笋不适合做菜），耕地变为竹鞭泥土的几率更大
+// 竹子种类命名为淡竹
 public class BlockBambooPlant extends Block implements BonemealableBlock {
 	public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
 	public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
@@ -124,7 +124,7 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 	}
 
 	public BlockState updateShape(BlockState state, Direction direction, BlockState state1, LevelAccessor level, BlockPos pos, BlockPos pos1) {
-//        Cuisine.logger(state,state1);
+		//        Cuisine.logger(state,state1);
 		switch (direction) {
 			case NORTH:
 				return state.setValue(NORTH, false);
@@ -161,18 +161,19 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 
 	@Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
-		if (state.getValue(TYPE).ordinal() > 6) return;
+		if (state.getValue(TYPE).ordinal() > 6)
+			return;
 		if (state.getValue(TYPE).ordinal() > 1) {
 			if (random.nextInt(14) == 0)
-			if (level.getBlockState(pos.below()).is(CuisineTags.bamboo_root_spread_on)
-					&& level.getBlockState(pos.below()).getBlock() != BlockRegister.bamboo_root.get()) {
-				level.setBlock(pos.below(), BlockRegister.bamboo_root.get().defaultBlockState(), Block.UPDATE_ALL);
-				level.setBlock(pos, state.cycle(TYPE), 3);
-			}
+				if (level.getBlockState(pos.below()).is(CuisineTags.bamboo_root_spread_on)
+						&& level.getBlockState(pos.below()).getBlock() != BlockRegister.bamboo_root.get()) {
+					level.setBlock(pos.below(), BlockRegister.bamboo_root.get().defaultBlockState(), Block.UPDATE_ALL);
+					level.setBlock(pos, state.cycle(TYPE), 3);
+				}
 		}
 
 		if (state.getValue(TYPE).ordinal() == 0 && level.isRaining()) {
-			Cuisine.logger("Is Raining!");
+			// Cuisine.logger("Is Raining!");
 			if (random.nextInt(14) == 0) {
 				level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
 			}
@@ -205,22 +206,24 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 	@Override
 	public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState state) {
 		if (state.getValue(TYPE).ordinal() == 0) {
-			if (random.nextInt(5) > 0) level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
+			if (random.nextInt(5) > 0)
+				level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
 		} else if (state.getValue(TYPE).ordinal() == 1) {
 
-			if (random.nextInt(5) > 0) this.growBamboo(level, pos, getRandomBambooHeight(level));
+			if (random.nextInt(5) > 0)
+				this.growBamboo(level, pos, getRandomBambooHeight(level));
 		}
 	}
 
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-//        Cuisine.logger(defaultBlockState());
+		//        Cuisine.logger(defaultBlockState());
 		return this.defaultBlockState();
 	}
 
 	public static int getRandomBambooHeight(Level level) {
-		return 7 + level.getRandom().nextInt(8);
+		return Mth.clamp(7 + level.getRandom().nextInt(4),7,10);
 	}
 
 	public static boolean checkIfBambooCanGrow(Level level, BlockPos pos, int height) {
@@ -233,29 +236,39 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 	}
 
 	public static void growBamboo(Level level, BlockPos pos, int height) {
-		if (!checkIfBambooCanGrow(level, pos, height)) return;
-		int lowestBranchHeight =
-				Mth.clamp(5 + level.getRandom().nextInt(4), 5, height);
+		if (!checkIfBambooCanGrow(level, pos, height))
+			return;
+		int lowestBranchHeight = height - 4;
+		// Mth.clamp(3 + level.getRandom().nextInt(3), 5, height);
 
 		for (int i = 0; i < height; i++) {
-//            Cuisine.logger(pos.above(i), lowestBranchHeight);
+			//            Cuisine.logger(pos.above(i), lowestBranchHeight);
 			BlockState de = BlockRegister.bamboo_plant.get().defaultBlockState().setValue(TYPE, Type.A_2);
-			if (i >= lowestBranchHeight) {
-				if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).south())) {
+			if(i>=lowestBranchHeight)
+			{
+				if (i % 2 == 1) {
+					de = de.setValue(EAST, true);
+					de = de.setValue(WEST, true);
+				} else {
+					de = de.setValue(NORTH, true);
 					de = de.setValue(SOUTH, true);
 				}
-				if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).west())) {
-					de = de.setValue(WEST, true);
-				}
-				if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).north())) {
-					de = de.setValue(NORTH, true);
-				}
-				if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).east())) {
-					de = de.setValue(EAST, true);
-				}
-			}
-			level.setBlock(pos.above(i), de, 3);
 
+			}			// if (i >= lowestBranchHeight) {
+			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).south())) {
+			// 		de = de.setValue(SOUTH, true);
+			// 	}
+			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).west())) {
+			// 		de = de.setValue(WEST, true);
+			// 	}
+			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).north())) {
+			// 		de = de.setValue(NORTH, true);
+			// 	}
+			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).east())) {
+			// 		de = de.setValue(EAST, true);
+			// 	}
+			// }
+			level.setBlock(pos.above(i), de, Block.UPDATE_ALL);
 		}
 	}
 

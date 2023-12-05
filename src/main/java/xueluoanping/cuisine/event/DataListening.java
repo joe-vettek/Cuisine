@@ -10,7 +10,7 @@ public class DataListening {
 
 
 	@SubscribeEvent
-    public  void dataLoading(AddReloadListenerEvent event) {
+    public static void dataLoading(AddReloadListenerEvent event) {
         event.addListener(network.instance);
         event.addListener(network.instance2);
     }

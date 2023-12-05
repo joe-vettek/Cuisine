@@ -4,7 +4,7 @@
   "model": "cuisine:models/block/fire_pit.obj",
   "flip-v": true,
   "textures": {
-    "particle": "minecraft:block/oak_planks"
+    "particle": "minecraft:block/cobblestone"
   },
   "ambientocclusion": false
 }

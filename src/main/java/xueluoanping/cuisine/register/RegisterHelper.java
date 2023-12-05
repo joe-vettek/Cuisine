@@ -10,6 +10,10 @@ public class RegisterHelper {
         return new Item.Properties().tab(Cuisine.CREATIVE_TAB);
     }
 
+	public static Item.Properties basicBlockItem() {
+		return new Item.Properties().tab(Cuisine.CREATIVE_TAB);
+	}
+
     public static Item.Properties foodItem(FoodProperties food) {
         return new Item.Properties().food(food).tab(Cuisine.CREATIVE_TAB);
     }

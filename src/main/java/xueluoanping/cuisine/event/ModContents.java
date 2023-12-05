@@ -99,11 +99,11 @@ public class ModContents {
             event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeatureRegister.crop_farmland_placed.getHolder().get());
         }
 
-        if (event.getCategory() == Biome.BiomeCategory.FOREST) {
-            Cuisine.logger("群系加载中，正在注册事件", event.getName(), ",", FeatureRegister.f3.getId());
-            event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeatureRegister.f3.getHolder().get());
-
-        }
+        // if (event.getCategory() == Biome.BiomeCategory.FOREST) {
+        //     Cuisine.logger("群系加载中，正在注册事件", event.getName(), ",", FeatureRegister.f3.getId());
+        //     event.getGeneration().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FeatureRegister.f3.getHolder().get());
+		//
+        // }
 
         // if (event.getCategory() == Biome.BiomeCategory.FOREST) {
         //     Cuisine.logger("群系加载中，正在注册事件", event.getName(), ",", FeatureRegister.crop_farmland_placed.getKey());

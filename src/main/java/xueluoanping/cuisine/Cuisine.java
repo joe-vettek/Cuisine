@@ -1,7 +1,7 @@
 package xueluoanping.cuisine;
 
 
-import net.minecraft.client.player.LocalPlayer;
+
 import net.minecraft.core.NonNullList;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -54,8 +54,11 @@ public final class Cuisine {
     };
     private static boolean DebugMode = false;
 
+	// 开发环境未读取config之前可能用不了
     public static void logger(Object... x) {
-        if (General.bool.get()) {
+
+        // if (General.bool.get())
+		{
             StringBuilder output = new StringBuilder();
             for (Object i : x) {
                 output.append("，【").append(i).append("】");

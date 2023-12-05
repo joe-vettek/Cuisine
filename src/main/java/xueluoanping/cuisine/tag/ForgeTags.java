@@ -40,6 +40,8 @@ public class ForgeTags
     public static final TagKey<Item> TOOLS_PICKAXES = forgeItemTag("tools/pickaxes");
     public static final TagKey<Item> TOOLS_SHOVELS = forgeItemTag("tools/shovels");
 
+	public static final TagKey<Item> COAL_COKE = forgeItemTag("coal_coke");
+
     private static TagKey<Block> forgeBlockTag(String path) {
         return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", path));
     }

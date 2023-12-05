@@ -16,4 +16,6 @@ public class ItemIngredient extends ModItem implements IForgeItem, CookingVessel
     public Optional<ItemStack> serve() {
         return Optional.empty();
     }
+
+
 }

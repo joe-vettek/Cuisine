@@ -158,7 +158,9 @@ public class BlockMill extends HorizontalDirectionalBlock implements EntityBlock
 	@Override
 	public <T extends
 			BlockEntity> BlockEntityTicker<T> getTicker(Level worldIn, BlockState blockState, BlockEntityType<T> entityType) {
-		return !worldIn.isClientSide ? createTickerHelper(entityType, BlockEntityRegister.mill_entity_type.get(), MillBlockEntity::tickEntity) : null;
+		return !worldIn.isClientSide ?
+				createTickerHelper(entityType, BlockEntityRegister.mill_entity_type.get(), MillBlockEntity::tickEntity)
+				: null;
 	}
 
 	@Nullable

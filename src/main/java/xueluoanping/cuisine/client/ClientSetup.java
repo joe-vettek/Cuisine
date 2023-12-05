@@ -23,6 +23,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.client.renderer.tesr.TESRBasinColored;
+import xueluoanping.cuisine.client.renderer.tesr.TESRChoppingBoard;
 import xueluoanping.cuisine.event.type.EnumFirePitState;
 import xueluoanping.cuisine.client.renderer.tesr.TESRBasin;
 import xueluoanping.cuisine.client.renderer.tesr.TESRFirePit;
@@ -64,8 +66,8 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.juice_flowing.get(), RenderType.translucent());
 
             BlockEntityRenderers.register(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
-            BlockEntityRenderers.register(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
-            ItemProperties.register(BlockEntityRegister.fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
+            BlockEntityRenderers.register(BlockEntityRegister.hide_fire_pit_entity_type.get(), TESRFirePit::new);
+            ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
 
         });
     }
@@ -76,6 +78,8 @@ public class ClientSetup {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         Cuisine.logger("Register Renderer");
         event.registerBlockEntityRenderer(BlockEntityRegister.basin_entity_type.get(), TESRBasin::new);
+		event.registerBlockEntityRenderer(BlockEntityRegister.basin_colored_entity_type.get(), TESRBasinColored::new);
+		event.registerBlockEntityRenderer(BlockEntityRegister.chopping_board_entity_type.get(), TESRChoppingBoard::new);
 
     }
 

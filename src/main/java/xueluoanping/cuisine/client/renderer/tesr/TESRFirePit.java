@@ -12,17 +12,17 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import xueluoanping.cuisine.block.entity.FirePitBlockEntity;
+import xueluoanping.cuisine.block.entity.HideFirePitBlockEntity;
 import xueluoanping.cuisine.client.gui.CuisineGUI;
 
 import java.awt.*;
 
-public class TESRFirePit implements BlockEntityRenderer<FirePitBlockEntity> {
+public class TESRFirePit implements BlockEntityRenderer<HideFirePitBlockEntity> {
     public TESRFirePit(BlockEntityRendererProvider.Context pContext) {
     }
 
     @Override
-    public void render(FirePitBlockEntity firePitBlockEntity, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLight, int combinedOverlay) {
+    public void render(HideFirePitBlockEntity firePitBlockEntity, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLight, int combinedOverlay) {
         matrixStackIn.pushPose();
         Minecraft.getInstance().getTextureManager().bindForSetup(CuisineGUI.TEXTURE_ICONS);
 

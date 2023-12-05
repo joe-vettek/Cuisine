@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.Level;
 
+
+// client
 public class DebugUtils {
 
 	public static void sendPlayerMessageSingle(Level worldIn, TextComponent textComponent) {

@@ -38,8 +38,8 @@ public class start {
             generator.addProvider(new CuisineLootTableProvider(generator));
             generator.addProvider(new GLMProvider(generator, MODID));
 
-            generator.addProvider(new Lang_EN(generator));
-            generator.addProvider(new Lang_ZH(generator));
+            generator.addProvider(new Lang_EN(generator,helper));
+            generator.addProvider(new Lang_ZH(generator,helper));
 
             generator.addProvider(new SimpleMP(generator));
             // try {
@@ -50,7 +50,9 @@ public class start {
             //     ex.printStackTrace();
             // }
             //            generator.addProvider(new ItemTags(generator, blockTags, Cuisine.MODID, helper));
-        } else if (event.includeClient()) {
+        }
+		 if (event.includeClient())
+		{
 			generator.addProvider(new BlockStatesDataProvider(generator, helper));
 			generator.addProvider(new ItemModelProvider(generator, helper));
             // generator.addProvider(new BlockStatesDataProvider(generator, helper));

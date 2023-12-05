@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
 import net.minecraftforge.client.model.pipeline.VertexTransformer;
 
+// client
 public class ModelHelper {
 	private static final Map<Block, ResourceLocation> TEXTURE_NAME_CACHE = new ConcurrentHashMap();
 	public static final ResourceManagerReloadListener LISTENER = (manager) -> {

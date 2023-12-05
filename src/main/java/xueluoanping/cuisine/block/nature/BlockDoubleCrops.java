@@ -64,7 +64,7 @@ public class BlockDoubleCrops extends BlockCuisineCrops {
         if (!isUpper(state)) {
             super.randomTick(state, level, pos, random);
             BlockState stateNew = level.getBlockState(pos);
-            if (state != stateNew)
+            if (state != stateNew&&stateNew.is(this))
                 level.setBlock(pos.above(), stateNew.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
         }
 

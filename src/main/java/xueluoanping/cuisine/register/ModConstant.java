@@ -1,6 +1,8 @@
 package xueluoanping.cuisine.register;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import xueluoanping.cuisine.util.Platform;
 
 public class ModConstant {
     public static class DebugKey{

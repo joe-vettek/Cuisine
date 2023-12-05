@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "cuisine:block/fire_pit"
+    },
+    "facing=south": {
+      "model": "cuisine:block/fire_pit",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "cuisine:block/fire_pit",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "cuisine:block/fire_pit",
+      "y": 90
+    }
+  }
+}

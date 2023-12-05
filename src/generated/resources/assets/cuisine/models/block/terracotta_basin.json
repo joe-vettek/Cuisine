@@ -1,0 +1,6 @@
+{
+  "parent": "cuisine:block/basin_base",
+  "textures": {
+    "particle": "minecraft:block/terracotta"
+  }
+}

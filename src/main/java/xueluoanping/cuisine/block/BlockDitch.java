@@ -6,6 +6,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -17,6 +18,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BlockDitch extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -27,6 +31,16 @@ public class BlockDitch extends Block implements SimpleWaterloggedBlock {
 	public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
 	public static final BooleanProperty BLOCKED = BooleanProperty.create("blocked");
 	public static final IntegerProperty WATER_LEVEL = IntegerProperty.create("water_level", 0, 32);
+
+	public static final VoxelShape VOXEL_BASE =
+			Shapes.or(Block.box(0.0D, 0.0D, 0.0D, 4.0D, 15.0D, 4.0D),
+					Block.box(12.0D, 0.0D, 0.0D, 16.0D, 15.0D, 4.0D),
+					Block.box(0.0D, 0.0D, 12.0D, 4.0D, 15.0D, 16.0D),
+					Block.box(12.0D, 0.0D, 12.0D, 16.0D, 15.0D, 16.0D));
+	public static final VoxelShape VOXEL_NORTH = Block.box(4.0D, 0.0D, 0.0D, 12.0D, 15.0D, 4.0D);
+	public static final VoxelShape VOXEL_EAST = Block.box(12.0D, 0.0D, 4.0D, 16.0D, 15.0D, 12.0D);
+	public static final VoxelShape VOXEL_SOUTH = Block.box(4.0D, 0.0D, 12.0D, 12.0D, 15.0D, 16.0D);
+	public static final VoxelShape VOXEL_WEST = Block.box(0.0D, 0.0D, 4.0D, 4.0D, 15.0D, 12.0D);
 
 	public BlockDitch(Properties properties) {
 		super(properties);
@@ -46,11 +60,22 @@ public class BlockDitch extends Block implements SimpleWaterloggedBlock {
 	}
 
 	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		VoxelShape result = VOXEL_BASE;
+		if (!state.getValue(SOUTH))result=Shapes.or(result,VOXEL_SOUTH);
+		if (!state.getValue(EAST))result=Shapes.or(result,VOXEL_EAST);
+		if (!state.getValue(NORTH))result=Shapes.or(result,VOXEL_NORTH);
+		if (!state.getValue(WEST))result=Shapes.or(result,VOXEL_WEST);
+		return result;
+	}
+
+
+	@Override
 	public FluidState getFluidState(BlockState state) {
 		try {
-//            Cuisine.logger(Fluids.WATER.getFlowing());
+			//            Cuisine.logger(Fluids.WATER.getFlowing());
 			if (state.getValue(WATER_LEVEL) > 0) {
-//                Cuisine.logger(state.getValue(WATER_LEVEL) / 4);
+				//                Cuisine.logger(state.getValue(WATER_LEVEL) / 4);
 				int level = state.getValue(WATER_LEVEL) / 3;
 				level = Math.min(level, 7);
 				level = Math.max(level, 4);
@@ -68,25 +93,25 @@ public class BlockDitch extends Block implements SimpleWaterloggedBlock {
 		BlockState baseState = this.defaultBlockState();
 		BlockPos pos = context.getClickedPos();
 
-		if (context.getLevel().getBlockState(pos.east()).getBlock() == Blocks.WATER
+		if (context.getLevel().getBlockState(pos.east()).getFluidState().getAmount() > 0
 		) {
 			baseState = baseState.setValue(EAST, true);
-			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.east()).getValue(LEVEL) * 4);
+			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.east()).getFluidState().getAmount() * 4);
 		}
-		if (context.getLevel().getBlockState(pos.west()).getBlock() == Blocks.WATER
+		if (context.getLevel().getBlockState(pos.west()).getFluidState().getAmount() > 0
 		) {
 			baseState = baseState.setValue(WEST, true);
-			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.west()).getValue(LEVEL) * 4);
+			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.west()).getFluidState().getAmount() * 4);
 		}
-		if (context.getLevel().getBlockState(pos.south()).getBlock() == Blocks.WATER
+		if (context.getLevel().getBlockState(pos.south()).getFluidState().getAmount() > 0
 		) {
 			baseState = baseState.setValue(SOUTH, true);
-			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.south()).getValue(LEVEL) * 4);
+			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.south()).getFluidState().getAmount() * 4);
 		}
-		if (context.getLevel().getBlockState(pos.north()).getBlock() == Blocks.WATER
+		if (context.getLevel().getBlockState(pos.north()).getFluidState().getAmount() > 0
 		) {
 			baseState = baseState.setValue(NORTH, true);
-			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.north()).getValue(LEVEL) * 4);
+			baseState = baseState.setValue(WATER_LEVEL, context.getLevel().getBlockState(pos.north()).getFluidState().getAmount() * 4);
 		}
 
 
@@ -107,16 +132,17 @@ public class BlockDitch extends Block implements SimpleWaterloggedBlock {
 		boolean flag = (state1.getBlock() instanceof BlockDitch) | (state1.getBlock() == Blocks.WATER) | state1.hasProperty(LEVEL_FLOWING);
 
 		if (flag) {
-//            这个逻辑很简单，只允许单一方向流动水
-//            或许要考虑连通图的思想
+			//            这个逻辑很简单，只允许单一方向流动水
+			//            或许要考虑连通图的思想
 			if (state1.getBlock() instanceof BlockDitch)
 				if (state1.getValue(WATER_LEVEL) > 0 && state1.getValue(WATER_LEVEL) > state.getValue(WATER_LEVEL)) {
-//                Cuisine.logger(state,state1);
+					//                Cuisine.logger(state,state1);
 					state = state.setValue(WATER_LEVEL, state1.getValue(WATER_LEVEL) - 1);
 				}
-			if (state1.getBlock() == Blocks.WATER) state = state.setValue(WATER_LEVEL, state1.getValue(LEVEL) * 4);
-//			if (state1.hasProperty(LEVEL_FLOWING)) state = state.setValue(WATER_LEVEL, (state1.getValue(LEVEL_FLOWING)-1) * 3);
-//			Direction.byName()
+			if (state1.getBlock() == Blocks.WATER)
+				state = state.setValue(WATER_LEVEL, state1.getValue(LEVEL) * 4);
+			//			if (state1.hasProperty(LEVEL_FLOWING)) state = state.setValue(WATER_LEVEL, (state1.getValue(LEVEL_FLOWING)-1) * 3);
+			//			Direction.byName()
 			switch (direction) {
 				case NORTH:
 					return state.setValue(NORTH, true);

@@ -10,7 +10,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.blockitem.BlockItemCuisineCrop;
-import xueluoanping.cuisine.block.blockitem.BlockItemRice;
 import xueluoanping.cuisine.block.nature.crop.*;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class CropRegister {
     public static final RegistryObject<Block> rice =
             DRBlocks.register("rice", ()->new BlockRice(Block.Properties.copy(Blocks.WHEAT)));
     public static final RegistryObject<Item> rice_item =
-            DRBlockItems.register("rice", ()->new BlockItemRice(rice.get(),RegisterHelper.basicItem()));
+            DRBlockItems.register("rice", ()->new BlockItemCuisineCrop(rice.get(),RegisterHelper.basicItem()));
 
     public static final RegistryObject<Block> tomato =
             DRBlocks.register("tomato", ()->new BlockTomato(Block.Properties.copy(Blocks.WHEAT)));

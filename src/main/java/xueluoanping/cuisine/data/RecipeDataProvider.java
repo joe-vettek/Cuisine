@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import xueluoanping.cuisine.Cuisine;
@@ -60,7 +61,16 @@ public class RecipeDataProvider extends RecipeProvider {
 				.define('G', Items.IRON_BARS)
 				.unlockedBy("has_planks", has(ItemTags.PLANKS))
 				.save(consumer);
-
+		BlockEntityRegister.basinColored.forEach((dyeColor, blockRegistryObject) -> {
+			Block block=BlockEntityRegister.colorBlockMap.get(dyeColor);
+			ShapedRecipeBuilder.shaped(blockRegistryObject.get())
+					.pattern("I I")
+					.pattern("GIG")
+					.define('I', block)
+					.define('G', Items.IRON_BARS)
+					.unlockedBy("has_"+block.getRegistryName().getPath(), has(block))
+					.save(consumer);
+		});
 
 		ShapedRecipeBuilder.shaped(ItemRegister.wooden_handle.get())
 				.pattern(" I")
@@ -87,10 +97,16 @@ public class RecipeDataProvider extends RecipeProvider {
 				.unlockedBy("has_wooden_handle", has(ItemRegister.wooden_handle.get()))
 				.save(consumer);
 
-		ShapelessRecipeBuilder.shapeless( ItemRegister.dough.get())
+		ShapelessRecipeBuilder.shapeless(ItemRegister.dough.get())
 				.requires(Items.WATER_BUCKET)
-				.requires( ItemRegister.flour.get())
+				.requires(ItemRegister.flour.get())
 				.unlockedBy("has_flour", has(ItemRegister.flour.get()))
+				.save(consumer);
+
+		ShapelessRecipeBuilder.shapeless(BlockRegister.ditch_item.get())
+				.requires(Items.DIRT)
+				// .requires( BlockRegister.ditch_item.get())
+				.unlockedBy("has_soil", has(BlockRegister.ditch_item.get()))
 				.save(consumer);
 
 		// 厨具
@@ -118,13 +134,13 @@ public class RecipeDataProvider extends RecipeProvider {
 						ItemRegister.bamboo_charcoal.get(),
 						0.35F, 100)
 				.unlockedBy("has_bamboo", has(BlockRegister.bamboo_item.get()))
-				.save(consumer, ItemRegister.bamboo_charcoal.get().getRegistryName()+"_smelt");
+				.save(consumer, ItemRegister.bamboo_charcoal.get().getRegistryName() + "_smelt");
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemRegister.dough.get()),
 						Items.BREAD,
 						0.35F, 100)
 				.unlockedBy("has_dough", has(ItemRegister.dough.get()))
-				.save(consumer, Cuisine.MODID+":"+Items.BREAD.getRegistryName().getPath()+"_smelt");
+				.save(consumer, Cuisine.MODID + ":" + Items.BREAD.getRegistryName().getPath() + "_smelt");
 
 
 	}

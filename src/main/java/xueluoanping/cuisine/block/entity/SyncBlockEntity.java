@@ -11,30 +11,36 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class SyncBlockEntity  extends BlockEntity {
-    public SyncBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
-        super(blockEntityType,pos,state);
-    }
+public class SyncBlockEntity extends BlockEntity {
+	public SyncBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
+		super(blockEntityType, pos, state);
+	}
 
-    @Override
-    @Nullable
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
+	// load, saveAdditional
+	@Override
+	@Nullable
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
 
-    @Override
-    public CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
-    }
+	@Override
+	public CompoundTag getUpdateTag() {
+		return saveWithoutMetadata();
+	}
 
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        load(pkt.getTag());
-    }
+	@Override
+	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+		try {
+			load(pkt.getTag());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 
-    protected void inventoryChanged() {
-        super.setChanged();
-        if (level != null)
-            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
-    }
+	}
+
+	protected void inventoryChanged() {
+		super.setChanged();
+		if (level != null)
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+	}
 }
