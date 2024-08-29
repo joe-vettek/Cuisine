@@ -11,7 +11,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.BlockBasin;
-import xueluoanping.cuisine.block.BlockFirePit;
+import xueluoanping.cuisine.block.firepit.BlockFirePit;
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
 import xueluoanping.cuisine.block.nature.BlockCuisineCrops;
 import xueluoanping.cuisine.register.BlockEntityRegister;

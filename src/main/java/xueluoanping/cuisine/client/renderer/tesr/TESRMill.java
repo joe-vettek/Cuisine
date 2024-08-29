@@ -7,10 +7,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import xueluoanping.cuisine.block.entity.MillBlockEntity;
+import xueluoanping.cuisine.blockentity.MillBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
 public class TESRMill implements BlockEntityRenderer<MillBlockEntity> {

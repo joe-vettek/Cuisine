@@ -19,27 +19,29 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import xueluoanping.cuisine.block.BlockBarbecueRack;
+import xueluoanping.cuisine.block.firepit.BlockBarbecueRack;
 import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.block.BlockBasinColored;
 import xueluoanping.cuisine.block.BlockChoppingBoard;
 import xueluoanping.cuisine.block.BlockDrinkro;
-import xueluoanping.cuisine.block.BlockFirePit;
-import xueluoanping.cuisine.block.BlockFirePitWithWok;
+import xueluoanping.cuisine.block.firepit.BlockFirePit;
+import xueluoanping.cuisine.block.firepit.BlockFirePitWithWok;
 import xueluoanping.cuisine.block.BlockJar;
 import xueluoanping.cuisine.block.BlockMortar;
 import xueluoanping.cuisine.block.BlockPlate;
 import xueluoanping.cuisine.block.blockitem.BlockBasinItem;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.BlockMill;
-import xueluoanping.cuisine.block.entity.BasinBlockEntity;
-import xueluoanping.cuisine.block.entity.BasinColorBlockEntity;
-import xueluoanping.cuisine.block.entity.ChoppingBoardBlockEntity;
-import xueluoanping.cuisine.block.entity.DrinkroBlockEntity;
-import xueluoanping.cuisine.block.entity.FirePitBlockEntity;
-import xueluoanping.cuisine.block.entity.JarBlockEntity;
-import xueluoanping.cuisine.block.entity.MillBlockEntity;
-import xueluoanping.cuisine.block.entity.PlateBlockEntity;
+import xueluoanping.cuisine.blockentity.BasinBlockEntity;
+import xueluoanping.cuisine.blockentity.BasinColorBlockEntity;
+import xueluoanping.cuisine.blockentity.ChoppingBoardBlockEntity;
+import xueluoanping.cuisine.blockentity.DrinkroBlockEntity;
+import xueluoanping.cuisine.blockentity.firepit.BarbecueRackBlockEntity;
+import xueluoanping.cuisine.blockentity.firepit.FirePitBlockEntity;
+import xueluoanping.cuisine.blockentity.JarBlockEntity;
+import xueluoanping.cuisine.blockentity.MillBlockEntity;
+import xueluoanping.cuisine.blockentity.PlateBlockEntity;
+import xueluoanping.cuisine.blockentity.firepit.WokOnFirePitbBlockEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,9 +92,11 @@ public class BlockEntityRegister {
 
 	public static final RegistryObject<Block> barbecue_rack = DREntityBlocks.register("barbecue_rack", () -> new BlockBarbecueRack(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
 	public static final RegistryObject<Item> barbecue_rack_item = DREntityBlockItems.register("barbecue_rack", () -> new BlockItem(barbecue_rack.get(), RegisterHelper.basicItem()));
+	public static final RegistryObject<BlockEntityType<BarbecueRackBlockEntity>> barbecue_rack_entity_type = DRBlockEntities.register("barbecue_rack", () -> BlockEntityType.Builder.of(BarbecueRackBlockEntity::new, BlockEntityRegister.barbecue_rack.get()).build(null));
 
 	public static final RegistryObject<Block> wok_on_fire_pit = DREntityBlocks.register("wok_on_fire_pit", () -> new BlockFirePitWithWok(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
 	public static final RegistryObject<Item> wok_on_fire_pit_item = DREntityBlockItems.register("wok_on_fire_pit", () -> new BlockItem(wok_on_fire_pit.get(), RegisterHelper.basicItem()));
+	public static final RegistryObject<BlockEntityType<WokOnFirePitbBlockEntity>> wok_on_fire_pit_entity_type = DRBlockEntities.register("wok_on_fire_pit", () -> BlockEntityType.Builder.of(WokOnFirePitbBlockEntity::new, BlockEntityRegister.wok_on_fire_pit.get()).build(null));
 
 	//	basin
 	public static final RegistryObject<Block> basin = DREntityBlocks.register("basin", () -> new BlockBasin(BlockBehaviour.Properties.of(Material.STONE)

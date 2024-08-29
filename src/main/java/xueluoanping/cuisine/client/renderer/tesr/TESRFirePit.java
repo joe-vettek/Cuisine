@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
-import xueluoanping.cuisine.block.entity.FirePitBlockEntity;
+import xueluoanping.cuisine.blockentity.firepit.FirePitBlockEntity;
 import xueluoanping.cuisine.client.gui.CuisineGUI;
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.block;
+package xueluoanping.cuisine.block.firepit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -12,9 +12,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
+import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.util.MathUtils;
 
-public class BlockBarbecueRack extends SimpleHorizontalEntityBlock  {
+public class BlockBarbecueRack extends BlockFirePit  {
 	public BlockBarbecueRack(Properties properties) {
 		super(properties);
 	}
@@ -30,8 +31,8 @@ public class BlockBarbecueRack extends SimpleHorizontalEntityBlock  {
 	}
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-		return null;
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return BlockEntityRegister.barbecue_rack_entity_type.get().create(pos,state);
 	}
 
 

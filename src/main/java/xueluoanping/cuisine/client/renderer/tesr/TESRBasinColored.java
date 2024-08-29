@@ -2,17 +2,13 @@ package xueluoanping.cuisine.client.renderer.tesr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import xueluoanping.cuisine.block.BlockBasin;
-import xueluoanping.cuisine.block.entity.BasinBlockEntity;
-import xueluoanping.cuisine.block.entity.BasinColorBlockEntity;
-import xueluoanping.cuisine.register.BlockEntityRegister;
+import xueluoanping.cuisine.blockentity.BasinColorBlockEntity;
 
 public class TESRBasinColored implements BlockEntityRenderer<BasinColorBlockEntity> {
 	public TESRBasinColored(BlockEntityRendererProvider.Context pContext) {

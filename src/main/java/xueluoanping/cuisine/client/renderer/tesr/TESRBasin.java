@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import xueluoanping.cuisine.block.BlockBasin;
-import xueluoanping.cuisine.block.entity.BasinBlockEntity;
+import xueluoanping.cuisine.blockentity.BasinBlockEntity;
 
 
 public class TESRBasin implements BlockEntityRenderer<BasinBlockEntity> {

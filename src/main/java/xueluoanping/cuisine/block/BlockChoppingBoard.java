@@ -4,15 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import xueluoanping.cuisine.block.entity.BasinColorBlockEntity;
-import xueluoanping.cuisine.block.entity.ChoppingBoardBlockEntity;
+import xueluoanping.cuisine.blockentity.ChoppingBoardBlockEntity;
 
 public class BlockChoppingBoard extends Block implements EntityBlock {
 	public static final VoxelShape BOARD = Block.box(1.6D, 0D, 1.6D, 14.4D, 6.4D, 14.4D);

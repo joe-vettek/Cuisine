@@ -1,11 +1,15 @@
-package xueluoanping.cuisine.block.entity;
+package xueluoanping.cuisine.blockentity.firepit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import xueluoanping.cuisine.block.entity.handler.FuelHeatHandler;
+import xueluoanping.cuisine.block.firepit.BlockFirePit;
+import xueluoanping.cuisine.blockentity.SyncBlockEntity;
+import xueluoanping.cuisine.blockentity.handler.FuelHeatHandler;
 
 public class AbstractFirepitBlockEntity extends SyncBlockEntity {
 
@@ -56,6 +60,19 @@ public class AbstractFirepitBlockEntity extends SyncBlockEntity {
 
 	public FuelHeatHandler getHeatHandler() {
 		return heatHandler;
+	}
+
+
+	public void tick() {
+		FuelHeatHandler handler = getHeatHandler();
+		int light_level = (int) (handler.getBurnTime() * 1.1f / handler.getMaxBurnTime() * 15);
+		light_level = Mth.clamp(light_level, 0, 15);
+		if (getBlockState().getValue(BlockFirePit.LIGHT_LEVEL) != light_level) {
+			BlockState statenew = getBlockState().setValue(BlockFirePit.LIGHT_LEVEL, light_level);
+			// return (int) (handler.getBurnTime() / handler.getMaxBurnTime() * 15);
+			level.setBlock(getBlockPos(), statenew, Block.UPDATE_CLIENTS);
+		}
+		update();
 	}
 
 }

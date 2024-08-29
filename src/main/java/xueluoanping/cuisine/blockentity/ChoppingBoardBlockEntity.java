@@ -1,7 +1,6 @@
-package xueluoanping.cuisine.block.entity;
+package xueluoanping.cuisine.blockentity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 

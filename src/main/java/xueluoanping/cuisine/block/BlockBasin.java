@@ -55,10 +55,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.block.entity.AbstractBasinBlockEntity;
+import xueluoanping.cuisine.blockentity.AbstractBasinBlockEntity;
 import xueluoanping.cuisine.util.FluidTransferUtil;
-import xueluoanping.cuisine.block.entity.BasinBlockEntity;
+import xueluoanping.cuisine.blockentity.BasinBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
 public class BlockBasin extends HorizontalDirectionalBlock implements EntityBlock {

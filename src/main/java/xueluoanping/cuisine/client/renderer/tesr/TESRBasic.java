@@ -18,8 +18,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import xueluoanping.cuisine.block.entity.AbstractBasinBlockEntity;
-import xueluoanping.cuisine.block.entity.BasinBlockEntity;
+import xueluoanping.cuisine.blockentity.AbstractBasinBlockEntity;
+import xueluoanping.cuisine.blockentity.BasinBlockEntity;
 
 import static net.minecraft.world.inventory.InventoryMenu.BLOCK_ATLAS;
 

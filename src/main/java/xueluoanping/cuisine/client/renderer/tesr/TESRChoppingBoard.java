@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-import xueluoanping.cuisine.block.entity.ChoppingBoardBlockEntity;
+import xueluoanping.cuisine.blockentity.ChoppingBoardBlockEntity;
 
 public class TESRChoppingBoard implements BlockEntityRenderer<ChoppingBoardBlockEntity> {
 	public TESRChoppingBoard(BlockEntityRendererProvider.Context pContext) {

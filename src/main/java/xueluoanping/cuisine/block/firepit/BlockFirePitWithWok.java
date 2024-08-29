@@ -1,9 +1,10 @@
-package xueluoanping.cuisine.block;
+package xueluoanping.cuisine.block.firepit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -12,9 +13,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
+import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.util.MathUtils;
 
-public class BlockFirePitWithWok extends SimpleHorizontalEntityBlock {
+public class BlockFirePitWithWok extends BlockFirePit {
 	protected static final VoxelShape AABB_WITH_WOK = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.6D, 16.0D);
 
 	public BlockFirePitWithWok(Properties properties) {
@@ -30,7 +32,7 @@ public class BlockFirePitWithWok extends SimpleHorizontalEntityBlock {
 
 	@Nullable
 	@Override
-	public BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-		return null;
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return BlockEntityRegister.wok_on_fire_pit_entity_type.get().create(pos,state);
 	}
 }

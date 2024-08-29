@@ -1,7 +1,6 @@
 package xueluoanping.cuisine.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -14,9 +13,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import org.jetbrains.annotations.Nullable;
 
-import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.block.entity.BasinBlockEntity;
-import xueluoanping.cuisine.block.entity.BasinColorBlockEntity;
+import xueluoanping.cuisine.blockentity.BasinColorBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
 public class BlockBasinColored extends BlockBasin{

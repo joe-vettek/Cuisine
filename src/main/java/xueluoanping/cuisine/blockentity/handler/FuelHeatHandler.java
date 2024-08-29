@@ -1,12 +1,9 @@
-package xueluoanping.cuisine.block.entity.handler;
+package xueluoanping.cuisine.blockentity.handler;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
-import net.minecraft.nbt.Tag;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -14,8 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 import xueluoanping.cuisine.api.FuelHandler;
 import xueluoanping.cuisine.api.HeatHandler;
 import xueluoanping.cuisine.register.BlockRegister;

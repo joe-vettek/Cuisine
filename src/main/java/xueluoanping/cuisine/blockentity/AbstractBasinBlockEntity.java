@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.block.entity;
+package xueluoanping.cuisine.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

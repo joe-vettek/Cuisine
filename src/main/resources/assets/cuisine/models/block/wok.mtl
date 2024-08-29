@@ -2,4 +2,4 @@ newmtl mat1
 map_Kd cuisine:block/iron
 
 newmtl mat2
-map_Kd minecraft:block/planks_oak
+map_Kd minecraft:block/oak_planks

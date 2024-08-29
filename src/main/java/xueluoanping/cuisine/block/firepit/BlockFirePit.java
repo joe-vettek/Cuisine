@@ -1,16 +1,14 @@
-package xueluoanping.cuisine.block;
+package xueluoanping.cuisine.block.firepit;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -32,12 +30,10 @@ import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.api.HeatHandler;
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
-import xueluoanping.cuisine.block.entity.AbstractFirepitBlockEntity;
-import xueluoanping.cuisine.block.entity.FirePitBlockEntity;
-import xueluoanping.cuisine.block.entity.MillBlockEntity;
-import xueluoanping.cuisine.block.entity.handler.FuelHeatHandler;
+import xueluoanping.cuisine.blockentity.firepit.AbstractFirepitBlockEntity;
+import xueluoanping.cuisine.blockentity.firepit.FirePitBlockEntity;
+import xueluoanping.cuisine.blockentity.handler.FuelHeatHandler;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
 import java.util.Random;
@@ -110,7 +106,7 @@ public class BlockFirePit extends SimpleHorizontalEntityBlock {
 		// BlockEntityTicker<T> ticker=createTickerHelper(entityType, BlockEntityRegister.fire_pit_entity_type.get(), FirePitBlockEntity::tickEntity);
 
 		return !worldIn.isClientSide ?
-				createTickerHelper(entityType, BlockEntityRegister.fire_pit_entity_type.get(), FirePitBlockEntity::tickEntity)
+				createTickerHelper(entityType, BlockEntityRegister.fire_pit_entity_type.get(), ((level, blockPos, blockState1, firePitBlockEntity) -> firePitBlockEntity.tick()))
 				: null;
 	}
 
