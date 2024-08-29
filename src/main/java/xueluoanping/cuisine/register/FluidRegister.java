@@ -23,8 +23,8 @@ public class FluidRegister {
     public static final DeferredRegister<Block> DRFluidBlocks = DeferredRegister.create(ForgeRegistries.BLOCKS, Cuisine.MODID);
     public static final DeferredRegister<Fluid> DRFluids = DeferredRegister.create(ForgeRegistries.FLUIDS, Cuisine.MODID);
 
-    public static final ResourceLocation STILL_OIL_TEXTURE = new ResourceLocation("cuisine", "block/cuisine_juice_still");
-    public static final ResourceLocation FLOWING_OIL_TEXTURE = new ResourceLocation("cuisine", "block/cuisine_juice_flow");
+    public static final ResourceLocation STILL_OIL_TEXTURE = Cuisine.rl( "block/cuisine_juice_still");
+    public static final ResourceLocation FLOWING_OIL_TEXTURE = Cuisine.rl( "block/cuisine_juice_flow");
     //	0xAARRGGBB
     private static final int DEFAULT_COLOR = 0xCCF08A19;
     public static FluidAttributes.Builder attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);

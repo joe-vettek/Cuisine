@@ -20,7 +20,17 @@ build
 # other
 eclipse
 run
-run2
+runs
+run-data
 
-# Files from Forge MDK
-forge*changelog.txt
+repo
+
+*.cache
+
+libs/
+
+__pycache__
+
+python/datapacks
+
+IconRendererOutput2

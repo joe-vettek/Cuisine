@@ -9,17 +9,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import xueluoanping.cuisine.Cuisine;
@@ -30,13 +24,11 @@ import java.util.List;
 
 public class AbstractBasinBlockEntity extends SyncBlockEntity {
 	private final ItemStackHandler inventory;
-	private final LazyOptional<IItemHandler> inputHandler;
 	public int tick = 0;
 	public int speedCache = 0;
 
 
 	public final betterFluidHandler tank;
-	private final LazyOptional<betterFluidHandler> tankHandler;
 
 	public static int Capacity = 8000;
 	public int tickCheckThrowing = 0;
@@ -46,9 +38,7 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 	public AbstractBasinBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
 		super(blockEntityType, pos, state);
 		inventory = createHandler();
-		inputHandler = LazyOptional.of(() -> inventory);
 		tank = createFuildHandler();
-		tankHandler = LazyOptional.of(() -> tank);
 	}
 
 
@@ -82,8 +72,8 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 		};
 	}
 
-	protected betterFluidHandler createFuildHandler() {
-		return new betterFluidHandler(Capacity) {
+	protected FluidTank createFuildHandler() {
+		return new FluidTank(Capacity) {
 		};
 	}
 
@@ -216,19 +206,5 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 		return false;
 	}
 
-	public class betterFluidHandler extends FluidTank {
 
-		public betterFluidHandler(int capacity) {
-			super(capacity);
-		}
-
-		public Tag serializeNBT() {
-			CompoundTag nbt = new CompoundTag();
-			return writeToNBT(nbt);
-		}
-
-		public void deserializeNBT(CompoundTag tank) {
-			readFromNBT(tank);
-		}
-	}
 }

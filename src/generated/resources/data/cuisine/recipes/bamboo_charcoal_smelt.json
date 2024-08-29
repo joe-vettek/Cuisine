@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "cuisine:bamboo"
-  },
-  "result": "cuisine:bamboo_charcoal",
-  "experience": 0.35,
-  "cookingtime": 100
-}

@@ -2,16 +2,14 @@ package xueluoanping.cuisine.craft;
 
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.config.General;
 
 import java.lang.reflect.Field;
 
 public class ConfigCondition implements ICondition {
-    private static final ResourceLocation NAME = Cuisine.res("config");
+    private static final ResourceLocation NAME = Cuisine.rl("config");
 
     String config = "";
 

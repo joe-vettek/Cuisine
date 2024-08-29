@@ -15,11 +15,9 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.RecipeRegister;
@@ -111,7 +109,7 @@ public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
         return nonnulllist;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BasinSqueezingRecipe> {
+    public static class Serializer implements RecipeSerializer<BasinSqueezingRecipe> {
 
 
         @Override
