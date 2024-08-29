@@ -66,8 +66,9 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.juice_flowing.get(), RenderType.translucent());
 
             BlockEntityRenderers.register(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
-            BlockEntityRenderers.register(BlockEntityRegister.hide_fire_pit_entity_type.get(), TESRFirePit::new);
-            ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
+            BlockEntityRenderers.register(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
+
+			// ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
 
         });
     }

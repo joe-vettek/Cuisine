@@ -57,7 +57,7 @@ public class JEICompact implements IModPlugin {
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
 		logger.info("Hello" + "registerItemSubtypes");
 		//        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModContents.itemBasin, BasinInterpreter.INSTANCE);
-		registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BlockEntityRegister.hide_fire_pit_item.get(), BasinInterpreter.INSTANCE);
+		// registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BlockEntityRegister.fire_pit.get(), BasinInterpreter.INSTANCE);
 		registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, FluidRegister.juice.get(), JuiceInterpreter.INSTANCE);
 	}
 

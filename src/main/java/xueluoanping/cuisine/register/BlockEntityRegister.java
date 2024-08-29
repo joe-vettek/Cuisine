@@ -23,19 +23,23 @@ import xueluoanping.cuisine.block.BlockBarbecueRack;
 import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.block.BlockBasinColored;
 import xueluoanping.cuisine.block.BlockChoppingBoard;
+import xueluoanping.cuisine.block.BlockDrinkro;
 import xueluoanping.cuisine.block.BlockFirePit;
 import xueluoanping.cuisine.block.BlockFirePitWithWok;
+import xueluoanping.cuisine.block.BlockJar;
+import xueluoanping.cuisine.block.BlockMortar;
+import xueluoanping.cuisine.block.BlockPlate;
 import xueluoanping.cuisine.block.blockitem.BlockBasinItem;
-import xueluoanping.cuisine.block.blockitem.HideBlockFirePitItem;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.block.HideBlockFirePit;
 import xueluoanping.cuisine.block.BlockMill;
 import xueluoanping.cuisine.block.entity.BasinBlockEntity;
 import xueluoanping.cuisine.block.entity.BasinColorBlockEntity;
 import xueluoanping.cuisine.block.entity.ChoppingBoardBlockEntity;
+import xueluoanping.cuisine.block.entity.DrinkroBlockEntity;
 import xueluoanping.cuisine.block.entity.FirePitBlockEntity;
-import xueluoanping.cuisine.block.entity.HideFirePitBlockEntity;
+import xueluoanping.cuisine.block.entity.JarBlockEntity;
 import xueluoanping.cuisine.block.entity.MillBlockEntity;
+import xueluoanping.cuisine.block.entity.PlateBlockEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,12 +58,30 @@ public class BlockEntityRegister {
 	public static final RegistryObject<Block> chopping_board = DREntityBlocks.register("chopping_board", () -> new BlockChoppingBoard(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
 	public static final RegistryObject<Item> chopping_board_item = DREntityBlockItems.register("chopping_board", () -> new BlockItem(chopping_board.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
 	public static final RegistryObject<BlockEntityType<ChoppingBoardBlockEntity>> chopping_board_entity_type = DRBlockEntities.register("chopping_board", () -> BlockEntityType.Builder.of(ChoppingBoardBlockEntity::new, BlockEntityRegister.chopping_board.get()).build(null));
-
-
 	//	mill
 	public static final RegistryObject<Block> mill = DREntityBlocks.register("mill", () -> new BlockMill(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
 	public static final RegistryObject<Item> mill_item = DREntityBlockItems.register("mill", () -> new BlockItem(mill.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
 	public static final RegistryObject<BlockEntityType<MillBlockEntity>> mill_entity_type = DRBlockEntities.register("mill", () -> BlockEntityType.Builder.of(MillBlockEntity::new, BlockEntityRegister.mill.get()).build(null));
+
+	//	mortar
+	public static final RegistryObject<Block> mortar = DREntityBlocks.register("mortar", () -> new BlockMortar(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
+	public static final RegistryObject<Item> mortar_item = DREntityBlockItems.register("mortar", () -> new BlockItem(mortar.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
+	public static final RegistryObject<BlockEntityType<?>> mortar_entity_type = DRBlockEntities.register("mortar", () -> BlockEntityType.Builder.of(MillBlockEntity::new, BlockEntityRegister.mortar.get()).build(null));
+
+	//	jar
+	public static final RegistryObject<Block> jar = DREntityBlocks.register("jar", () -> new BlockJar(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
+	public static final RegistryObject<Item> jar_item = DREntityBlockItems.register("jar", () -> new BlockItem(jar.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
+	public static final RegistryObject<BlockEntityType<?>> jar_entity_type = DRBlockEntities.register("jar", () -> BlockEntityType.Builder.of(JarBlockEntity::new, BlockEntityRegister.jar.get()).build(null));
+
+	//	plate
+	public static final RegistryObject<Block> plate = DREntityBlocks.register("plate", () -> new BlockPlate(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
+	public static final RegistryObject<Item> plate_item = DREntityBlockItems.register("plate", () -> new BlockItem(plate.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
+	public static final RegistryObject<BlockEntityType<?>> plate_entity_type = DRBlockEntities.register("plate", () -> BlockEntityType.Builder.of(PlateBlockEntity::new, BlockEntityRegister.plate.get()).build(null));
+
+	//	plate
+	public static final RegistryObject<Block> drinkro = DREntityBlocks.register("drinkro", () -> new BlockDrinkro(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
+	public static final RegistryObject<Item> drinkro_item = DREntityBlockItems.register("drinkro", () -> new BlockItem(drinkro.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
+	public static final RegistryObject<BlockEntityType<?>> drinkro_type = DRBlockEntities.register("drinkro", () -> BlockEntityType.Builder.of(DrinkroBlockEntity::new, BlockEntityRegister.drinkro.get()).build(null));
 
 	//	fire_pit
 	public static final RegistryObject<Block> fire_pit = DREntityBlocks.register("fire_pit", () -> new BlockFirePit(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
@@ -71,11 +93,6 @@ public class BlockEntityRegister {
 
 	public static final RegistryObject<Block> wok_on_fire_pit = DREntityBlocks.register("wok_on_fire_pit", () -> new BlockFirePitWithWok(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
 	public static final RegistryObject<Item> wok_on_fire_pit_item = DREntityBlockItems.register("wok_on_fire_pit", () -> new BlockItem(wok_on_fire_pit.get(), RegisterHelper.basicItem()));
-
-
-	public static final RegistryObject<Block> hide_fire_pit = DREntityBlocks.register("fire_pit_hide", () -> new HideBlockFirePit(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
-	public static final RegistryObject<Item> hide_fire_pit_item = DREntityBlockItems.register("fire_pit_hide", () -> new HideBlockFirePitItem(hide_fire_pit.get(), (new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
-	public static final RegistryObject<BlockEntityType<HideFirePitBlockEntity>> hide_fire_pit_entity_type = DRBlockEntities.register("fire_pit_hide", () -> BlockEntityType.Builder.of(HideFirePitBlockEntity::new, BlockEntityRegister.hide_fire_pit.get()).build(null));
 
 	//	basin
 	public static final RegistryObject<Block> basin = DREntityBlocks.register("basin", () -> new BlockBasin(BlockBehaviour.Properties.of(Material.STONE)
@@ -119,7 +136,7 @@ public class BlockEntityRegister {
 			put(DyeColor.GREEN, Blocks.GREEN_TERRACOTTA);
 			put(DyeColor.RED, Blocks.RED_TERRACOTTA);
 			put(DyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
-			put(null,Blocks.TERRACOTTA);
+			put(null, Blocks.TERRACOTTA);
 		}
 	};
 
@@ -140,7 +157,7 @@ public class BlockEntityRegister {
 			// basinc_item.ifPresent(basinItemColored::add);
 			basinItemColored.add(basinc_item);
 		});
-		basin_colored_entity_type=DRBlockEntities.register("basin_colored", () -> BlockEntityType.Builder.of(BasinColorBlockEntity::new, getAllBasinBlock()).build(null));
+		basin_colored_entity_type = DRBlockEntities.register("basin_colored", () -> BlockEntityType.Builder.of(BasinColorBlockEntity::new, getAllBasinBlock()).build(null));
 	}
 
 	public static Block[] getAllBasinBlock() {

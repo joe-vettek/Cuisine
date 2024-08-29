@@ -29,12 +29,12 @@ public class BlockChili extends BlockCuisineCrops {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter source, BlockPos pos) {
-        return state.is(BlockTags.SOUL_SPEED_BLOCKS);
+        return state.is(BlockTags.SOUL_FIRE_BASE_BLOCKS);
     }
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader source, BlockPos pos) {
-        return state.is(BlockTags.SOUL_SPEED_BLOCKS);
+        return source.getBlockState(pos.below()).is(BlockTags.SOUL_FIRE_BASE_BLOCKS);
     }
 
     @Override

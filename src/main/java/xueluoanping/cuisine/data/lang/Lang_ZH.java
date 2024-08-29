@@ -43,13 +43,11 @@ public class Lang_ZH extends LangHelper {
 		addBlock(BlockRegister.bamboo, "淡竹");
 		addBlock(BlockEntityRegister.fire_pit, "火塘");
 		addBlock(BlockRegister.ditch, "灌溉渠");
-		add(BlockEntityRegister.hide_fire_pit.get().getDescriptionId().toString() + "_with_wok", "火塘和铁锅");
 		addBlock(BlockEntityRegister.barbecue_rack, "烧烤架");
 		addBlock(BlockEntityRegister.wok_on_fire_pit, "火塘与铁锅");
-		add(BlockEntityRegister.hide_fire_pit.get().getDescriptionId().toString() + "_with_frying_pan", "火塘和煎锅");
 		addBlock(BlockEntityRegister.mill, "磨");
 		addBlock(() -> BlockEntityRegister.basin.get(), "盆");
-		addHint(() -> BlockEntityRegister.basin.get(), "§4用途：\n§3所有的盆都可以用来压碎蔬果或者浸泡物品，非木质盆可以在火坑上加热获取粗盐");
+		addHint(BlockEntityRegister.basin::get, "§4用途：\n§3所有的盆都可以用来压碎蔬果或者浸泡物品，非木质盆可以在火坑上加热获取粗盐");
 
 		JsonObject jsonObject = loadLang("zh_cn");
 

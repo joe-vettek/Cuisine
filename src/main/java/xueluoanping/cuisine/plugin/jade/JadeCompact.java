@@ -19,7 +19,6 @@ public class JadeCompact implements IWailaPlugin {
 		//TODO register component providers and icon providers here
 //		JadeCompact.client = registration;
 		registration.usePickedResult(BlockEntityRegister.basin.get());
-		registration.usePickedResult(BlockEntityRegister.hide_fire_pit.get());
 	}
 
 }

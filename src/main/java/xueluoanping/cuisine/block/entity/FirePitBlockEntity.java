@@ -42,7 +42,7 @@ public class FirePitBlockEntity extends AbstractFirepitBlockEntity {
 			{
 				BlockState statenew=state.setValue(BlockFirePit.LIGHT_LEVEL, light_level);
 				// return (int) (handler.getBurnTime() / handler.getMaxBurnTime() * 15);
-				level.setBlock(pos, statenew,Block.UPDATE_LIMIT);
+				level.setBlock(pos, statenew,Block.UPDATE_CLIENTS);
 			}
 		}
 

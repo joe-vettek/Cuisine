@@ -43,10 +43,8 @@ public class Lang_EN extends LangHelper {
 		addBlock(BlockRegister.bamboo, "Henon Bamboo Shoot");
 		addBlock(BlockEntityRegister.fire_pit, "Fire Pit");
 		addBlock(BlockRegister.ditch, "Irrigation Canal");
-		add(BlockEntityRegister.hide_fire_pit.get().getDescriptionId().toString() + "_with_wok", "Fire Pit With Wok");
 		addBlock(BlockEntityRegister.barbecue_rack, "Barbecue Rack");
 		addBlock(BlockEntityRegister.wok_on_fire_pit, "Wok on a Fire Pit");
-		add(BlockEntityRegister.hide_fire_pit.get().getDescriptionId().toString() + "_with_frying_pan", "Fire Pit With Frying Pan");
 		addBlock(BlockEntityRegister.mill, "Mill");
 		addBlock(() -> BlockEntityRegister.basin.get(), "Basin");
 		BlockEntityRegister.basinColored.forEach((dyeColor, blockRegistryObject) -> {

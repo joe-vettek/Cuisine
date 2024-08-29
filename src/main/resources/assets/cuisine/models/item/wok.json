@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "forge:obj",
+  "model": "cuisine:models/block/wok.obj",
+  "flip-v": true,
+  "textures": {
+    "particle": "minecraft:block/oak_planks"
+  }
+}

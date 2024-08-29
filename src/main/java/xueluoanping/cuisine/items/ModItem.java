@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.extensions.IForgeItem;
 import org.jetbrains.annotations.Nullable;
 
-public class ModItem extends Item implements IForgeItem{
+public class ModItem extends Item {
 	public ModItem(Properties properties) {
 		super(properties);
 	}

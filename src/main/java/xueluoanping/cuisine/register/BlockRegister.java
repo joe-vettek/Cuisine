@@ -43,5 +43,11 @@ public class BlockRegister {
             DRBlockItems.register("ditch", ()->new BlockItem(ditch.get(),(new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
 
 
-    //    public static final RegistryObject<Item> obsidianIngot = ITEMS.register("obsidian_ingot", ObsidianIngot::new);
+	public static final RegistryObject<Block> tofu_block =
+			DRBlocks.register("tofu_block",
+					()->new BlockDitch(BlockBehaviour.Properties.of(Material.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()));
+	public static final RegistryObject<Item> tofu_block_item =
+			DRBlockItems.register("tofu_block", ()->new BlockItem(tofu_block.get(),(new Item.Properties()).tab(Cuisine.CREATIVE_TAB)));
+
+	//    public static final RegistryObject<Item> obsidianIngot = ITEMS.register("obsidian_ingot", ObsidianIngot::new);
 }

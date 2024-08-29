@@ -35,12 +35,29 @@ public class ItemRegister {
 
 
     // 调味品
+	public static final RegistryObject<Item> chili_powder = DRItems.register("chili_powder", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> crude_salt = DRItems.register("crude_salt", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> salt = DRItems.register("salt", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> unrefined_sugar = DRItems.register("unrefined_sugar", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> sichuan_pepper_powder = DRItems.register("sichuan_pepper_powder", () -> new Item(RegisterHelper.basicItem()));
 
 
     // 	厨具
     public static final RegistryObject<Item> kitchen_knife = DRItems.register("kitchen_knife", () -> new ItemKitchenKnife(RegisterHelper.basicItem().stacksTo(1)));
     public static final RegistryObject<Item> iron_spatula = DRItems.register("iron_spatula", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
+	public static final RegistryObject<Item> wok = DRItems.register("wok", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
+	public static final RegistryObject<Item> fan = DRItems.register("fan", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
+	public static final RegistryObject<Item> mortar_water = DRItems.register("mortar_water", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
+	public static final RegistryObject<Item> spice_bottle = DRItems.register("spice_bottle", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
 
+
+// 	基础食材
+
+	public static final RegistryObject<Item> tofu = DRItems.register("tofu", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> pickled_cabbage = DRItems.register("pickled_cabbage", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> pickled_cucumber = DRItems.register("pickled_cucumber", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> pickled_pepper = DRItems.register("pickled_pepper", () -> new Item(RegisterHelper.basicItem()));
+	public static final RegistryObject<Item> pickled_turnip = DRItems.register("pickled_turnip", () -> new Item(RegisterHelper.basicItem()));
 
 
 }
