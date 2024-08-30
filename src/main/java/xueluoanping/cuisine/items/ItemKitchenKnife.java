@@ -14,8 +14,5 @@ public class ItemKitchenKnife extends Item {
     }
 
 
-    @Override
-    public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
-        return true;
-    }
+
 }

@@ -1,12 +1,10 @@
 package xueluoanping.cuisine.block.nature;
 
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +14,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,18 +21,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.ForgeHooks;
-import xueluoanping.cuisine.Cuisine;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.function.Function;
 
 public class BlockDoubleCrops extends BlockCuisineCrops {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
@@ -60,7 +49,7 @@ public class BlockDoubleCrops extends BlockCuisineCrops {
 
 
     @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!isUpper(state)) {
             super.randomTick(state, level, pos, random);
             BlockState stateNew = level.getBlockState(pos);
@@ -82,7 +71,7 @@ public class BlockDoubleCrops extends BlockCuisineCrops {
 
 
     // Copied from BlockDoublePlant
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         // ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         if (!level.isClientSide) {
             if (player.isCreative()) {
@@ -107,7 +96,7 @@ public class BlockDoubleCrops extends BlockCuisineCrops {
             }
 
         }
-        super.playerWillDestroy(level, pos, state, player);
+      return  super.playerWillDestroy(level, pos, state, player);
 
     }
 

@@ -18,10 +18,6 @@ public class BlockGarlic extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.garlic.get().defaultBlockState();
-    }
 
 
 }

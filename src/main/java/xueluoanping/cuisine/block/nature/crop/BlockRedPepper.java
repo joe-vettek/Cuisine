@@ -18,10 +18,5 @@ public class BlockRedPepper extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.red_pepper.get().defaultBlockState();
-    }
-
 
 }

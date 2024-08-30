@@ -18,10 +18,5 @@ public class BlockTomato extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.tomato.get().defaultBlockState();
-    }
-
 
 }

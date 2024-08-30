@@ -1,108 +1,119 @@
 package xueluoanping.cuisine.register;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.fluids.TeaFluidType;
 import xueluoanping.cuisine.fluids.VaporizableFluid;
 
 public class FluidRegister {
-    public static final DeferredRegister<Item> DRFluidBuckets = DeferredRegister.create(ForgeRegistries.ITEMS, Cuisine.MODID);
-    public static final DeferredRegister<Block> DRFluidBlocks = DeferredRegister.create(ForgeRegistries.BLOCKS, Cuisine.MODID);
-    public static final DeferredRegister<Fluid> DRFluids = DeferredRegister.create(ForgeRegistries.FLUIDS, Cuisine.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Cuisine.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Registries.BLOCK, Cuisine.MODID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(Registries.FLUID, Cuisine.MODID);
+    public static DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.Keys.FLUID_TYPES, Cuisine.MODID);
 
-    public static final ResourceLocation STILL_OIL_TEXTURE = Cuisine.rl( "block/cuisine_juice_still");
-    public static final ResourceLocation FLOWING_OIL_TEXTURE = Cuisine.rl( "block/cuisine_juice_flow");
+    public static final Item.Properties BUCKET_PROPERTIES = new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1);
+    public static final ResourceLocation WATER_STILL_TEXTURE = ResourceLocation.tryParse("minecraft:block/water_still");
+    public static final ResourceLocation WATER_FLOW_TEXTURE = ResourceLocation.tryParse("minecraft:block/water_flow");
+
+    public static final ResourceLocation STILL_OIL_TEXTURE = Cuisine.rl("block/cuisine_juice_still");
+    public static final ResourceLocation FLOWING_OIL_TEXTURE = Cuisine.rl("block/cuisine_juice_flow");
     //	0xAARRGGBB
     private static final int DEFAULT_COLOR = 0xCCF08A19;
-    public static FluidAttributes.Builder attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-    public static ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(FluidRegister.juice, FluidRegister.juice_flowing, attributesBuilder);
-    public static final RegistryObject<FlowingFluid> juice = DRFluids.register("cuisine_juice",
-            () -> new VaporizableFluid.Source(FluidRegister.properties));
-    public static final RegistryObject<FlowingFluid> juice_flowing = DRFluids.register("cuisine_juice_flowing",
-            () -> new VaporizableFluid.Flowing(FluidRegister.properties));
-    public static final RegistryObject<Block> juice_block =
-            DRFluidBlocks.register("cuisine_juice_block", () -> new LiquidBlock(FluidRegister.juice, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-    public static final RegistryObject<Item> juice_bucket =
-            DRFluidBuckets.register("cuisine_juice_bucket", () -> new BucketItem(FluidRegister.juice, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-	public static FluidAttributes.Builder soy_sauce_attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-	public static ForgeFlowingFluid.Properties soy_sauce_properties = new ForgeFlowingFluid.Properties(FluidRegister.soy_sauce, FluidRegister.soy_sauce_flowing, soy_sauce_attributesBuilder);
-	public static final RegistryObject<FlowingFluid> soy_sauce = DRFluids.register("soy_sauce",
-			() -> new VaporizableFluid.Source(FluidRegister.soy_sauce_properties));
-	public static final RegistryObject<FlowingFluid> soy_sauce_flowing = DRFluids.register("soy_sauce_flowing",
-			() -> new VaporizableFluid.Flowing(FluidRegister.soy_sauce_properties));
-	public static final RegistryObject<Block> soy_sauce_block =
-			DRFluidBlocks.register("soy_sauce_block", () -> new LiquidBlock(FluidRegister.soy_sauce, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-	public static final RegistryObject<Item> soy_sauce_bucket =
-			DRFluidBuckets.register("soy_sauce_bucket", () -> new BucketItem(FluidRegister.soy_sauce, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
-	public static FluidAttributes.Builder sesame_oil_attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-	public static ForgeFlowingFluid.Properties sesame_oil_properties = new ForgeFlowingFluid.Properties(FluidRegister.sesame_oil, FluidRegister.sesame_oil_flowing, attributesBuilder);
-	public static final RegistryObject<FlowingFluid> sesame_oil = DRFluids.register("sesame_oil",
-			() -> new VaporizableFluid.Source(FluidRegister.sesame_oil_properties));
-	public static final RegistryObject<FlowingFluid> sesame_oil_flowing = DRFluids.register("sesame_oil_flowing",
-			() -> new VaporizableFluid.Flowing(FluidRegister.sesame_oil_properties));
-	public static final RegistryObject<Block> sesame_oil_block =
-			DRFluidBlocks.register("sesame_oil_block", () -> new LiquidBlock(FluidRegister.juice, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-	public static final RegistryObject<Item> sesame_oil_bucket =
-			DRFluidBuckets.register("sesame_oil_bucket", () -> new BucketItem(FluidRegister.juice, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
-	public static FluidAttributes.Builder edible_oil_attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-	public static ForgeFlowingFluid.Properties edible_oil_properties = new ForgeFlowingFluid.Properties(FluidRegister.edible_oil, FluidRegister.edible_oil_flowing, attributesBuilder);
-	public static final RegistryObject<FlowingFluid> edible_oil = DRFluids.register("edible_oil",
-			() -> new VaporizableFluid.Source(FluidRegister.edible_oil_properties));
-	public static final RegistryObject<FlowingFluid> edible_oil_flowing = DRFluids.register("edible_oil_flowing",
-			() -> new VaporizableFluid.Flowing(FluidRegister.edible_oil_properties));
-	public static final RegistryObject<Block> edible_oil_block =
-			DRFluidBlocks.register("edible_oil_block", () -> new LiquidBlock(FluidRegister.juice, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-	public static final RegistryObject<Item> edible_oil_bucket =
-			DRFluidBuckets.register("edible_oil_bucket", () -> new BucketItem(FluidRegister.juice, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
-	public static FluidAttributes.Builder rice_vinegar_attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-	public static ForgeFlowingFluid.Properties rice_vinegar_properties = new ForgeFlowingFluid.Properties(FluidRegister.rice_vinegar, FluidRegister.rice_vinegar_flowing, attributesBuilder);
-	public static final RegistryObject<FlowingFluid> rice_vinegar = DRFluids.register("rice_vinegar",
-			() -> new VaporizableFluid.Source(FluidRegister.rice_vinegar_properties));
-	public static final RegistryObject<FlowingFluid> rice_vinegar_flowing = DRFluids.register("rice_vinegar_flowing",
-			() -> new VaporizableFluid.Flowing(FluidRegister.rice_vinegar_properties));
-	public static final RegistryObject<Block> rice_vinegar_block =
-			DRFluidBlocks.register("rice_vinegar_block", () -> new LiquidBlock(FluidRegister.juice, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-	public static final RegistryObject<Item> rice_vinegar_bucket =
-			DRFluidBuckets.register("rice_vinegar_bucket", () -> new BucketItem(FluidRegister.juice, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
-
-	public static FluidAttributes.Builder fruit_vinegar_attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-	public static ForgeFlowingFluid.Properties fruit_vinegar_properties = new ForgeFlowingFluid.Properties(FluidRegister.fruit_vinegar, FluidRegister.fruit_vinegar_flowing, attributesBuilder);
-	public static final RegistryObject<FlowingFluid> fruit_vinegar = DRFluids.register("fruit_vinegar",
-			() -> new VaporizableFluid.Source(FluidRegister.fruit_vinegar_properties));
-	public static final RegistryObject<FlowingFluid> fruit_vinegar_flowing = DRFluids.register("fruit_vinegar_flowing",
-			() -> new VaporizableFluid.Flowing(FluidRegister.fruit_vinegar_properties));
-	public static final RegistryObject<Block> fruit_vinegar_block =
-			DRFluidBlocks.register("fruit_vinegar_block", () -> new LiquidBlock(FluidRegister.juice, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-	public static final RegistryObject<Item> fruit_vinegar_bucket =
-			DRFluidBuckets.register("fruit_vinegar_bucket", () -> new BucketItem(FluidRegister.juice, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> juice = FLUIDS.register("cuisine_juice", () -> new BaseFlowingFluid.Source(FluidRegister.juice_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> juice_flowing = FLUIDS.register("cuisine_juice_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.juice_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> juice_BUCKET = ITEMS.register("cuisine_juice_bucket", () -> new BucketItem(FluidRegister.juice.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> juice_block = BLOCKS.register("cuisine_juice", () -> new LiquidBlock(FluidRegister.juice.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> juice_TYPE = FLUID_TYPES.register("cuisine_juice", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties juice_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            juice_TYPE, juice, juice_flowing)
+            .bucket(juice_BUCKET)
+            .block(FluidRegister.juice_block)
+            .explosionResistance(100F);
 
 
-	public static FluidAttributes.Builder soy_milk_attributesBuilder = VaporizableFluid.JuiceAttributes.builder(STILL_OIL_TEXTURE, FLOWING_OIL_TEXTURE).density(1024).viscosity(1024).color(DEFAULT_COLOR);
-	public static ForgeFlowingFluid.Properties soy_milk_properties = new ForgeFlowingFluid.Properties(FluidRegister.soy_milk, FluidRegister.soy_milk_flowing, attributesBuilder);
-	public static final RegistryObject<FlowingFluid> soy_milk = DRFluids.register("soy_milk",
-			() -> new VaporizableFluid.Source(FluidRegister.soy_milk_properties));
-	public static final RegistryObject<FlowingFluid> soy_milk_flowing = DRFluids.register("soy_milk_flowing",
-			() -> new VaporizableFluid.Flowing(FluidRegister.soy_milk_properties));
-	public static final RegistryObject<Block> soy_milk_block =
-			DRFluidBlocks.register("soy_milk_block", () -> new LiquidBlock(FluidRegister.juice, BlockBehaviour.Properties.of(Material.WATER).noCollission().strength(100.0F).noDrops()));
-	public static final RegistryObject<Item> soy_milk_bucket =
-			DRFluidBuckets.register("soy_milk_bucket", () -> new BucketItem(FluidRegister.juice, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> soy_sauce = FLUIDS.register("cuisine_soy_sauce", () -> new BaseFlowingFluid.Source(FluidRegister.soy_sauce_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> soy_sauce_flowing = FLUIDS.register("cuisine_soy_sauce_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.soy_sauce_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> soy_sauce_BUCKET = ITEMS.register("cuisine_soy_sauce_bucket", () -> new BucketItem(FluidRegister.soy_sauce.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> soy_sauce_block = BLOCKS.register("cuisine_soy_sauce", () -> new LiquidBlock(FluidRegister.soy_sauce.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> soy_sauce_TYPE = FLUID_TYPES.register("cuisine_soy_sauce", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties soy_sauce_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            soy_sauce_TYPE, soy_sauce, soy_sauce_flowing)
+            .bucket(soy_sauce_BUCKET)
+            .block(FluidRegister.soy_sauce_block)
+            .explosionResistance(100F);
+
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> sesame_oil = FLUIDS.register("cuisine_sesame_oil", () -> new BaseFlowingFluid.Source(FluidRegister.sesame_oil_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> sesame_oil_flowing = FLUIDS.register("cuisine_sesame_oil_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.sesame_oil_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> sesame_oil_BUCKET = ITEMS.register("cuisine_sesame_oil_bucket", () -> new BucketItem(FluidRegister.sesame_oil.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> sesame_oil_block = BLOCKS.register("cuisine_sesame_oil", () -> new LiquidBlock(FluidRegister.sesame_oil.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> sesame_oil_TYPE = FLUID_TYPES.register("cuisine_sesame_oil", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties sesame_oil_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            sesame_oil_TYPE, sesame_oil, sesame_oil_flowing)
+            .bucket(sesame_oil_BUCKET)
+            .block(FluidRegister.sesame_oil_block)
+            .explosionResistance(100F);
+
+
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> edible_oil = FLUIDS.register("cuisine_edible_oil", () -> new BaseFlowingFluid.Source(FluidRegister.edible_oil_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> edible_oil_flowing = FLUIDS.register("cuisine_edible_oil_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.edible_oil_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> edible_oil_BUCKET = ITEMS.register("cuisine_edible_oil_bucket", () -> new BucketItem(FluidRegister.edible_oil.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> edible_oil_block = BLOCKS.register("cuisine_edible_oil", () -> new LiquidBlock(FluidRegister.edible_oil.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> edible_oil_TYPE = FLUID_TYPES.register("cuisine_edible_oil", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties edible_oil_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            edible_oil_TYPE, edible_oil, edible_oil_flowing)
+            .bucket(edible_oil_BUCKET)
+            .block(FluidRegister.edible_oil_block)
+            .explosionResistance(100F);
+
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> rice_vinegar = FLUIDS.register("cuisine_rice_vinegar", () -> new BaseFlowingFluid.Source(FluidRegister.rice_vinegar_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> rice_vinegar_flowing = FLUIDS.register("cuisine_rice_vinegar_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.rice_vinegar_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> rice_vinegar_BUCKET = ITEMS.register("cuisine_rice_vinegar_bucket", () -> new BucketItem(FluidRegister.rice_vinegar.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> rice_vinegar_block = BLOCKS.register("cuisine_rice_vinegar", () -> new LiquidBlock(FluidRegister.rice_vinegar.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> rice_vinegar_TYPE = FLUID_TYPES.register("cuisine_rice_vinegar", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties rice_vinegar_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            rice_vinegar_TYPE, rice_vinegar, rice_vinegar_flowing)
+            .bucket(rice_vinegar_BUCKET)
+            .block(FluidRegister.rice_vinegar_block)
+            .explosionResistance(100F);
+
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> fruit_vinegar = FLUIDS.register("cuisine_fruit_vinegar", () -> new BaseFlowingFluid.Source(FluidRegister.fruit_vinegar_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> fruit_vinegar_flowing = FLUIDS.register("cuisine_fruit_vinegar_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.fruit_vinegar_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> fruit_vinegar_BUCKET = ITEMS.register("cuisine_fruit_vinegar_bucket", () -> new BucketItem(FluidRegister.fruit_vinegar.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> fruit_vinegar_block = BLOCKS.register("cuisine_fruit_vinegar", () -> new LiquidBlock(FluidRegister.fruit_vinegar.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> fruit_vinegar_TYPE = FLUID_TYPES.register("cuisine_fruit_vinegar", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties fruit_vinegar_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            fruit_vinegar_TYPE, fruit_vinegar, fruit_vinegar_flowing)
+            .bucket(fruit_vinegar_BUCKET)
+            .block(FluidRegister.fruit_vinegar_block)
+            .explosionResistance(100F);
+
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> soy_milk = FLUIDS.register("cuisine_soy_milk", () -> new BaseFlowingFluid.Source(FluidRegister.soy_milk_flowing_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> soy_milk_flowing = FLUIDS.register("cuisine_soy_milk_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.soy_milk_flowing_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> soy_milk_BUCKET = ITEMS.register("cuisine_soy_milk_bucket", () -> new BucketItem(FluidRegister.soy_milk.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> soy_milk_block = BLOCKS.register("cuisine_soy_milk", () -> new LiquidBlock(FluidRegister.soy_milk.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> soy_milk_TYPE = FLUID_TYPES.register("cuisine_soy_milk", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties soy_milk_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
+            soy_milk_TYPE, soy_milk, soy_milk_flowing)
+            .bucket(soy_milk_BUCKET)
+            .block(FluidRegister.soy_milk_block)
+            .explosionResistance(100F);
 
 }

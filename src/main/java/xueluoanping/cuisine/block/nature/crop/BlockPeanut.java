@@ -18,10 +18,5 @@ public class BlockPeanut extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.peanut.get().defaultBlockState();
-    }
-
 
 }

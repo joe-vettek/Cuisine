@@ -3,7 +3,6 @@ package xueluoanping.cuisine.data;
 import java.util.function.Consumer;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -13,8 +12,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.craft.ConfigCondition;
 import xueluoanping.cuisine.config.General;

@@ -37,7 +37,7 @@ public class FuelHeatHandler implements HeatHandler, FuelHandler {
 		ITEM_FUELS.put(BlockRegister.bamboo_item.get(), new FuelInfo(1, 250));
 
 		ORE_FUELS.put(ItemTags.WOOL, new FuelInfo(1, 100));
-		ORE_FUELS.put(ItemTags.CARPETS, new FuelInfo(1, 67));
+		ORE_FUELS.put(ItemTags.WOOL_CARPETS, new FuelInfo(1, 67));
 
 		// ORE_FUELS.put(OreDictDefinition.of("fuelCoke"), new FuelInfo(3, 2000));
 		ORE_FUELS.put(ForgeTags.COAL_COKE, new FuelInfo(3,2000));
@@ -201,7 +201,7 @@ public class FuelHeatHandler implements HeatHandler, FuelHandler {
 	}
 
 	public static boolean isFuel(ItemStack stack, boolean useVanillaFuels) {
-		if (stack.isEmpty() || !stack.getItem().getContainerItem(stack).isEmpty()) {
+		if (stack.isEmpty() || !stack.getItem().getCraftingRemainingItem(stack).isEmpty()) {
 			return false;
 		}
 		if (useVanillaFuels && stack.getBurnTime(RecipeType.SMELTING) > 0) {

@@ -5,10 +5,9 @@ import net.minecraft.world.entity.ai.behavior.WorkAtComposter;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.items.BehaviorArmDispense;
 import xueluoanping.cuisine.items.Behavior_JuiceBucket;
@@ -19,7 +18,7 @@ import java.util.HashSet;
 
 // 在Forge开发里有两条总线，Mod总线和Forge总线，
 // 所有和初始化相关的事件都是在Mod总线内，其他所有事件都在Forge总线内。
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class ModSetUp {
     // public static RecipeType<BasinSqueezingRecipe> TYPE = null;
     // public static BasinSqueezingRecipe.Serializer SERIALIZER = null;

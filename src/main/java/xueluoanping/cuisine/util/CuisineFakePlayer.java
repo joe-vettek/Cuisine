@@ -3,8 +3,8 @@ package xueluoanping.cuisine.util;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.FakePlayerFactory;
+import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.common.util.FakePlayerFactory;
 
 import javax.annotation.Nonnull;
 

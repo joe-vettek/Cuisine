@@ -7,8 +7,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.PlantType;
-import xueluoanping.cuisine.block.nature.BlockCuisineCrops;
 import xueluoanping.cuisine.block.nature.BlockDoubleCrops;
 import xueluoanping.cuisine.register.CropRegister;
 
@@ -25,12 +23,6 @@ public class BlockCorn extends BlockDoubleCrops {
     @Override
     protected ItemLike getBaseSeedId() {
         return CropRegister.corn_item.get();
-    }
-
-
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.corn.get().defaultBlockState();
     }
 
 

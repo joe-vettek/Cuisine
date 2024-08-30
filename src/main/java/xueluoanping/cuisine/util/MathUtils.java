@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -167,11 +168,11 @@ public class MathUtils {
                 , angle);
     }
 
-	public static int getRandomSpread(Random r){
+	public static int getRandomSpread(RandomSource r){
 		int select=r.nextInt(3)-1;
 		return select;
 	}
-	public static BlockPos getRandomSpreadPos(BlockPos pos,Random r){
+	public static BlockPos getRandomSpreadPos(BlockPos pos, RandomSource r){
 		int xOffset = MathUtils.getRandomSpread(r);
 		int yOffset = MathUtils.getRandomSpread(r);
 		int zOffset = MathUtils.getRandomSpread(r);

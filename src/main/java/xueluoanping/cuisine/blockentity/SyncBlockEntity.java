@@ -1,6 +1,7 @@
 package xueluoanping.cuisine.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -16,7 +17,7 @@ public class SyncBlockEntity extends BlockEntity {
 		super(blockEntityType, pos, state);
 	}
 
-	// load, saveAdditional
+
 	@Override
 	@Nullable
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
@@ -24,23 +25,18 @@ public class SyncBlockEntity extends BlockEntity {
 	}
 
 	@Override
-	public CompoundTag getUpdateTag() {
-		return saveWithoutMetadata();
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+		return saveWithoutMetadata(registries);
 	}
-
-	@Override
-	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-		try {
-			load(pkt.getTag());
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-	}
+//
+//	@Override
+//	public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+//		load(pkt.getTag());
+//	}
 
 	protected void inventoryChanged() {
 		super.setChanged();
 		if (level != null)
-			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_ALL);
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
 }

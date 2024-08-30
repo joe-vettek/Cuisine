@@ -18,10 +18,6 @@ public class BlockSoybean extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.soybean.get().defaultBlockState();
-    }
 
 
 }

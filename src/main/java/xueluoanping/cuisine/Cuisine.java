@@ -2,7 +2,6 @@ package xueluoanping.cuisine;
 
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -72,9 +71,11 @@ public final class Cuisine {
         BlockEntityRegister.DREntityBlockItems.register(modEventBus);
         BlockEntityRegister.DRBlockEntities.register(modEventBus);
 
-        FluidRegister.DRFluids.register(modEventBus);
-        FluidRegister.DRFluidBlocks.register(modEventBus);
-        FluidRegister.DRFluidBuckets.register(modEventBus);
+        FluidRegister.FLUIDS.register(modEventBus);
+        FluidRegister.BLOCKS.register(modEventBus);
+        FluidRegister.ITEMS.register(modEventBus);
+        FluidRegister.FLUID_TYPES.register(modEventBus);
+
 
         FeatureRegister.DRFeatures.register(modEventBus);
         FeatureRegister.DRConfigured.register(modEventBus);

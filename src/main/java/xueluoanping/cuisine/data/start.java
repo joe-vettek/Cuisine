@@ -1,10 +1,10 @@
 package xueluoanping.cuisine.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.data.lang.Lang_EN;
 import xueluoanping.cuisine.data.lang.Lang_ZH;
@@ -17,7 +17,7 @@ import xueluoanping.cuisine.data.tag.CuisineItemTagsProvider;
 import xueluoanping.cuisine.data.tag.TagsDataProvider;
 
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class start {
     public final static String MODID = Cuisine.MODID;
 

@@ -18,10 +18,4 @@ public class BlockLeek extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.leek.get().defaultBlockState();
-    }
-
-
 }

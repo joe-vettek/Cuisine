@@ -2,6 +2,7 @@ package xueluoanping.cuisine.tag;
 
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -20,14 +21,14 @@ public class CuisineTags {
 
 
     private static TagKey<Item> modItemTag(String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, Cuisine.rl(path));
+        return TagKey.create(Registries.ITEM, Cuisine.rl(path));
     }
 
     private static TagKey<Block> modBlockTag(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY,  Cuisine.rl(path));
+        return TagKey.create(Registries.BLOCK,  Cuisine.rl(path));
     }
 
     private static TagKey<EntityType<?>> modEntityTag(String path) {
-        return TagKey.create(Registry.ENTITY_TYPE_REGISTRY,  Cuisine.rl(path));
+        return TagKey.create(Registries.ENTITY_TYPE,  Cuisine.rl(path));
     }
 }

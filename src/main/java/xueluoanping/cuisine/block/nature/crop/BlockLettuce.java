@@ -18,10 +18,6 @@ public class BlockLettuce extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.lettuce.get().defaultBlockState();
-    }
 
 
 }

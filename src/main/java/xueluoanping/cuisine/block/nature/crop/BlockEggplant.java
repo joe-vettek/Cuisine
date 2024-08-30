@@ -18,10 +18,6 @@ public class BlockEggplant extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.eggplant.get().defaultBlockState();
-    }
 
 
 }

@@ -3,11 +3,12 @@ package xueluoanping.cuisine.plugin.jei.category;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
+import xueluoanping.cuisine.Cuisine;
 
 import static xueluoanping.cuisine.Cuisine.MODID;
 
 public class ExtendedCraftingCategory implements ICraftingCategoryExtension {
-	public static final ResourceLocation UID = new ResourceLocation(MODID, "extended_crafting");
+	public static final ResourceLocation UID = Cuisine.rl( "extended_crafting");
 
 
 	@Override

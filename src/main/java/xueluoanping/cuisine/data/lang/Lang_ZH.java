@@ -6,7 +6,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.*;
 

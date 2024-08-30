@@ -18,10 +18,4 @@ public class BlockTurnip extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.turnip.get().defaultBlockState();
-    }
-
-
 }

@@ -18,10 +18,6 @@ public class BlockCucumber extends BlockDoubleCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.cucumber.get().defaultBlockState();
-    }
 
 
 }

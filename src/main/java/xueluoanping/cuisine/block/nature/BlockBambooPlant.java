@@ -1,8 +1,10 @@
 package xueluoanping.cuisine.block.nature;
 
 import java.util.Locale;
-import java.util.Random;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.*;
+import net.neoforged.neoforge.common.ItemAbilities;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -18,25 +20,17 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BambooBlock;
-import net.minecraft.world.level.block.BambooSaplingBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.tag.CuisineTags;
 
@@ -81,14 +75,10 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 		stateBuilder.add(TYPE, EAST, NORTH, WEST, SOUTH);
 	}
 
-	@Override
-	public MaterialColor defaultMaterialColor() {
-		return super.defaultMaterialColor();
-	}
 
-	@Nullable
+
 	@Override
-	public float[] getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
+	public @Nullable Integer getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
 		return super.getBeaconColorMultiplier(state, level, pos, beaconPos);
 	}
 
@@ -135,7 +125,7 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 			case WEST:
 				return state.setValue(WEST, false);
 		}
-		if ((state1.getBlock() instanceof BambooBlock
+		if ((state1.getBlock() instanceof BambooStalkBlock
 				|| state1.getBlock() instanceof BambooSaplingBlock)
 				&& state.getValue(TYPE).ordinal() < 2) {
 			return state.setValue(TYPE, Type.A_2);
@@ -153,14 +143,14 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (!state.canSurvive(level, pos)) {
 			level.destroyBlock(pos, true);
 		}
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		if (state.getValue(TYPE).ordinal() > 6)
 			return;
 		if (state.getValue(TYPE).ordinal() > 1) {
@@ -192,19 +182,20 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 				level.getBlockState(pos.below()).getBlock() != Blocks.BAMBOO_SAPLING;
 	}
 
-
 	@Override
-	public boolean isValidBonemealTarget(BlockGetter level, BlockPos pos, BlockState state, boolean p_50900_) {
+	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 		return level.getBlockState(pos.above()).isAir() && state.getValue(TYPE).ordinal() < 2;
 	}
 
+
 	@Override
-	public boolean isBonemealSuccess(Level level, Random random, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
 		return true;
 	}
 
+
 	@Override
-	public void performBonemeal(ServerLevel level, Random random, BlockPos pos, BlockState state) {
+	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
 		if (state.getValue(TYPE).ordinal() == 0) {
 			if (random.nextInt(5) > 0)
 				level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
@@ -279,12 +270,13 @@ public class BlockBambooPlant extends Block implements BonemealableBlock {
 
 	@Override
 	public float getDestroyProgress(BlockState p_48901_, Player p_48902_, BlockGetter p_48903_, BlockPos p_48904_) {
-		return p_48902_.getMainHandItem().canPerformAction(net.minecraftforge.common.ToolActions.AXE_DIG) ? 1.0F
+		return p_48902_.getMainHandItem().canPerformAction(ItemAbilities.AXE_DIG) ? 1.0F
 				: super.getDestroyProgress(p_48901_, p_48902_, p_48903_, p_48904_);
 	}
 
+
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
 		int ordinal = state.getValue(TYPE).ordinal();
 		if (ordinal < 2) {
 			return BlockRegister.bamboo_shoot.get().getDefaultInstance();

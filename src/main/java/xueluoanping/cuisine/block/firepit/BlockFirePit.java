@@ -1,16 +1,20 @@
 package xueluoanping.cuisine.block.firepit;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -25,11 +29,12 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.minecraftforge.common.Tags;
 
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.Nullable;
 
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
 import xueluoanping.cuisine.blockentity.firepit.AbstractFirepitBlockEntity;
 import xueluoanping.cuisine.blockentity.firepit.FirePitBlockEntity;
@@ -45,6 +50,11 @@ public class BlockFirePit extends SimpleHorizontalEntityBlock {
 
 	public BlockFirePit(Properties properties) {
 		super(properties.lightLevel(BlockFirePit::getLightLevel));
+	}
+
+	@Override
+	protected MapCodec<? extends BaseEntityBlock> codec() {
+		return simpleCodec(BlockFirePit::new);
 	}
 
 	private static int getLightLevel(BlockState state) {
@@ -77,8 +87,7 @@ public class BlockFirePit extends SimpleHorizontalEntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
-		ItemStack stack = player.getItemInHand(handIn);
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hitResult) {
 		if(!level.isClientSide() )
 		{
 			if (state.is(this)) {
@@ -86,15 +95,15 @@ public class BlockFirePit extends SimpleHorizontalEntityBlock {
 					stack.shrink(3);
 					level.setBlock(pos, BlockEntityRegister.barbecue_rack.get().defaultBlockState().setValue(FACING, state.getValue(FACING)), Block.UPDATE_ALL);
 					// player.setItemInHand(handIn,pl);
-					return InteractionResult.SUCCESS;
+					return ItemInteractionResult.SUCCESS;
 				}
 			}
 			if (level.getBlockEntity(pos) instanceof AbstractFirepitBlockEntity abstractFirepitBlockEntity) {
 				if (abstractFirepitBlockEntity.addFuel(stack))
-					return InteractionResult.SUCCESS;
+					return ItemInteractionResult.SUCCESS;
 			}
 		}
-		return super.use(state, level, pos, player, handIn, hitResult);
+		return super.useItemOn(stack, state, level, pos, player, handIn, hitResult);
 	}
 
 
@@ -120,7 +129,7 @@ public class BlockFirePit extends SimpleHorizontalEntityBlock {
 	}
 
 	@Override
-	public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+	public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
 		if (level.getBlockEntity(pos) instanceof FirePitBlockEntity blockEntity) {
 			FuelHeatHandler handler = blockEntity.getHeatHandler();
 

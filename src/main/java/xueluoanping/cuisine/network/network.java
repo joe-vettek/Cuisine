@@ -13,16 +13,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+
 import xueluoanping.cuisine.Cuisine;
 
 
 // https://github.com/teaconmc/SignMeUp/blob/1.18-forge/src/main/java/org/teacon/signin/data/GuideMapManager.java
 public class network extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = new GsonBuilder().setLenient()
-            .registerTypeHierarchyAdapter(Component.class, new Component.Serializer())
+            // .registerTypeHierarchyAdapter(Component.class, new Component.Serializer())
             .create();
 
     public static final network instance = new network(GSON, "colors_map");

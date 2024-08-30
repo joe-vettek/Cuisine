@@ -2,6 +2,7 @@ package xueluoanping.cuisine.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
@@ -10,6 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -28,7 +31,7 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 	public int speedCache = 0;
 
 
-	public final betterFluidHandler tank;
+	public final FluidTank tank;
 
 	public static int Capacity = 8000;
 	public int tickCheckThrowing = 0;
@@ -43,18 +46,18 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 
 
 	@Override
-	public void load(CompoundTag compound) {
+	public void loadAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
 		// Cuisine.logger(compound);
-		inventory.deserializeNBT(compound.getCompound("Items"));
-		tank.deserializeNBT(compound.getCompound("Tank"));
-		super.load(compound);
+		inventory.deserializeNBT(pRegistries,compound.getCompound("Items"));
+		tank.readFromNBT(pRegistries,compound.getCompound("Tank"));
+		super.loadAdditional(compound,pRegistries);
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag compound) {
-		compound.put("Items", inventory.serializeNBT());
-		compound.put("Tank", tank.serializeNBT());
-		super.saveAdditional(compound);
+	public void saveAdditional(CompoundTag compound, HolderLookup.Provider pRegistries) {
+		compound.put("Items", inventory.serializeNBT(pRegistries));
+		compound.put("Tank", tank.writeToNBT(pRegistries,new CompoundTag()));
+		super.saveAdditional(compound,pRegistries);
 	}
 
 
@@ -133,24 +136,10 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
-	@Override
-	public void invalidateCaps() {
-		super.invalidateCaps();
-		tankHandler.invalidate();
-	}
-
 
 	@NotNull
 	@Override
 	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @org.jetbrains.annotations.Nullable Direction side) {
-		//        if (side == Direction.UP && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-		//            return LazyOptional.of(() -> new ItemStackHandler() {
-		//                @Override
-		//                public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-		//                    return stack.getItem() == Items.COBBLESTONE;
-		//                }
-		//            }).cast();
-		//        }
 		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return inputHandler.cast();
 		}
@@ -159,12 +148,11 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 			return tankHandler.cast();
 		}
 
-
 		return super.getCapability(cap, side);
 	}
 
 	public boolean processSqueezing(Level worldIn) {
-		List<BasinSqueezingRecipe> recipeList = worldIn.getRecipeManager().getRecipesFor(RecipeRegister.squeezingType.get(), new RecipeWrapper(inventory), worldIn);
+		var recipeList = worldIn.getRecipeManager().getRecipesFor(RecipeRegister.squeezingType.get(), new RecipeWrapper(inventory), worldIn);
 
 		Cuisine.logger(RecipeRegister.squeezingType.get() + "" + recipeList.size());
 		if (recipeList.isEmpty() || tank.getFluidAmount() >= Capacity) {
@@ -174,7 +162,7 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 		try {
 			for (int i = 0; i < recipeList.size(); i++) {
 
-				BasinSqueezingRecipe recipe = recipeList.get(i);
+				BasinSqueezingRecipe recipe = recipeList.get(i).value();
 				if (tank.isEmpty() || recipe.getResult().get(0).getFluid() == tank.getFluid().getFluid()) {
 					removeOneItem();
 					FluidStack stack = recipe.getResult().get(0).copy();
@@ -190,13 +178,13 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 	}
 
 	public boolean tryProcessSqueezing(Level worldIn) {
-		List<BasinSqueezingRecipe> recipeList = worldIn.getRecipeManager().getRecipesFor(RecipeRegister.squeezingType.get(), new RecipeWrapper(inventory), worldIn);
+		var recipeList = worldIn.getRecipeManager().getRecipesFor(RecipeRegister.squeezingType.get(), new RecipeWrapper(inventory), worldIn);
 		if (recipeList.isEmpty() || tank.getFluidAmount() >= Capacity) {
 			//				return Optional.empty();
 			return false;
 		}
 		try {
-			BasinSqueezingRecipe recipe = recipeList.get(0);
+			BasinSqueezingRecipe recipe = recipeList.get(0).value();
 			if (tank.isEmpty() || recipe.getResult().get(0).getFluid() == tank.getFluid().getFluid()) {
 				return true;
 			}

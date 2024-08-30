@@ -18,10 +18,7 @@ public class BlockGinger extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.ginger.get().defaultBlockState();
-    }
+
 
 
 }

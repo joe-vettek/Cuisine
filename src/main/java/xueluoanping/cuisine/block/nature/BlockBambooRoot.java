@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -34,7 +35,7 @@ public class BlockBambooRoot extends Block {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 //		Cuisine.logger(level.isRainingAt(pos.above()),level.canSeeSky(pos.above()));
 		if(random.nextInt(50)!=0)return;
 		if (state.getValue(AGE) > 0) {

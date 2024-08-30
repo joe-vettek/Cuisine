@@ -1,6 +1,7 @@
 package xueluoanping.cuisine.tag;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -43,11 +44,11 @@ public class ForgeTags
 	public static final TagKey<Item> COAL_COKE = forgeItemTag("coal_coke");
 
     private static TagKey<Block> forgeBlockTag(String path) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", path));
+        return TagKey.create(Registries.BLOCK,  ResourceLocation.fromNamespaceAndPath("forge", path));
     }
 
     private static TagKey<Item> forgeItemTag(String path) {
-        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", path));
+        return TagKey.create(Registries.ITEM,  ResourceLocation.fromNamespaceAndPath("forge", path));
     }
 
 }

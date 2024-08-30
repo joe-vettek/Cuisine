@@ -18,10 +18,4 @@ public class BlockChineseCabbage extends BlockCuisineCrops {
     }
 
 
-    @Override
-    public BlockState getPlant(BlockGetter world, BlockPos pos) {
-        return CropRegister.chinese_cabbage.get().defaultBlockState();
-    }
-
-
 }

@@ -1,6 +1,7 @@
 package xueluoanping.cuisine.blockentity.firepit;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +31,7 @@ public class AbstractFirepitBlockEntity extends SyncBlockEntity {
 	}
 
 	@Override
-	public void load(CompoundTag data) {
+	public void loadAdditional(CompoundTag data, HolderLookup.Provider pRegistries) {
 
 		if (data.contains("heat", CompoundTag.TAG_FLOAT)) {
 			heatHandler.setHeat(data.getFloat("heat"));
@@ -38,14 +39,14 @@ public class AbstractFirepitBlockEntity extends SyncBlockEntity {
 		if (data.contains("burnTime", CompoundTag.TAG_FLOAT)) {
 			heatHandler.setBurnTime(data.getFloat("burnTime"));
 		}
-		super.load(data);
+		super.loadAdditional(data,pRegistries);
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag data) {
+	protected void saveAdditional(CompoundTag data, HolderLookup.Provider pRegistries) {
 		data.putFloat("heat", heatHandler.getHeat());
 		data.putFloat("burnTime", heatHandler.getBurnTime());
-		super.saveAdditional(data);
+		super.saveAdditional(data,pRegistries);
 	}
 
 	// @Override
