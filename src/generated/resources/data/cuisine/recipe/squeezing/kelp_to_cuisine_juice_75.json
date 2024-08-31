@@ -1,0 +1,10 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": {
+    "item": "minecraft:kelp"
+  },
+  "result": {
+    "amount": 75,
+    "fluid": "cuisine:cuisine_juice"
+  }
+}

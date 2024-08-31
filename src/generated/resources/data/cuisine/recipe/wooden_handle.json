@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " I",
+    "I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cuisine:wooden_handle"
+  }
+}

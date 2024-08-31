@@ -36,6 +36,7 @@ public class CuisineItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         withExistingParent(blockName(BlockRegister.bamboo_root), modLoc("block/" + blockName(BlockRegister.bamboo_root)));
+        withExistingParent(blockName(BlockRegister.tofu_block), modLoc("block/" + blockName(BlockRegister.tofu_block)));
 
         ArrayList<DeferredHolder<Item, ? extends Item>> itemList = new ArrayList<>();
         itemList.addAll(ItemRegister.DRItems.getEntries());

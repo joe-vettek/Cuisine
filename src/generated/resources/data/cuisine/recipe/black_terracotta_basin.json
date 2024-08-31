@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "item": "minecraft:iron_bars"
+    },
+    "I": {
+      "item": "minecraft:black_terracotta"
+    }
+  },
+  "pattern": [
+    "I I",
+    "GIG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cuisine:black_terracotta_basin"
+  }
+}

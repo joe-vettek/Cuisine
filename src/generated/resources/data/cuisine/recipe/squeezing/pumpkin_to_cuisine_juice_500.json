@@ -1,0 +1,10 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": {
+    "item": "minecraft:pumpkin"
+  },
+  "result": {
+    "amount": 500,
+    "fluid": "cuisine:cuisine_juice"
+  }
+}

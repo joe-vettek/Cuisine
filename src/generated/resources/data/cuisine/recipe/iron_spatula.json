@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:ingots/iron"
+    },
+    "I": {
+      "item": "cuisine:wooden_handle"
+    }
+  },
+  "pattern": [
+    "   ",
+    " G ",
+    " I "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cuisine:iron_spatula"
+  }
+}

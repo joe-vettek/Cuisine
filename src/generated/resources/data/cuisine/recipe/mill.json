@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "tag": "c:stones"
+    },
+    "I": {
+      "item": "cuisine:wooden_handle"
+    }
+  },
+  "pattern": [
+    "I  ",
+    "GGG",
+    "GGG"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cuisine:mill"
+  }
+}

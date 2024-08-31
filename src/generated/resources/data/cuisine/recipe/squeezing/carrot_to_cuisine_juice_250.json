@@ -1,0 +1,10 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": {
+    "item": "minecraft:carrot"
+  },
+  "result": {
+    "amount": 250,
+    "fluid": "cuisine:cuisine_juice"
+  }
+}

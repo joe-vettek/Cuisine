@@ -37,7 +37,7 @@ public class BlockStatesDataProvider extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(BlockRegister.bamboo_root.get());
-
+        simpleBlock(BlockRegister.tofu_block.get());
 
         // this.customStageBlock(CropRegister.tomato.get(), resourceBlock("cross_crop"), "crop", BlockCuisineCrops.AGE, Arrays.asList(0,0, 1,1, 2,2,2, 3 ));
 
@@ -79,6 +79,7 @@ public class BlockStatesDataProvider extends BlockStateProvider {
                     .modelFile(models().withExistingParent(blockName(BlockEntityRegister.wok_on_fire_pit.get()), resourceBlock("fire_pit_with_wok_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
                     .build();
         });
+
     }
 
 

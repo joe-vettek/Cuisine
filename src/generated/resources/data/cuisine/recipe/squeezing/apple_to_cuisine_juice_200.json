@@ -1,0 +1,10 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": {
+    "item": "minecraft:apple"
+  },
+  "result": {
+    "amount": 200,
+    "fluid": "cuisine:cuisine_juice"
+  }
+}

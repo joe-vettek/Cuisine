@@ -1,0 +1,17 @@
+{
+  "entries": [
+    "cuisine:peanut_from_fern",
+    "cuisine:soybean_from_short_grass",
+    "cuisine:soybean_from_tall_grass",
+    "cuisine:peanut_from_short_grass",
+    "cuisine:soybean_from_fern",
+    "cuisine:sesame_from_large_fern",
+    "cuisine:peanut_from_tall_grass",
+    "cuisine:peanut_from_large_fern",
+    "cuisine:sesame_from_tall_grass",
+    "cuisine:sesame_from_short_grass",
+    "cuisine:soybean_from_large_fern",
+    "cuisine:sesame_from_fern"
+  ],
+  "replace": false
+}

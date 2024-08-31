@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": {
+      "item": "minecraft:slime_ball"
+    },
+    "I": {
+      "item": "cuisine:wooden_handle"
+    }
+  },
+  "pattern": [
+    "   ",
+    " G ",
+    "I  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "cuisine:wooden_arm"
+  }
+}

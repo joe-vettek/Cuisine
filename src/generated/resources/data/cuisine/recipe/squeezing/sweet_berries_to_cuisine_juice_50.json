@@ -1,0 +1,10 @@
+{
+  "type": "cuisine:squeezing",
+  "ingredients": {
+    "item": "minecraft:sweet_berries"
+  },
+  "result": {
+    "amount": 50,
+    "fluid": "cuisine:cuisine_juice"
+  }
+}
