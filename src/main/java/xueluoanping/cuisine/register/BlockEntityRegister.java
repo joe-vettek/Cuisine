@@ -161,7 +161,6 @@ public class BlockEntityRegister {
 		) {
 			blocks.add(block.get());
 		}
-		Cuisine.logger(blocks.size() + "注册陶瓷盆");
 		return blocks.toArray(new Block[0]);
 	}
 

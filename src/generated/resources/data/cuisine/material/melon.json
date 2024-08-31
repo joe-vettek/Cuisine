@@ -1,0 +1,21 @@
+{
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "categories": [
+    "fruit"
+  ],
+  "cooked_color": -46805,
+  "id": "melon",
+  "oil_value": 0,
+  "raw_color": -769226,
+  "saturation_modifier": 0.0,
+  "valid_forms": [
+    "cubed",
+    "sliced",
+    "diced",
+    "minced",
+    "paste",
+    "juice"
+  ],
+  "water_value": 0
+}

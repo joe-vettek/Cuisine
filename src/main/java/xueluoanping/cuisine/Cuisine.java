@@ -34,7 +34,7 @@ public final class Cuisine {
         {
             StringBuilder output = new StringBuilder();
             for (Object i : x) {
-                output.append("，【").append(i).append("】");
+                output.append(", [").append(i).append("]");
             }
             LOGGER.info(output.toString().substring(1));
         }
@@ -43,9 +43,6 @@ public final class Cuisine {
 
 
     public Cuisine(IEventBus modEventBus, ModContainer modContainer) {
-        FMLLoader.getLoadingModList().getMods().forEach((info) -> {
-            logger(info.getModId() + "" + MODID);
-        });
 
         ItemRegister.DRItems.register(modEventBus);
 

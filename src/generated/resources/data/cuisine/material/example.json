@@ -1,0 +1,12 @@
+{
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "categories": [],
+  "cooked_color": -16777216,
+  "id": "example",
+  "oil_value": 0,
+  "raw_color": -16777216,
+  "saturation_modifier": 0.0,
+  "valid_forms": [],
+  "water_value": 0
+}

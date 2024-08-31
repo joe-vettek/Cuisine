@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/block",
-  "loader": "forge:obj",
+  "loader": "neoforge:obj",
   "model": "cuisine:models/block/fire_pit_with_frying_pan.obj",
   "flip-v": true,
   "textures": {

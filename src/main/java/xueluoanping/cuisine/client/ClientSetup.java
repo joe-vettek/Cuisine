@@ -14,6 +14,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.nature.crop.BlockPeanut;
@@ -22,6 +24,7 @@ import xueluoanping.cuisine.client.renderer.tesr.TESRChoppingBoard;
 import xueluoanping.cuisine.client.renderer.tesr.TESRBasin;
 import xueluoanping.cuisine.client.renderer.tesr.TESRFirePit;
 import xueluoanping.cuisine.client.renderer.tesr.TESRMill;
+import xueluoanping.cuisine.fluids.TeaFluidType;
 import xueluoanping.cuisine.register.*;
 
 import java.awt.*;
@@ -38,6 +41,18 @@ public class ClientSetup {
     }
 
     public static Set<RenderType> BLOCK_RENDER_TYPES = ImmutableSet.of(RenderType.solid(), RenderType.cutout(), RenderType.cutoutMipped(), RenderType.translucent());
+
+    @SubscribeEvent
+    public static void onRegisterClientExtensionsEvent(RegisterClientExtensionsEvent event) {
+
+        FluidRegister.FLUIDS.getEntries().forEach(holder -> {
+
+            if (holder.get().getFluidType() instanceof TeaFluidType teaFluidType
+                    && holder.get() instanceof BaseFlowingFluid.Source baseFlowingFluid)
+                event.registerFluidType(TeaFluidType.getIClientFluidTypeExtensions(teaFluidType), baseFlowingFluid.getFluidType());
+        });
+
+    }
 
     @SubscribeEvent
     public static void onClientEvent(FMLClientSetupEvent event) {

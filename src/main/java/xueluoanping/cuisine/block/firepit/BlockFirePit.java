@@ -58,8 +58,6 @@ public class BlockFirePit extends SimpleHorizontalEntityBlock {
 	}
 
 	private static int getLightLevel(BlockState state) {
-
-		Cuisine.logger(state);
 		return state.getValue(LIGHT_LEVEL);
 	}
 

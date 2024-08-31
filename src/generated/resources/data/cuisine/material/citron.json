@@ -1,0 +1,16 @@
+{
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "categories": [
+    "fruit"
+  ],
+  "cooked_color": -794554,
+  "id": "citron",
+  "oil_value": 0,
+  "raw_color": -2241448,
+  "saturation_modifier": -0.1,
+  "valid_forms": [
+    "juice"
+  ],
+  "water_value": 0
+}

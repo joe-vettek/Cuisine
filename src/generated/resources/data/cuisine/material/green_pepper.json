@@ -1,0 +1,19 @@
+{
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "categories": [
+    "vegetables"
+  ],
+  "cooked_color": -14973680,
+  "id": "green_pepper",
+  "oil_value": 0,
+  "raw_color": -15107820,
+  "saturation_modifier": 0.0,
+  "valid_forms": [
+    "sliced",
+    "shredded",
+    "minced",
+    "paste"
+  ],
+  "water_value": 0
+}

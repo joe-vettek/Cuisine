@@ -1,0 +1,16 @@
+{
+  "boil_heat": 100.0,
+  "boil_time": 150,
+  "categories": [
+    "protein"
+  ],
+  "cooked_color": -855638068,
+  "id": "milk",
+  "oil_value": 0,
+  "raw_color": -855638017,
+  "saturation_modifier": -0.1,
+  "valid_forms": [
+    "juice"
+  ],
+  "water_value": 0
+}

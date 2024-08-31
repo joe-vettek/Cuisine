@@ -12,6 +12,7 @@ import xueluoanping.cuisine.api.prefab.SimpleMaterialImpl;
 import xueluoanping.cuisine.config.General;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
@@ -28,16 +29,18 @@ public abstract class MaterialProvider implements DataProvider {
 
 
     @Override
-    public CompletableFuture<?> run(CachedOutput cache)  {
+    public CompletableFuture<?> run(CachedOutput cache) {
+        ArrayList<CompletableFuture<?>> cc = new ArrayList<>();
         if (!data.isEmpty()) {
             data.forEach((key, value) -> {
 
                 String outPath = "data/" + modid + "/material/" + key + ".json";
-                DataProvider.saveStable( cache, value,
+                var c = DataProvider.saveStable(cache, value,
                         this.gen.getPackOutput().getOutputFolder().resolve(outPath));
+                cc.add(c);
             });
         }
-        return CompletableFuture.allOf(new  CompletableFuture<?>[0]);
+        return CompletableFuture.allOf(cc.toArray(new CompletableFuture<?>[0]));
     }
 
     public void add(SimpleMaterialImpl material) {

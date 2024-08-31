@@ -44,8 +44,8 @@ public class DataListenerClient {
 						ArrayList<Integer> rlist = new ArrayList<Integer>();
 						ArrayList<Integer> glist = new ArrayList<Integer>();
 						ArrayList<Integer> blist = new ArrayList<Integer>();
-						for (int i = 0; i < texture.getX(); i++) {
-							for (int j = 0; j < texture.getY(); j++) {
+						for (int i = 0; i < texture.contents().width(); i++) {
+							for (int j = 0; j < texture.contents().height(); j++) {
 								int color = texture.getPixelRGBA(0, i, j);
 								int r = color & 0xff;
 								int g = (color >> 8) & 0xff;
@@ -67,8 +67,8 @@ public class DataListenerClient {
 						ArrayList<Integer> rlist = new ArrayList<Integer>();
 						ArrayList<Integer> glist = new ArrayList<Integer>();
 						ArrayList<Integer> blist = new ArrayList<Integer>();
-						for (int i = 0; i < texture.getX(); i++) {
-							for (int j = 0; j < texture.getY(); j++) {
+						for (int i = 0; i < texture.contents().width(); i++) {
+							for (int j = 0; j < texture.contents().height(); j++) {
 								int color = texture.getPixelRGBA(0, i, j);
 								int r = color & 0xff;
 								int g = (color >> 8) & 0xff;

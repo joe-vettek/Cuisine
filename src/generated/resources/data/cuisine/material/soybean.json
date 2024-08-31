@@ -1,0 +1,14 @@
+{
+  "boil_heat": 90.0,
+  "boil_time": 150,
+  "categories": [
+    "grain"
+  ],
+  "cooked_color": -602286,
+  "id": "soybean",
+  "oil_value": 0,
+  "raw_color": -2048665,
+  "saturation_modifier": 0.0,
+  "valid_forms": [],
+  "water_value": 0
+}
