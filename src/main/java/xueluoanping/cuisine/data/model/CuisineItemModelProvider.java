@@ -4,16 +4,17 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
+import net.neoforged.neoforge.client.model.generators.*;
+import net.neoforged.neoforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.register.BlockEntityRegister;
-import xueluoanping.cuisine.register.BlockRegister;
-import xueluoanping.cuisine.register.CropRegister;
-import xueluoanping.cuisine.register.ItemRegister;
+import xueluoanping.cuisine.register.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,15 @@ public class CuisineItemModelProvider extends ItemModelProvider {
                 BlockEntityRegister.jar).forEach(
                 b -> simpleParent(blockName(b))
         );
+
+        for (var entry : FluidRegister.ITEMS.getEntries()) {
+            // withExistingParent(itemName(entry.value()), GENERATED)
+            //         .texture("layer0", Cuisine.rl("item/bucket").toString())
+            //         .texture("layer1", Cuisine.rl("item/bucket_overlay").toString());
+            withExistingParent(itemName(entry.value()), ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "item/bucket"))
+                    .customLoader(DynamicFluidContainerModelBuilder::begin)
+                    .fluid(((BucketItem) entry.get()).content);
+        }
 
 
         ArrayList<DeferredHolder<Item, ? extends Item>> itemList = new ArrayList<>();

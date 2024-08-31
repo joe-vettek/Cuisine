@@ -15,10 +15,12 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.nature.crop.BlockPeanut;
+import xueluoanping.cuisine.client.color.item.BucketItemColors;
 import xueluoanping.cuisine.client.renderer.tesr.TESRBasinColored;
 import xueluoanping.cuisine.client.renderer.tesr.TESRChoppingBoard;
 import xueluoanping.cuisine.client.renderer.tesr.TESRBasin;
@@ -113,6 +115,10 @@ public class ClientSetup {
         event.getItemColors().register((itemStack, meta) -> {
             return Color.CYAN.getRGB();
         }, ItemRegister.cubed.get());
+
+        var buckColors = new BucketItemColors();
+
+        FluidRegister.ITEMS.getEntries().forEach(itemRegistryObject -> event.register(buckColors, itemRegistryObject.get()));
 
     }
     

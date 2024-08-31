@@ -10,13 +10,14 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
+import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.FluidRegister;
 
 public class TeaFluidType extends FluidType {
 
-    private final ResourceLocation STILL_TEXTURE;
-    private final ResourceLocation FLOWING_TEXTURE;
-    private int colourTint;
+    private ResourceLocation STILL_TEXTURE;
+    private ResourceLocation FLOWING_TEXTURE;
+    private int colourTint= 0XFFFFFFFF;
 
     public TeaFluidType(Properties properties) {
         this(properties, FluidRegister.WATER_STILL_TEXTURE, FluidRegister.WATER_FLOW_TEXTURE);
@@ -36,6 +37,12 @@ public class TeaFluidType extends FluidType {
 
     public static IClientFluidTypeExtensions getIClientFluidTypeExtensions(TeaFluidType teaFluidType) {
         return new TeaFluidTypeExtension(teaFluidType.STILL_TEXTURE, teaFluidType.FLOWING_TEXTURE, teaFluidType.colourTint);
+    }
+
+    public TeaFluidType texture(String fluid) {
+        this.STILL_TEXTURE = Cuisine.rl("block/" + fluid + "_still");
+        this.FLOWING_TEXTURE = Cuisine.rl("block/" + fluid + "_flow");
+        return this;
     }
 
     public record TeaFluidTypeExtension(ResourceLocation STILL_TEXTURE, ResourceLocation FLOWING_TEXTURE,

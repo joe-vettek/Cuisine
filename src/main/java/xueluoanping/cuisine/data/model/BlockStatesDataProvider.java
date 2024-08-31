@@ -19,6 +19,7 @@ import xueluoanping.cuisine.block.nature.BlockCuisineCrops;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.register.CropRegister;
+import xueluoanping.cuisine.register.FluidRegister;
 
 import javax.annotation.Nullable;
 
@@ -38,6 +39,10 @@ public class BlockStatesDataProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         simpleBlock(BlockRegister.bamboo_root.get());
         simpleBlock(BlockRegister.tofu_block.get());
+
+        for (DeferredHolder<Block, ? extends Block> entry : FluidRegister.BLOCKS.getEntries()) {
+            simpleBlock(entry.value(),ConfiguredModel.builder().modelFile(models().withExistingParent("water",ResourceLocation.withDefaultNamespace("water"))).build());
+        }
 
         // this.customStageBlock(CropRegister.tomato.get(), resourceBlock("cross_crop"), "crop", BlockCuisineCrops.AGE, Arrays.asList(0,0, 1,1, 2,2,2, 3 ));
 
