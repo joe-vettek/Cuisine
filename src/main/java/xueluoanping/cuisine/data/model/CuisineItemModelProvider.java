@@ -43,7 +43,8 @@ public class CuisineItemModelProvider extends ItemModelProvider {
                 BlockEntityRegister.jar).forEach(
                 b -> simpleParent(blockName(b))
         );
-
+        //
+        // DynamicFluidContainerModel
         for (var entry : FluidRegister.ITEMS.getEntries()) {
             // withExistingParent(itemName(entry.value()), GENERATED)
             //         .texture("layer0", Cuisine.rl("item/bucket").toString())
@@ -51,6 +52,7 @@ public class CuisineItemModelProvider extends ItemModelProvider {
             withExistingParent(itemName(entry.value()), ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "item/bucket"))
                     .customLoader(DynamicFluidContainerModelBuilder::begin)
                     .fluid(((BucketItem) entry.get()).content);
+
         }
 
 

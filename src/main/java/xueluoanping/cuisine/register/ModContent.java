@@ -34,6 +34,9 @@ public class ModContent {
                             ItemRegister.DRItems.getEntries().forEach((reg) -> {
                                 output.accept(new ItemStack(reg.get()));
                             });
+                            CropRegister.DRBlockItems.getEntries().forEach((reg) -> {
+                                output.accept(new ItemStack(reg.get()));
+                            });
                             FluidRegister.ITEMS.getEntries().forEach((reg) -> {
                                 output.accept(new ItemStack(reg.get()));
                             });
