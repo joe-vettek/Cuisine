@@ -35,13 +35,21 @@ public class CuisineItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        withExistingParent(blockName(BlockRegister.bamboo_root), modLoc("block/" + blockName(BlockRegister.bamboo_root)));
-        withExistingParent(blockName(BlockRegister.tofu_block), modLoc("block/" + blockName(BlockRegister.tofu_block)));
+
+        List.of(BlockRegister.bamboo_root,
+                BlockRegister.tofu_block,
+                BlockEntityRegister.drinkro,
+                BlockEntityRegister.jar).forEach(
+                b -> simpleParent(blockName(b))
+        );
+
 
         ArrayList<DeferredHolder<Item, ? extends Item>> itemList = new ArrayList<>();
         itemList.addAll(ItemRegister.DRItems.getEntries());
         // items.remove(ItemRegister.iron_spatula.);
         itemList.addAll(CropRegister.DRBlockItems.getEntries());
+        itemList.add(BlockEntityRegister.mortar_item);
+        itemList.add(BlockEntityRegister.plate_item);
         for (DeferredHolder<Item, ? extends Item> item0 : itemList) {
             if (item0.equals(ItemRegister.iron_spatula))
                 continue;
@@ -76,6 +84,10 @@ public class CuisineItemModelProvider extends ItemModelProvider {
         registerExistingCuisineBlockItem(BlockEntityRegister.fire_pit_item);
         registerExistingCuisineBlockItem(BlockEntityRegister.barbecue_rack_item);
         registerExistingCuisineBlockItem(BlockEntityRegister.wok_on_fire_pit_item);
+    }
+
+    private void simpleParent(String s) {
+        withExistingParent(s, modLoc("block/" + s));
     }
 
     private void registerExistingCuisineBlockItem(DeferredHolder<Item, BlockItem> registryObject) {

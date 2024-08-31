@@ -65,35 +65,35 @@ public class TESRBasic {
 
 
 //		if (ItemBlockRenderTypes.getRenderType(basinBlockEntity.getBlockState(), true) != RenderType.solid())
-        {
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.0625f, still.getU0(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.9375f, still.getU1(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.9375f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.0625f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
-
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.0625f, still.getU0(), still.getV0(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.9375f, still.getU1(), still.getV0(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.9375f, still.getU1(), still.getV1() - vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.0625f, still.getU0(), still.getV1() - vHeight, colorRGB, 1.0f, combinedLight);
-
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.0625f, still.getU0(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.0625f, still.getU1(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.0625f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.0625f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
-
-
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.9375f, still.getU0(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.9375f, still.getU1(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.9375f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.9375f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
-
-
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.0625f, still.getU0(), still.getV0(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.9375f, still.getU1(), still.getV0(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.9375f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
-            addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.0625f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
-
-        }
+//         {
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.0625f, still.getU0(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.9375f, still.getU1(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.9375f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.0625f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.0625f, still.getU0(), still.getV0(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.9375f, still.getU1(), still.getV0(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.9375f, still.getU1(), still.getV1() - vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.0625f, still.getU0(), still.getV1() - vHeight, colorRGB, 1.0f, combinedLight);
+//
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.0625f, still.getU0(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.0625f, still.getU1(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.0625f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.0625f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//
+//
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.9375f, still.getU0(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.9375f, still.getU1(), still.getV0() + vHeight, colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f + height, 0.9375f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f + height, 0.9375f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//
+//
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.0625f, still.getU0(), still.getV0(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.0625f, 0.0625f, 0.9375f, still.getU1(), still.getV0(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.9375f, still.getU1(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//             addVertex(buffer, matrixStackIn, 0.9375f, 0.0625f, 0.0625f, still.getU0(), still.getV1(), colorRGB, 1.0f, combinedLight);
+//
+//         }
         GlStateManager._enableCull();
 
     }
@@ -102,7 +102,7 @@ public class TESRBasic {
         float red = ((RGBA >> 16) & 0xFF) / 255f;
         float green = ((RGBA >> 8) & 0xFF) / 255f;
         float blue = ((RGBA >> 0) & 0xFF) / 255f;
-//		renderer.vertex(stack.last().pose(), x, y, z).color(red, green, blue, alpha).uv(u, v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880)/*.lightmap(0, 240)*/.normal(stack.last().normal(), 0, 1.0F, 0).endVertex();
+        //		renderer.vertex(stack.last().pose(), x, y, z).color(red, green, blue, alpha).uv(u, v).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880)/*.lightmap(0, 240)*/.normal(stack.last().normal(), 0, 1.0F, 0).endVertex();
         int light1 = brightness & '\uffff';
         int light2 = brightness >> 16 & '\uffff';
         renderer.addVertex(stack.last().pose(), x, y, z).setColor(red, green, blue, alpha).setUv(u, v).setUv2(light1, light2).setOverlay(OverlayTexture.NO_OVERLAY).setNormal(stack.last(), 0, 1.0F, 0);

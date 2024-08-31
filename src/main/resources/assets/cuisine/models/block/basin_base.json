@@ -1,7 +1,6 @@
 {
   "credit": "Made by Snownee, remake by jianzoushihu",
-  "loader": "elements",
-  "parent": "block/cube_all",
+  "parent": "block/block",
   "textures": {
     "iron": "block/anvil"
   },

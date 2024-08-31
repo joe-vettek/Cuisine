@@ -2,8 +2,8 @@
 	"credit": "Made by Snownee",
 	"parent": "block/block",
 	"textures": {
-		"material": "minecraft:blocks/terracotta",
-		"particle": "minecraft:blocks/terracotta"
+		"material": "minecraft:block/terracotta",
+		"particle": "minecraft:block/terracotta"
 	},
 	"elements": [
 		{
