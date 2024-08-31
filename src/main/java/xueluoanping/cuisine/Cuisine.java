@@ -72,6 +72,8 @@ public final class Cuisine {
 
         RecipeRegister.DRRecipeSerializer.register(modEventBus);
         RecipeRegister.DRRecipeType.register(modEventBus);
+        RecipeRegister.CONDITION_CODECS.register(modEventBus);
+
 
         GlobalLootModifierRegistry.LOOT_MODIFIERS.register(modEventBus);
         //        config

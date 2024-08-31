@@ -1,14 +1,25 @@
 package xueluoanping.cuisine.craft;
 
 import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.config.General;
 
 import java.lang.reflect.Field;
 
 public class ConfigCondition implements ICondition {
+    public static MapCodec<ConfigCondition> CODEC = RecordCodecBuilder.mapCodec(
+            builder -> builder
+                    .group(
+                            Codec.STRING.fieldOf("config").forGetter(c->c.config))
+                    .apply(builder, ConfigCondition::new));
+
     private static final ResourceLocation NAME = Cuisine.rl("config");
 
     String config = "";
@@ -17,10 +28,7 @@ public class ConfigCondition implements ICondition {
         config = x;
     }
 
-    @Override
-    public ResourceLocation getID() {
-        return NAME;
-    }
+
 
     @Override
     public boolean test(IContext context) {
@@ -28,12 +36,15 @@ public class ConfigCondition implements ICondition {
     }
 
     @Override
-    @SuppressWarnings("removal")
+    public MapCodec<? extends ICondition> codec() {
+        return CODEC;
+    }
+
     public boolean test() {
         try {
             Field field = General.class.getDeclaredField(config);
             field.setAccessible(true);
-            return ((ForgeConfigSpec.BooleanValue) field.get(ForgeConfigSpec.BooleanValue.class)).get();
+            return ((ModConfigSpec.BooleanValue) field.get(ModConfigSpec.BooleanValue.class)).get();
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -46,28 +57,4 @@ public class ConfigCondition implements ICondition {
         return NAME.toString() + ":" + config + ":" + test();
     }
 
-    public static class Serializer implements IConditionSerializer<ConfigCondition> {
-        public static final Serializer INSTANCE = new Serializer();
-
-        @Override
-        public void write(JsonObject json, ConfigCondition value) {
-            json.addProperty("keyName", value.config);
-        }
-
-        @Override
-        public ConfigCondition read(JsonObject json) {
-            Cuisine.logger(json);
-            try {
-                return new ConfigCondition(json.get("keyName").getAsString());
-            } catch (Exception e) {
-                throw new RuntimeException();
-            }
-
-        }
-
-        @Override
-        public ResourceLocation getID() {
-            return ConfigCondition.NAME;
-        }
-    }
 }

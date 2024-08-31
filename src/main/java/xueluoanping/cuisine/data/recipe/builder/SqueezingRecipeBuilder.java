@@ -2,6 +2,8 @@ package xueluoanping.cuisine.data.recipe.builder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -34,15 +36,15 @@ public class SqueezingRecipeBuilder {
     }
 
     public void build(RecipeOutput consumerIn) {
-        String s= "%s_to_%s_%s".formatted(BuiltInRegistries.ITEM.getKey(input.getItems()[0].getItem()),BuiltInRegistries.FLUID.getKey(result.getFluid()),result.getAmount());
+        String s= "%s_to_%s_%s".formatted(BuiltInRegistries.ITEM.getKey(input.getItems()[0].getItem()).getPath(),BuiltInRegistries.FLUID.getKey(result.getFluid()).getPath(),result.getAmount());
         ResourceLocation saveRes = Cuisine.rl(s);
         this.build(consumerIn, saveRes);
     }
 
-    public void build(RecipeOutput consumerIn, ResourceLocation id) {
+    public void build(RecipeOutput recipeOutput, ResourceLocation id) {
         id = Cuisine.rl(id.getNamespace(), "%s/%s".formatted(RecipeRegister.squeezingType.getId().getPath(), id.getPath()));
 
-        consumerIn.accept(id,new BasinSqueezingRecipe("",this.input, this.result),null);
+        recipeOutput.accept(id,new BasinSqueezingRecipe("",this.input, this.result), null);
     }
 
 }

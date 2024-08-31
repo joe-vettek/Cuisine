@@ -136,12 +136,12 @@ public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
 
         @Override
         public MapCodec<BasinSqueezingRecipe> codec() {
-            return null;
+            return codec;
         }
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, BasinSqueezingRecipe> streamCodec() {
-            return null;
+            return streamCodec;
         }
     }
 }

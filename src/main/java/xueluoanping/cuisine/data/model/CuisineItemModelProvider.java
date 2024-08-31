@@ -16,6 +16,7 @@ import xueluoanping.cuisine.register.CropRegister;
 import xueluoanping.cuisine.register.ItemRegister;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class CuisineItemModelProvider extends ItemModelProvider {
@@ -40,18 +41,21 @@ public class CuisineItemModelProvider extends ItemModelProvider {
         itemList.addAll(ItemRegister.DRItems.getEntries());
         // items.remove(ItemRegister.iron_spatula.);
         itemList.addAll(CropRegister.DRBlockItems.getEntries());
-        itemList.forEach(item0 -> {
-            // try {
-            // generate data not need speed
+        for (DeferredHolder<Item, ? extends Item> item0 : itemList) {
             if (item0.equals(ItemRegister.iron_spatula))
-                return;
+                continue;
+            if (item0.equals(ItemRegister.wok))
+                continue;
+            if (item0.equals(ItemRegister.spice_bottle))
+                continue;
+            if (item0.equals(ItemRegister.cubed))
+                continue;
             Item item = item0.get();
             withExistingParent(itemName(item), HANDHELD).texture("layer0", resourceItem(itemName(item)));
-            // } catch (Exception e) {
-            // 	e.printStackTrace();
-            // }
-        });
-        ItemRegister.DRItems.getEntries().forEach(itemRegistryObject -> {
+        }
+
+
+        List.of(ItemRegister.cubed).forEach(itemRegistryObject -> {
             Item item = itemRegistryObject.get();
             withExistingParent(itemName(item), GENERATED).texture("layer0", resourceMaterial(itemName(item)));
         });

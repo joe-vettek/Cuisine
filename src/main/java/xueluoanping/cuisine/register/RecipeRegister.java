@@ -1,20 +1,16 @@
 package xueluoanping.cuisine.register;
 
 
-import net.minecraft.core.Direction;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.RegisterEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
 import xueluoanping.cuisine.craft.ConfigCondition;
@@ -22,40 +18,23 @@ import xueluoanping.cuisine.craft.MillingRecipe;
 
 import static xueluoanping.cuisine.Cuisine.MODID;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class RecipeRegister {
     public static final DeferredRegister<RecipeSerializer<?>> DRRecipeSerializer =
             DeferredRegister.create(Registries.RECIPE_SERIALIZER, MODID);
     public static final DeferredRegister<RecipeType<?>> DRRecipeType =
             DeferredRegister.create(Registries.RECIPE_TYPE, MODID);
-
-
-    @SubscribeEvent // ModBus, can't use addListener due to nested genetics.
-    public static void registerRecipeSerialziers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-        CraftingHelper.register(ConfigCondition.Serializer.INSTANCE);
-
-    }
-
+    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, Cuisine.MODID);
+    public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<ConfigCondition>> CONFIG = CONDITION_CODECS.register("config", () -> ConfigCondition.CODEC);
 
 
     public static final DeferredHolder<RecipeSerializer<?>, BasinSqueezingRecipe.Serializer> squeezingSerializer = DRRecipeSerializer
             .register("squeezing", BasinSqueezingRecipe.Serializer::new);
     public static final DeferredHolder<RecipeType<?>, RecipeType<BasinSqueezingRecipe>> squeezingType =
-            DRRecipeType.register("squeezing", () -> new RecipeType<BasinSqueezingRecipe>() {
-                @Override
-                public String toString() {
-                    return Cuisine.rl("squeezing").toString();
-                }
-            });
+            DRRecipeType.register("squeezing",  ()->RecipeType.simple(Cuisine.rl("squeezing")));
 
     public static final DeferredHolder<RecipeSerializer<?>, MillingRecipe.Serializer> millingSerializer = DRRecipeSerializer
             .register("milling", MillingRecipe.Serializer::new);
     public static final DeferredHolder<RecipeType<?>, RecipeType<MillingRecipe>> millingType =
-            DRRecipeType.register("milling", () -> new RecipeType<MillingRecipe>() {
-                @Override
-                public String toString() {
-                    return Cuisine.rl("milling").toString();
-                }
-            });
+            DRRecipeType.register("milling",  ()->RecipeType.simple(Cuisine.rl("milling")));
 
 }

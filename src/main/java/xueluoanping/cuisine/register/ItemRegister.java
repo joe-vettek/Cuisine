@@ -48,7 +48,7 @@ public class ItemRegister {
     public static final DeferredHolder<Item, Item> iron_spatula = DRItems.register("iron_spatula", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
     public static final DeferredHolder<Item, Item> wok = DRItems.register("wok", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
     public static final DeferredHolder<Item, Item> fan = DRItems.register("fan", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
-    public static final DeferredHolder<Item, Item> mortar_water = DRItems.register("mortar_water", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
+    public static final DeferredHolder<Item, Item> water_mortar = DRItems.register("water_mortar", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
     public static final DeferredHolder<Item, Item> spice_bottle = DRItems.register("spice_bottle", () -> new ModItem(RegisterHelper.basicItem().stacksTo(1)));
 
 

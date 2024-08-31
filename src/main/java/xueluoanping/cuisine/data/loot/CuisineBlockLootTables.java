@@ -15,6 +15,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -59,14 +61,17 @@ public class CuisineBlockLootTables extends BlockLootSubProvider {
             //     continue;
             // }
             add(block, createSingleItemTable(block));
+                Cuisine.logger(block, new ArrayList<>((List) getKnownBlocks()).contains(Blocks.AIR));
         }
     }
 
     @Override
     protected void generate() {
-        Set<Block> blocks = new HashSet<>(BuiltInRegistries.BLOCK.stream()
-                .filter(block -> Cuisine.MODID.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace()))
-                .collect(Collectors.toSet()));
+        Set<Block> blocks = BuiltInRegistries.BLOCK.stream()
+                .filter(block -> Cuisine.MODID.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())).collect(Collectors.toSet())
+                .stream().filter(block -> ! block.getLootTable().equals( BuiltInLootTables.EMPTY))
+                .collect(Collectors.toSet())
+                ;
         blocks.remove(BlockEntityRegister.basin.get());
         blocks.remove(BlockRegister.bamboo_plant.get());
 
