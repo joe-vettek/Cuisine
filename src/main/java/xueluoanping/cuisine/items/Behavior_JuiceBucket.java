@@ -1,7 +1,7 @@
 package xueluoanping.cuisine.items;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DispensibleContainerItem;
@@ -16,8 +16,8 @@ public class Behavior_JuiceBucket extends DefaultDispenseItemBehavior{
 
     public ItemStack execute(BlockSource source, ItemStack stack) {
         DispensibleContainerItem dispensiblecontaineritem = (DispensibleContainerItem) stack.getItem();
-        BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
-        Level level = source.getLevel();
+        BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
+        Level level = source.level();
         if (dispensiblecontaineritem.emptyContents((Player) null, level, blockpos, (BlockHitResult) null)) {
             dispensiblecontaineritem.checkExtraContent((Player) null, level, stack, blockpos);
             return new ItemStack(Items.BUCKET);

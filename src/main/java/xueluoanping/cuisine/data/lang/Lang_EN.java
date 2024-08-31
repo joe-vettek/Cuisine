@@ -1,18 +1,20 @@
 package xueluoanping.cuisine.data.lang;
 
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.*;
 
 import java.util.function.Supplier;
 
 public class Lang_EN extends LangHelper {
-	public Lang_EN(DataGenerator gen, ExistingFileHelper helper) {
+	public Lang_EN(PackOutput gen, ExistingFileHelper helper) {
 		super(gen, helper, Cuisine.MODID, "en_us");
 		Cuisine.logger("hello");
 	}
@@ -26,7 +28,7 @@ public class Lang_EN extends LangHelper {
 	}
 
 	private void addFluid(Supplier<? extends FlowingFluid> key, String name) {
-		String path = key.get().getRegistryName().getPath();
+		String path = BuiltInRegistries.FLUID.getKey(key.get()).getPath();
 		String standard = Cuisine.MODID + "." + path;
 		add("fluid." + standard, name);
 		add("fluid." + standard + "_block", name);
@@ -36,13 +38,12 @@ public class Lang_EN extends LangHelper {
 	@Override
 	protected void addTranslations() {
 		add(Cuisine.MODID, "Cuisine: the memory of food");
-		addItemGroup(Cuisine.CREATIVE_TAB, "Cuisine");
+		addItemGroup(ModContent.CREATIVE_TAB, "Cuisine");
 
 		addBlock(BlockRegister.bamboo_root, "Bamboo Root");
 		addBlock(BlockRegister.bamboo_plant, "Henon bamboo");
 		addBlock(BlockRegister.bamboo, "Henon Bamboo Shoot");
 		addBlock(BlockEntityRegister.fire_pit, "Fire Pit");
-		addBlock(BlockRegister.ditch, "Irrigation Canal");
 		addBlock(BlockEntityRegister.barbecue_rack, "Barbecue Rack");
 		addBlock(BlockEntityRegister.wok_on_fire_pit, "Wok on a Fire Pit");
 		addBlock(BlockEntityRegister.mill, "Mill");
@@ -53,7 +54,7 @@ public class Lang_EN extends LangHelper {
 			addBlock(blockRegistryObject, text);
 		});
 		addHint(() -> BlockEntityRegister.basin.get(), "§4used for：\n§3All pots can be used to crush fruits and vegetables or soak things. Non wooden pots can be heated in a fire pit to obtain coarse salt");
-		addFluid(FluidRegister.juice, "Strange Juice");
+		addFluid(FluidRegister.CUISINE_JUICE, "Strange Juice");
 		add("fluid." + Cuisine.MODID + ".cuisine_juice_with_material", "Juice");
 
 
@@ -89,7 +90,7 @@ public class Lang_EN extends LangHelper {
 		addBlock(CropRegister.eggplant, "Eggplant");
 		addBlock(CropRegister.spinach, "Spinach");
 
-		addItem(IngredientRegister.cubed, "Cube");
+		addItem(ItemRegister.cubed, "Cube");
 
 		addDebugKey(ModConstant.DebugKey.try_place_bamboo, "Try Place Bamboo ");
 	}

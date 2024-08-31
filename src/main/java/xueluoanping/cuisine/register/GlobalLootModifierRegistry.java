@@ -1,22 +1,16 @@
 package xueluoanping.cuisine.register;
 
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.mojang.serialization.MapCodec;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.loot.AddItemModifier;
 import xueluoanping.cuisine.loot.AddLootTableModifier;
 
 public class GlobalLootModifierRegistry {
-    // 别忘了替换MODID哦
-    public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLM =
-            DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, Cuisine.MODID);
+    public static final net.neoforged.neoforge.registries.DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = net.neoforged.neoforge.registries.DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Cuisine.MODID);
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<AddLootTableModifier>> ADD_LOOT_TABLE = LOOT_MODIFIERS.register("add_loot_table", AddLootTableModifier.CODEC);
+    public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<AddItemModifier>> ADD_ITEM = LOOT_MODIFIERS.register("add_item", AddItemModifier.CODEC);
 
-    // GlobalLootModifierSerializer<?>
-    public static final RegistryObject<GlobalLootModifierSerializer> add_loot_table =
-            GLM.register("add_loot_table", AddLootTableModifier.Serializer::new);
-
-    public static final RegistryObject<GlobalLootModifierSerializer> add_item =
-            GLM.register("add_item", AddItemModifier.Serializer::new);
 }

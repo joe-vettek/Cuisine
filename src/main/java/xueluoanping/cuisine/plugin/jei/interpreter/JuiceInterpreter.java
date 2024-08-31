@@ -12,17 +12,17 @@ public class JuiceInterpreter implements IIngredientSubtypeInterpreter<FluidStac
 
 	@Override
 	public String apply(FluidStack stack, UidContext uidContext) {
-		if (!stack.hasTag() ) {
-			return IIngredientSubtypeInterpreter.NONE;
-		}
-//		if (!itemStack.hasTag() || uidContext==UidContext.Recipe) {
-//			return IIngredientSubtypeInterpreter.NONE;
-//		}
-
-		String type = stack.getOrCreateTag().getString("source");
-//		Cuisine.logger(type);
-		StringBuilder stringBuilder = new StringBuilder(type);
-		return stringBuilder.toString();
+// 		if (!stack.hasTag() ) {
+// 			return IIngredientSubtypeInterpreter.NONE;
+// 		}
+// //		if (!itemStack.hasTag() || uidContext==UidContext.Recipe) {
+// //			return IIngredientSubtypeInterpreter.NONE;
+// //		}
+//
+// 		String type = stack.getOrCreateTag().getString("source");
+// //		Cuisine.logger(type);
+// 		StringBuilder stringBuilder = new StringBuilder(type);
+		return stack.toString();
 	}
 
 }

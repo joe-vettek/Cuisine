@@ -3,14 +3,12 @@ package xueluoanping.cuisine.register;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
@@ -20,7 +18,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.fluids.TeaFluidType;
-import xueluoanping.cuisine.fluids.VaporizableFluid;
 
 public class FluidRegister {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, Cuisine.MODID);
@@ -37,15 +34,15 @@ public class FluidRegister {
     //	0xAARRGGBB
     private static final int DEFAULT_COLOR = 0xCCF08A19;
 
-    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> juice = FLUIDS.register("cuisine_juice", () -> new BaseFlowingFluid.Source(FluidRegister.juice_flowing_PROPERTIES));
-    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> juice_flowing = FLUIDS.register("cuisine_juice_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.juice_flowing_PROPERTIES));
-    public static final DeferredHolder<Item, BucketItem> juice_BUCKET = ITEMS.register("cuisine_juice_bucket", () -> new BucketItem(FluidRegister.juice.get(), BUCKET_PROPERTIES));
-    public static final DeferredHolder<Block, LiquidBlock> juice_block = BLOCKS.register("cuisine_juice", () -> new LiquidBlock(FluidRegister.juice.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
-    public static final DeferredHolder<FluidType, TeaFluidType> juice_TYPE = FLUID_TYPES.register("cuisine_juice", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
-    public static final BaseFlowingFluid.Properties juice_flowing_PROPERTIES = new BaseFlowingFluid.Properties(
-            juice_TYPE, juice, juice_flowing)
-            .bucket(juice_BUCKET)
-            .block(FluidRegister.juice_block)
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Source> CUISINE_JUICE = FLUIDS.register("cuisine_juice", () -> new BaseFlowingFluid.Source(FluidRegister.JUICE_FLOWING_PROPERTIES));
+    public static final DeferredHolder<Fluid, BaseFlowingFluid.Flowing> CUISINE_JUICE_FLOWING = FLUIDS.register("cuisine_juice_flowing", () -> new BaseFlowingFluid.Flowing(FluidRegister.JUICE_FLOWING_PROPERTIES));
+    public static final DeferredHolder<Item, BucketItem> JUICE_BUCKET = ITEMS.register("cuisine_juice_bucket", () -> new BucketItem(FluidRegister.CUISINE_JUICE.get(), BUCKET_PROPERTIES));
+    public static final DeferredHolder<Block, LiquidBlock> JUICE_BLOCK = BLOCKS.register("cuisine_juice", () -> new LiquidBlock(FluidRegister.CUISINE_JUICE.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)));
+    public static final DeferredHolder<FluidType, TeaFluidType> JUICE_TYPE = FLUID_TYPES.register("cuisine_juice", () -> new TeaFluidType(FluidType.Properties.create().temperature(100)).color(0xFF4989E3));
+    public static final BaseFlowingFluid.Properties JUICE_FLOWING_PROPERTIES = new BaseFlowingFluid.Properties(
+            JUICE_TYPE, CUISINE_JUICE, CUISINE_JUICE_FLOWING)
+            .bucket(JUICE_BUCKET)
+            .block(FluidRegister.JUICE_BLOCK)
             .explosionResistance(100F);
 
 

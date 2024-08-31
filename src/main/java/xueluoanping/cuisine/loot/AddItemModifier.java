@@ -1,23 +1,31 @@
 package xueluoanping.cuisine.loot;
 
-import com.google.gson.JsonObject;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.function.Supplier;
 
+public class AddItemModifier extends LootModifier {
+    public static final Supplier<MapCodec<AddItemModifier>> CODEC = Suppliers.memoize(() ->
+            RecordCodecBuilder.mapCodec(inst -> codecStart(inst).and(
+                            inst.group(
+                                    BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter((m) -> m.addedItem),
+                                    Codec.INT.optionalFieldOf("count", 1).forGetter((m) -> m.count)
+                            )
+                    )
+                    .apply(inst, AddItemModifier::new)));
 
-// Thanks to FarmDelight
-public class AddItemModifier extends LootModifier
-{
     private final Item addedItem;
     private final int count;
 
@@ -32,41 +40,30 @@ public class AddItemModifier extends LootModifier
 
     @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        ItemStack addedStack = new ItemStack(addedItem, count);
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+        // if (ServerConfig.Agriculture.dropRiceGrains.get())
+        {
+            ItemStack addedStack = new ItemStack(addedItem, count);
 
-        if (addedStack.getCount() < addedStack.getMaxStackSize()) {
-            generatedLoot.add(addedStack);
-        } else {
-            int i = addedStack.getCount();
+            if (addedStack.getCount() < addedStack.getMaxStackSize()) {
+                generatedLoot.add(addedStack);
+            } else {
+                int i = addedStack.getCount();
 
-            while (i > 0) {
-                ItemStack subStack = addedStack.copy();
-                subStack.setCount(Math.min(addedStack.getMaxStackSize(), i));
-                i -= subStack.getCount();
-                generatedLoot.add(subStack);
+                while (i > 0) {
+                    ItemStack subStack = addedStack.copy();
+                    subStack.setCount(Math.min(addedStack.getMaxStackSize(), i));
+                    i -= subStack.getCount();
+                    generatedLoot.add(subStack);
+                }
             }
         }
 
         return generatedLoot;
     }
 
-    public static class Serializer extends GlobalLootModifierSerializer<AddItemModifier>
-    {
-        @Override
-        public AddItemModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
-            Item addedItem = ForgeRegistries.ITEMS.getValue(new ResourceLocation((GsonHelper.getAsString(object, "item"))));
-            int count = GsonHelper.getAsInt(object, "count", 1);
-            return new AddItemModifier(ailootcondition, addedItem, count);
-        }
-
-        @Override
-        public JsonObject write(AddItemModifier instance) {
-            JsonObject object = this.makeConditions(instance.conditions);
-            object.addProperty("item", instance.addedItem.getRegistryName().toString());
-            object.addProperty("count", instance.count);
-            return object;
-            // return new JsonObject();
-        }
+    @Override
+    public MapCodec<? extends IGlobalLootModifier> codec() {
+        return CODEC.get();
     }
 }

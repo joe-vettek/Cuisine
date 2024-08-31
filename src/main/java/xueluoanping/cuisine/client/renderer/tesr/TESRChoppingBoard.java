@@ -23,7 +23,7 @@ public class TESRChoppingBoard implements BlockEntityRenderer<ChoppingBoardBlock
 		ItemStack stack = Blocks.OAK_LOG.asItem().getDefaultInstance();
 		matrixStackIn.translate(0.1f,0,0.1f);
 		matrixStackIn.scale(0.8f, 0.4f, 0.8f);
-		TESRBasinBase.drawBasin(stack, combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
+		TESRBasinBase.drawBasin(stack, combinedLight, combinedOverlay, matrixStackIn, bufferIn, choppingBoardBlockEntity.getLevel(), posLong);
 		matrixStackIn.popPose();
 	}
 

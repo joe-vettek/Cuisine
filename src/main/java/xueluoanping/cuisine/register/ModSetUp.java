@@ -43,7 +43,7 @@ public class ModSetUp {
 
     private static void registerDispenserBehavior(FMLCommonSetupEvent event) {
         Cuisine.logger("Register Dispenser Behavior");
-        DispenserBlock.registerBehavior(FluidRegister.juice_bucket.get(), new Behavior_JuiceBucket());
+        DispenserBlock.registerBehavior(FluidRegister.JUICE_BUCKET.get(), new Behavior_JuiceBucket());
         DispenserBlock.registerBehavior(ItemRegister.wooden_arm.get(), new BehaviorArmDispense());
 
     }
@@ -60,23 +60,23 @@ public class ModSetUp {
         });
         ComposterBlock.COMPOSTABLES.put(CropRegister.chili_item.get(), 0.7f);
 
-        WorkAtComposter.COMPOSTABLE_ITEMS = new ArrayList<>(WorkAtComposter.COMPOSTABLE_ITEMS);
-        CropRegister.getAllCrops().forEach(itemRegistryObject -> {
-            WorkAtComposter.COMPOSTABLE_ITEMS.add(itemRegistryObject.get());
-        });
+        // WorkAtComposter.COMPOSTABLE_ITEMS = new ArrayList<>(WorkAtComposter.COMPOSTABLE_ITEMS);
+        // CropRegister.getAllCrops().forEach(itemRegistryObject -> {
+        //     WorkAtComposter.COMPOSTABLE_ITEMS.add(itemRegistryObject.get());
+        // });
     }
 
     public static void registerCustomVillagerNeed( FMLCommonSetupEvent event) {
         Cuisine.logger("Register CustomVillagerNeed");
         // HarvestFarmland 帮忙种地的逻辑是itemstack.getItem() instanceof net.minecraftforge.common.IPlantable
-        event.enqueueWork(() -> {
-            Villager.FOOD_POINTS = new HashMap<>(Villager.FOOD_POINTS);
-            Villager.WANTED_ITEMS = new HashSet<>(Villager.WANTED_ITEMS);
-            CropRegister.getAllCrops().forEach(itemRegistryObject -> {
-                Villager.FOOD_POINTS.put(itemRegistryObject.get(), 2);
-                Villager.WANTED_ITEMS.add(itemRegistryObject.get());
-            });
-        });
+        // event.enqueueWork(() -> {
+        //     Villager.FOOD_POINTS = new HashMap<>(Villager.FOOD_POINTS);
+        //     Villager.WANTED_ITEMS = new HashSet<>(Villager.WANTED_ITEMS);
+        //     CropRegister.getAllCrops().forEach(itemRegistryObject -> {
+        //         Villager.FOOD_POINTS.put(itemRegistryObject.get(), 2);
+        //         Villager.WANTED_ITEMS.add(itemRegistryObject.get());
+        //     });
+        // });
 
 
     }

@@ -2,33 +2,21 @@ package xueluoanping.cuisine.worldgen.crop;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.TallGrassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.minecraft.world.level.levelgen.feature.NetherForestVegetationFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.ProbabilityFeatureConfiguration;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.common.PlantType;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.nature.BlockCuisineCrops;
 import xueluoanping.cuisine.block.nature.BlockDoubleCrops;
@@ -36,7 +24,6 @@ import xueluoanping.cuisine.register.CropRegister;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class CropFarmlandFeature extends Feature<NoneFeatureConfiguration> {
 
@@ -48,11 +35,11 @@ public class CropFarmlandFeature extends Feature<NoneFeatureConfiguration> {
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         int i = 0;
         // if(true)   return false;
-        long a=System.currentTimeMillis();
+        long a = System.currentTimeMillis();
 
         BlockPos baseBlockPos = context.origin();
         WorldGenLevel level = context.level();
-        Random random = context.random();
+        var random = context.random();
         // ProbabilityFeatureConfiguration probabilityfeatureconfiguration = context.config();
         BlockPos.MutableBlockPos mutableBlockPos = baseBlockPos.mutable();
 
@@ -61,7 +48,7 @@ public class CropFarmlandFeature extends Feature<NoneFeatureConfiguration> {
         int baseType = getCropType(level, baseBlockPos);
         BlockPos tryGenerateRootPos = baseBlockPos;
         if (baseType > 0) {
-            ArrayList<RegistryObject<Item>> wildCropList = CropRegister.getWildCrops();
+            var wildCropList = CropRegister.getWildCrops();
             wildCropList.remove(CropRegister.rice_item);
             crop = baseType == 1 ?
                     CropRegister.rice.get() : Block.byItem(wildCropList.get(random.nextInt(wildCropList.size())).get());
@@ -74,9 +61,9 @@ public class CropFarmlandFeature extends Feature<NoneFeatureConfiguration> {
 
             if (baseType == 3) {
 
-                int height = (level.getBiome(baseBlockPos).is(new ResourceLocation("soul_sand_valley"))) ?
+                int height = (level.getBiome(baseBlockPos).is(ResourceLocation.withDefaultNamespace("soul_sand_valley"))) ?
                         level.dimensionType().height() : 31;
-                for (int j =height-1; j>0; j--) {
+                for (int j = height - 1; j > 0; j--) {
                     tryGenerateRootPos = tryGenerateRootPos.below();
                     if (j < 5)
                         return false;
@@ -121,9 +108,9 @@ public class CropFarmlandFeature extends Feature<NoneFeatureConfiguration> {
             }
         }
         Cuisine.logger("CropFarmland Try Place in" + level.getBlockState(tryGenerateRootPos.below()), tryGenerateRootPos);
-        Cuisine.logger("尝试放置农作物"+ (i > 0)+ "，种类为" + baseType+""+ crop+ "，次数为" + i);
+        Cuisine.logger("尝试放置农作物" + (i > 0) + "，种类为" + baseType + "" + crop + "，次数为" + i);
 
-        Cuisine.logger(System.currentTimeMillis()-a+"ms");
+        Cuisine.logger(System.currentTimeMillis() - a + "ms");
         return i > 0;
     }
 

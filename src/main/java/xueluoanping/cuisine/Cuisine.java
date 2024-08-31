@@ -24,17 +24,7 @@ public final class Cuisine {
     public static final String NAME = "Cuisine Inherited";
 
     public static Logger LOGGER = LogManager.getLogger(Cuisine.NAME);
-    public static final CreativeModeTab CREATIVE_TAB = new CreativeModeTab("cuisine") {
-        @Override
-        public ItemStack makeIcon() {
-            return ItemRegister.kitchen_knife.get().getDefaultInstance();
-        }
 
-        @Override
-        public void fillItemList(NonNullList<ItemStack> itemStackNonNullList) {
-            super.fillItemList(itemStackNonNullList);
-        }
-    };
     private static boolean DebugMode = false;
 
     // 开发环境未读取config之前可能用不了
@@ -58,7 +48,6 @@ public final class Cuisine {
         });
 
         ItemRegister.DRItems.register(modEventBus);
-        IngredientRegister.DRItems.register(modEventBus);
 
         BlockRegister.DRBlocks.register(modEventBus);
         BlockRegister.DRBlockItems.register(modEventBus);
@@ -84,7 +73,7 @@ public final class Cuisine {
         RecipeRegister.DRRecipeSerializer.register(modEventBus);
         RecipeRegister.DRRecipeType.register(modEventBus);
 
-        GlobalLootModifierRegistry.GLM.register(modEventBus);
+        GlobalLootModifierRegistry.LOOT_MODIFIERS.register(modEventBus);
         //        config
         modContainer.registerConfig(ModConfig.Type.COMMON, General.COMMON_CONFIG);
         if (Platform.isPhysicalClient())
@@ -97,5 +86,7 @@ public final class Cuisine {
     public static ResourceLocation rl(String path) {
         return ResourceLocation.fromNamespaceAndPath(Cuisine.MODID, path);
     }
-
+    public static ResourceLocation rl(String modid,String path) {
+        return ResourceLocation.fromNamespaceAndPath(modid, path);
+    }
 }

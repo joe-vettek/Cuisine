@@ -1,13 +1,17 @@
 package xueluoanping.cuisine.client.renderer.tesr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomModelData;
+import org.joml.Quaternionf;
 import xueluoanping.cuisine.blockentity.MillBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
@@ -25,14 +29,17 @@ public class TESRMill implements BlockEntityRenderer<MillBlockEntity> {
 //        matrixStackIn.translate(-0.5,0,-0.5);
 
         ItemStack stack = new ItemStack(BlockEntityRegister.mill.get());
-        stack.getOrCreateTag().putFloat("CustomModelData", 1);
-        Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
+        stack.set(DataComponents.CUSTOM_MODEL_DATA,new CustomModelData(1));
+        // stack.getOrCreateTag().putFloat("CustomModelData", 1);
+        Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE, combinedLight, combinedOverlay, matrixStackIn, bufferIn,millBlockEntity.getLevel(), posLong);
 
         ItemStack stack2 = new ItemStack(BlockEntityRegister.mill.get());
-        stack2.getOrCreateTag().putFloat("CustomModelData", 2);
+        // stack2.getOrCreateTag().putFloat("CustomModelData", 2);
+        stack2.set(DataComponents.CUSTOM_MODEL_DATA,new CustomModelData(2));
 
-        matrixStackIn.mulPose(new Quaternion(0, millBlockEntity.getProgress(), 0, true));
-        Minecraft.getInstance().getItemRenderer().renderStatic(stack2, ItemTransforms.TransformType.NONE, combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
+
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(millBlockEntity.getProgress()));
+        Minecraft.getInstance().getItemRenderer().renderStatic(stack2, ItemDisplayContext.NONE, combinedLight, combinedOverlay, matrixStackIn, bufferIn, millBlockEntity.getLevel(), posLong);
 //        Minecraft.getInstance().getEntityRenderDispatcher().re
 
         matrixStackIn.popPose();

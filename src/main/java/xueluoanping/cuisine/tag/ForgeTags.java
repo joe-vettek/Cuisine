@@ -44,11 +44,11 @@ public class ForgeTags
 	public static final TagKey<Item> COAL_COKE = forgeItemTag("coal_coke");
 
     private static TagKey<Block> forgeBlockTag(String path) {
-        return TagKey.create(Registries.BLOCK,  ResourceLocation.fromNamespaceAndPath("forge", path));
+        return TagKey.create(Registries.BLOCK,  ResourceLocation.fromNamespaceAndPath("c", path));
     }
 
     private static TagKey<Item> forgeItemTag(String path) {
-        return TagKey.create(Registries.ITEM,  ResourceLocation.fromNamespaceAndPath("forge", path));
+        return TagKey.create(Registries.ITEM,  ResourceLocation.fromNamespaceAndPath("c", path));
     }
 
 }

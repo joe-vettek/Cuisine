@@ -5,8 +5,14 @@ import com.google.gson.JsonObject;
 
 import com.google.gson.JsonParseException;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -17,23 +23,27 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.RecipeRegister;
 
+import java.util.Optional;
+
 public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
-    private final ResourceLocation id;
     private final String group;
     private final Ingredient input;
     private final FluidStack result;
 
-
-    public BasinSqueezingRecipe(ResourceLocation resourceLocation, String group, Ingredient input, FluidStack result) {
-        this.id = resourceLocation;
+    public BasinSqueezingRecipe(String group, Ingredient input, FluidStack result) {
         this.group = group;
         this.input = input;
         this.result = result;
+    }
+
+    public BasinSqueezingRecipe(String group, Ingredient input, SizedFluidIngredient result) {
+        this(group, input, result.getFluids()[0]);
     }
 
     @Override
@@ -67,6 +77,11 @@ public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
         return input.test(wrapper.getItem(0));
     }
 
+    @Override
+    public ItemStack assemble(RecipeWrapper pInput, HolderLookup.Provider pRegistries) {
+        return ItemStack.EMPTY;
+    }
+
 
     @Override
     public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
@@ -74,19 +89,10 @@ public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper wrapper) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public ItemStack getResultItem() {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
@@ -98,62 +104,44 @@ public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
         return RecipeRegister.squeezingType.get();
     }
 
-    private static NonNullList<Ingredient> readIngredients(JsonArray ingredientArray) {
-        NonNullList<Ingredient> nonnulllist = NonNullList.create();
-        for (int i = 0; i < ingredientArray.size(); ++i) {
-            Ingredient ingredient = Ingredient.fromJson(ingredientArray.get(i));
-            if (!ingredient.isEmpty()) {
-                nonnulllist.add(ingredient);
-            }
-        }
-        return nonnulllist;
-    }
 
     public static class Serializer implements RecipeSerializer<BasinSqueezingRecipe> {
 
+        public static final MapCodec<BasinSqueezingRecipe> codec = RecordCodecBuilder.mapCodec(
+                recipeInstance -> recipeInstance.group(
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+                                Ingredient.CODEC_NONEMPTY.fieldOf("ingredients").forGetter(r -> r.input),
+                                SizedFluidIngredient.FLAT_CODEC.fieldOf("result").forGetter(r -> SizedFluidIngredient.of(r.result))
+                        )
+                        .apply(recipeInstance, BasinSqueezingRecipe::new)
+        );
 
-        @Override
-        public BasinSqueezingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            final String groupIn = GsonHelper.getAsString(json, "group", "");
-            final NonNullList<Ingredient> inputItemsIn = readIngredients(GsonHelper.getAsJsonArray(json, "ingredients"));
-            Cuisine.logger(Cuisine.MODID + "Load Recipe");
-            if (inputItemsIn.isEmpty()) {
-                throw new JsonParseException("No ingredients for cutting recipe");
-            } else if (inputItemsIn.size() > 1) {
-                throw new JsonParseException("Too many ingredients for cutting recipe! Please define only one ingredient");
-            } else {
-                String[] fluidString = json.get("result").getAsJsonArray()
-                        .get(0).getAsJsonObject()
-                        .get("fluid").getAsJsonObject().get("id").getAsString().split(":");
-                int fluidAmount = json.get("result").getAsJsonArray()
-                        .get(0).getAsJsonObject()
-                        .get("fluid").getAsJsonObject()
-                        .get("amount").getAsInt();
-                FluidStack fluid =
-                        new FluidStack(ForgeRegistries.FLUIDS.getValue(new ResourceLocation(fluidString[0], fluidString[1]))
-                                , fluidAmount);
-                fluid.getOrCreateTag().putString("source", inputItemsIn.get(0).getItems()[0].getItem().getRegistryName().toString());
-//				Cuisine.logger(fluid.getDisplayName());
-                return new BasinSqueezingRecipe(recipeId, groupIn, inputItemsIn.get(0), fluid);
+        public static final StreamCodec<RegistryFriendlyByteBuf, BasinSqueezingRecipe> streamCodec =
+                StreamCodec.of(BasinSqueezingRecipe.Serializer::toNetwork, BasinSqueezingRecipe.Serializer::fromNetwork);
 
-            }
-        }
 
-        @Nullable
-        @Override
-        public BasinSqueezingRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public static BasinSqueezingRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             String groupIn = buffer.readUtf(32767);
-            Ingredient ingredient = Ingredient.fromNetwork(buffer);
-            FluidStack fluidStack = buffer.readFluidStack();
-            Cuisine.logger(Cuisine.MODID + "" + ingredient.toJson().toString());
-            return new BasinSqueezingRecipe(recipeId, groupIn, ingredient, fluidStack);
+            Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            var fluidStack = SizedFluidIngredient.STREAM_CODEC.decode(buffer);
+            return new BasinSqueezingRecipe(groupIn, ingredient, fluidStack);
+        }
+
+
+        public static void toNetwork(RegistryFriendlyByteBuf buffer, BasinSqueezingRecipe recipe) {
+            buffer.writeUtf(recipe.group);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.input);
+            SizedFluidIngredient.STREAM_CODEC.encode(buffer, SizedFluidIngredient.of(recipe.result));
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buffer, BasinSqueezingRecipe recipe) {
-            buffer.writeUtf(recipe.group);
-            recipe.input.toNetwork(buffer);
-            buffer.writeFluidStack(recipe.result);
+        public MapCodec<BasinSqueezingRecipe> codec() {
+            return null;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, BasinSqueezingRecipe> streamCodec() {
+            return null;
         }
     }
 }

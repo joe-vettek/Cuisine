@@ -1,23 +1,34 @@
 package xueluoanping.cuisine.data.tag;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.register.CropRegister;
 import xueluoanping.cuisine.register.ItemRegister;
 import xueluoanping.cuisine.tag.ForgeTags;
 
+import java.util.concurrent.CompletableFuture;
+
 public class CuisineItemTagsProvider extends ItemTagsProvider {
-    public CuisineItemTagsProvider(DataGenerator generator, BlockTagsProvider blockTagsProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generator, blockTagsProvider, modId, existingFileHelper);
+
+    public CuisineItemTagsProvider(
+            PackOutput packOutput, CompletableFuture<HolderLookup.Provider> providerCompletableFuture, CompletableFuture<TagsProvider.TagLookup<Block>> tagLookupCompletableFuture,
+            String modid, ExistingFileHelper existingFileHelper
+    ) {
+        super(packOutput, providerCompletableFuture, tagLookupCompletableFuture, modid, existingFileHelper);
     }
 
+
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider pProvider) {
         this.registerForgeTags();
     }
 
@@ -81,4 +92,6 @@ public class CuisineItemTagsProvider extends ItemTagsProvider {
         tag(ForgeTags.GRAIN_RICE).add(CropRegister.rice_item.get());
         tag(ForgeTags.CROPS_RICE).add(CropRegister.rice_item.get());
     }
+
+
 }

@@ -13,11 +13,12 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.BambooBlock;
 import net.minecraft.world.level.block.BambooSaplingBlock;
+import net.minecraft.world.level.block.BambooStalkBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -46,7 +47,7 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
         int i = 0;
         BlockPos baseBlockPos = context.origin();
         WorldGenLevel level = context.level();
-        Random random = context.random();
+        var random = context.random();
         ProbabilityFeatureConfiguration probabilityfeatureconfiguration = context.config();
         BlockPos.MutableBlockPos mutableBlockPos = baseBlockPos.mutable();
         BlockPos.MutableBlockPos mutableBlockPos1 = baseBlockPos.mutable();
@@ -75,7 +76,7 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
                             growBamboo(level, tryGenerateRootPos.mutable(), h, getRandomLowestBranchHeight(random, h));
                             ++i;
                             if(random.nextInt(3)==0)
-                            level.addFreshEntity(EntityType.PANDA.create(level.getLevel(), null, null, null, tryGenerateRootPos.east(), MobSpawnType.SPAWNER, false, false));
+                            level.addFreshEntity(EntityType.PANDA.create(level.getLevel(), t->{}, tryGenerateRootPos.east(), MobSpawnType.SPAWNER, false, false));
                         }
                 }
 
@@ -85,18 +86,18 @@ public class SimpleBambooFeature extends Feature<ProbabilityFeatureConfiguration
         return i > 0;
     }
 
-    public static int getRandomBambooHeight(Random random) {
+    public static int getRandomBambooHeight(RandomSource random) {
         return 7 + random.nextInt(8);
     }
 
-    public static int getRandomLowestBranchHeight(Random random, int height) {
+    public static int getRandomLowestBranchHeight(RandomSource random, int height) {
         return Mth.clamp(5 + random.nextInt(4), 5, height);
     }
 
     public static boolean checkIfBambooCanGrow(WorldGenLevel level, BlockPos.MutableBlockPos pos, int height) {
         if (level.getBlockState(pos).getBlock() instanceof BlockBambooPlant ||
                 level.getBlockState(pos).getBlock() instanceof BambooSaplingBlock
-                || level.getBlockState(pos).getBlock() instanceof BambooBlock) return false;
+                || level.getBlockState(pos).getBlock() instanceof BambooStalkBlock) return false;
         for (int i = 0; i < height; i++) {
             if (!level.isEmptyBlock(pos.move(Direction.UP, 1)))
                 return false;

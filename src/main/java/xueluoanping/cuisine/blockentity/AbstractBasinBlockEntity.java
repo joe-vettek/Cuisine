@@ -136,19 +136,8 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
 	}
 
-
-	@NotNull
-	@Override
-	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @org.jetbrains.annotations.Nullable Direction side) {
-		if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return inputHandler.cast();
-		}
-		if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			inventoryChanged();
-			return tankHandler.cast();
-		}
-
-		return super.getCapability(cap, side);
+	public FluidTank getTank() {
+		return tank;
 	}
 
 	public boolean processSqueezing(Level worldIn) {

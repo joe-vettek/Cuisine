@@ -39,7 +39,7 @@ public class TESRBasinColored implements BlockEntityRenderer<BasinColorBlockEnti
 		}
 		matrixStackIn.pushPose();
 		ItemStack stack = basinBlockEntity.getBlockState().getBlock().asItem().getDefaultInstance();
-		TESRBasinBase.drawBasin(stack,combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
+		TESRBasinBase.drawBasin(stack,combinedLight, combinedOverlay, matrixStackIn, bufferIn, basinBlockEntity.getLevel(), posLong);
 		matrixStackIn.popPose();
 
 		// int posLong = (int) basinBlockEntity.getBlockPos().asLong();

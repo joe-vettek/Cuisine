@@ -7,11 +7,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
 import xueluoanping.cuisine.register.FluidRegister;
 import xueluoanping.cuisine.register.RecipeRegister;
 import xueluoanping.cuisine.util.SimpleMathUtil;
@@ -19,11 +18,10 @@ import xueluoanping.cuisine.util.SimpleMathUtil;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME,value = Dist.CLIENT)
 public class DataListenerClient {
 	private static final Map<Item, Color> FluidColorsMap =new HashMap<>();
 
@@ -31,11 +29,11 @@ public class DataListenerClient {
 	public static void checkRecipes(RecipesUpdatedEvent event)
 	{
 
-		List<BasinSqueezingRecipe> recipeList = event.getRecipeManager().getAllRecipesFor(RecipeRegister.squeezingType.get());
+		var recipeList = event.getRecipeManager().getAllRecipesFor(RecipeRegister.squeezingType.get());
 		recipeList.forEach((recipe)->{
-			if(recipe.getResult().get(0).getFluid()== FluidRegister.juice.get())
+			if(recipe.value().getResult().get(0).getFluid()== FluidRegister.CUISINE_JUICE.get())
 			{
-				Item item =recipe.getIngredients().get(0).getItems()[0].getItem();
+				Item item = recipe.value().getIngredients().get(0).getItems()[0].getItem();
 				Minecraft mc = Minecraft.getInstance();
 				Color c = Color.WHITE;
 				try {
@@ -46,8 +44,8 @@ public class DataListenerClient {
 						ArrayList<Integer> rlist = new ArrayList<Integer>();
 						ArrayList<Integer> glist = new ArrayList<Integer>();
 						ArrayList<Integer> blist = new ArrayList<Integer>();
-						for (int i = 0; i < texture.getWidth(); i++) {
-							for (int j = 0; j < texture.getHeight(); j++) {
+						for (int i = 0; i < texture.getX(); i++) {
+							for (int j = 0; j < texture.getY(); j++) {
 								int color = texture.getPixelRGBA(0, i, j);
 								int r = color & 0xff;
 								int g = (color >> 8) & 0xff;
@@ -69,8 +67,8 @@ public class DataListenerClient {
 						ArrayList<Integer> rlist = new ArrayList<Integer>();
 						ArrayList<Integer> glist = new ArrayList<Integer>();
 						ArrayList<Integer> blist = new ArrayList<Integer>();
-						for (int i = 0; i < texture.getWidth(); i++) {
-							for (int j = 0; j < texture.getHeight(); j++) {
+						for (int i = 0; i < texture.getX(); i++) {
+							for (int j = 0; j < texture.getY(); j++) {
 								int color = texture.getPixelRGBA(0, i, j);
 								int r = color & 0xff;
 								int g = (color >> 8) & 0xff;

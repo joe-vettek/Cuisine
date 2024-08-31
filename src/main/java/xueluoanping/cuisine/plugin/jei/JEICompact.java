@@ -2,14 +2,14 @@ package xueluoanping.cuisine.plugin.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
 import xueluoanping.cuisine.plugin.jei.category.SqueezingCategory;
-import xueluoanping.cuisine.plugin.jei.interpreter.BasinInterpreter;
 import xueluoanping.cuisine.plugin.jei.interpreter.JuiceInterpreter;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.register.FluidRegister;
@@ -32,15 +31,16 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static xueluoanping.cuisine.Cuisine.MODID;
-
 
 @JeiPlugin
 public class JEICompact implements IModPlugin {
-	public static final ResourceLocation VANILLA_RECIPE_GUI = new ResourceLocation("jei", "textures/gui/gui_vanilla.png");
-	public static final ResourceLocation CUISINE_RECIPE_GUI = new ResourceLocation(Cuisine.MODID, "textures/gui/jei.png");
-	public static final ResourceLocation main = new ResourceLocation("kiwi", "retexture");
-	public static final ResourceLocation UID = new ResourceLocation(MODID, "jei_plugin");
+	public static final ResourceLocation VANILLA_RECIPE_GUI =  ResourceLocation.fromNamespaceAndPath("jei", "textures/gui/gui_vanilla.png");
+	public static final ResourceLocation CUISINE_RECIPE_GUI = Cuisine.rl(  "textures/gui/jei.png");
+	public static final ResourceLocation UID = Cuisine.rl( "jei_plugin");
+
+	public static final ResourceLocation SQUEEZING = Cuisine.rl("squeezing");
+	public static final mezz.jei.api.recipe.RecipeType<BasinSqueezingRecipe> SQUEEZING_RECIPE_RECIPE_TYPE = getType(SQUEEZING, BasinSqueezingRecipe.class);
+
 	@Nullable
 	private SqueezingCategory squeezingCategory;
 
@@ -51,26 +51,26 @@ public class JEICompact implements IModPlugin {
 		return UID;
 	}
 
-	public mezz.jei.api.recipe.RecipeType<BasinSqueezingRecipe> squeezingType = new mezz.jei.api.recipe.RecipeType<>(SqueezingCategory.UID, BasinSqueezingRecipe.class);
 
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistration registration) {
 		logger.info("Hello" + "registerItemSubtypes");
 		//        registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, ModContents.itemBasin, BasinInterpreter.INSTANCE);
 		// registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, BlockEntityRegister.fire_pit.get(), BasinInterpreter.INSTANCE);
-		registration.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, FluidRegister.juice.get(), JuiceInterpreter.INSTANCE);
+		registration.registerSubtypeInterpreter(NeoForgeTypes.FLUID_STACK, FluidRegister.CUISINE_JUICE.get(), JuiceInterpreter.INSTANCE);
 	}
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
 		assert Minecraft.getInstance().level != null;
 		RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-		List<CraftingRecipe> unhandledCraftingRecipes = manager.getAllRecipesFor(RecipeType.CRAFTING);
+		var unhandledCraftingRecipes = manager.getAllRecipesFor(RecipeType.CRAFTING);
 		List<CraftingRecipe> specialCraftingRecipes = replaceSpecialCraftingRecipes(unhandledCraftingRecipes);
 		//		logger.info(MODID +"test the length"+ specialCraftingRecipes.size());
 		//		registration.addRecipes(specialCraftingRecipes, VanillaRecipeCategoryUid.CRAFTING);
-		registration.addRecipes(squeezingType,
-				manager.getAllRecipesFor(RecipeRegister.squeezingType.get()));
+		registration.addRecipes(SQUEEZING_RECIPE_RECIPE_TYPE,
+				manager.getAllRecipesFor(RecipeRegister.squeezingType.get()).stream()
+						.map(v->v.value()).toList());
 	}
 
 	/**
@@ -80,11 +80,12 @@ public class JEICompact implements IModPlugin {
 	 * If a special recipe we know how to replace is not present (because it has been removed),
 	 * we do not replace it.
 	 */
-	private static List<CraftingRecipe> replaceSpecialCraftingRecipes(List<CraftingRecipe> validRecipes) {
+	private static List<CraftingRecipe> replaceSpecialCraftingRecipes(List<RecipeHolder<CraftingRecipe>> validRecipes) {
 		Map<Class<? extends CraftingRecipe>, Supplier<Stream<CraftingRecipe>>> replacers = new IdentityHashMap<>();
 		//		replacers.put(RetextureRecipe.class, basinRetextureMaker::createRecipes);
 
 		return validRecipes.parallelStream()
+				.map(v->v.value())
 				.map(CraftingRecipe::getClass)
 				.distinct()
 				.filter(replacers::containsKey)
@@ -106,9 +107,9 @@ public class JEICompact implements IModPlugin {
 
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-		registration.addRecipeCatalyst(BlockEntityRegister.basin_item.get().getDefaultInstance(), squeezingType);
+		registration.addRecipeCatalyst(BlockEntityRegister.basin_item.get().getDefaultInstance(), SQUEEZING_RECIPE_RECIPE_TYPE);
 		BlockEntityRegister.basinItemColored.forEach(itemRegistryObject ->
-				registration.addRecipeCatalyst(itemRegistryObject.get().getDefaultInstance(), squeezingType));
+				registration.addRecipeCatalyst(itemRegistryObject.get().getDefaultInstance(), SQUEEZING_RECIPE_RECIPE_TYPE));
 	}
 
 	@Override
@@ -120,11 +121,8 @@ public class JEICompact implements IModPlugin {
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
 	}
 
-	//    public static IRecipeSlotTooltipCallback identifierTooltip(FluidStack stack) {
-	//        return (view, tooltips) -> {
-	//            tooltips.add(new TextComponent(I18n.get(stack.getTranslationKey())));
-	//            Cuisine.logger(tooltips.get(0) + "hello");
-	//
-	//        };
-	//    }
+	public static <T> mezz.jei.api.recipe.RecipeType<T> getType(ResourceLocation rs, Class<? extends T> recipeClass) {
+		return mezz.jei.api.recipe.RecipeType.create(rs.getNamespace(), rs.getPath(), recipeClass);
+	}
+
 }

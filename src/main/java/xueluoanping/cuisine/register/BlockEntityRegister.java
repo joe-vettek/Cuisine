@@ -1,7 +1,5 @@
 package xueluoanping.cuisine.register;
 
-import com.google.common.collect.ImmutableSet;
-
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +11,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,9 +44,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Supplier;
-
-import static xueluoanping.cuisine.Cuisine.CREATIVE_TAB;
 
 public class BlockEntityRegister {
 	public static final DeferredRegister<Item> DREntityBlockItems = DeferredRegister.create(Registries.ITEM, Cuisine.MODID);

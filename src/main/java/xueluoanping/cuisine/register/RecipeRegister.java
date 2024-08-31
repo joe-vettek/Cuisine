@@ -1,14 +1,20 @@
 package xueluoanping.cuisine.register;
 
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
 import xueluoanping.cuisine.craft.ConfigCondition;
@@ -30,6 +36,8 @@ public class RecipeRegister {
 
     }
 
+
+
     public static final DeferredHolder<RecipeSerializer<?>, BasinSqueezingRecipe.Serializer> squeezingSerializer = DRRecipeSerializer
             .register("squeezing", BasinSqueezingRecipe.Serializer::new);
     public static final DeferredHolder<RecipeType<?>, RecipeType<BasinSqueezingRecipe>> squeezingType =
@@ -49,4 +57,5 @@ public class RecipeRegister {
                     return Cuisine.rl("milling").toString();
                 }
             });
+
 }

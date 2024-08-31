@@ -3,25 +3,22 @@ package xueluoanping.cuisine.client;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.block.nature.crop.BlockPeanut;
 import xueluoanping.cuisine.client.renderer.tesr.TESRBasinColored;
 import xueluoanping.cuisine.client.renderer.tesr.TESRChoppingBoard;
-import xueluoanping.cuisine.event.type.EnumFirePitState;
 import xueluoanping.cuisine.client.renderer.tesr.TESRBasin;
 import xueluoanping.cuisine.client.renderer.tesr.TESRFirePit;
 import xueluoanping.cuisine.client.renderer.tesr.TESRMill;
@@ -47,7 +44,7 @@ public class ClientSetup {
         Cuisine.logger("Register Client");
         event.enqueueWork(() -> {
 
-            ArrayList<RegistryObject<Block>> cropBlockList = new ArrayList<>();
+            ArrayList<DeferredHolder<Block, ? extends Block>> cropBlockList = new ArrayList<>();
             cropBlockList.addAll(CropRegister.DRBlocks.getEntries());
             cropBlockList.forEach(crop -> {
                 ItemBlockRenderTypes.setRenderLayer(crop.get(), RenderType.cutoutMipped());
@@ -57,8 +54,8 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(BlockRegister.bamboo.get(), RenderType.solid());
             ItemBlockRenderTypes.setRenderLayer(BlockRegister.bamboo_plant.get(), ClientSetup::isGlassLanternValidLayer);
 
-            ItemBlockRenderTypes.setRenderLayer(FluidRegister.juice.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(FluidRegister.juice_flowing.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE_FLOWING.get(), RenderType.translucent());
 
             BlockEntityRenderers.register(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
             BlockEntityRenderers.register(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
@@ -82,7 +79,7 @@ public class ClientSetup {
     //    go to BlockColors class for more help
     @SubscribeEvent
 
-    public static void onColorSetup(ColorHandlerEvent.Block event) {
+    public static void onColorSetup(RegisterColorHandlersEvent.Block event) {
         event.getBlockColors().register((state, blockAndTintGetter, pos, tintIndex) -> {
             return blockAndTintGetter != null && pos != null ?
                     BiomeColors.getAverageFoliageColor(blockAndTintGetter, pos) : -1;
@@ -97,10 +94,10 @@ public class ClientSetup {
 
     @SubscribeEvent
 
-    public static void onColorItemSetup(ColorHandlerEvent.Item event) {
+    public static void onColorItemSetup(RegisterColorHandlersEvent.Item event) {
         event.getItemColors().register((itemStack, meta) -> {
             return Color.CYAN.getRGB();
-        }, IngredientRegister.cubed.get());
+        }, ItemRegister.cubed.get());
 
     }
     

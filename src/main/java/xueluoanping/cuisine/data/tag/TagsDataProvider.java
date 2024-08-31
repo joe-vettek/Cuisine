@@ -2,22 +2,27 @@ package xueluoanping.cuisine.data.tag;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.register.*;
 import xueluoanping.cuisine.tag.CuisineTags;
 import xueluoanping.cuisine.tag.ForgeTags;
 
+import java.util.concurrent.CompletableFuture;
+
 public class TagsDataProvider extends BlockTagsProvider {
-    public TagsDataProvider(DataGenerator generatorIn, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(generatorIn, modId, existingFileHelper);
+    public TagsDataProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output,lookupProvider, modId, existingFileHelper);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider pProvider) {
         this.registerModTags();
         this.registerMinecraftTags();
         this.registerForgeTags();
@@ -54,7 +59,9 @@ public class TagsDataProvider extends BlockTagsProvider {
 				BlockRegister.bamboo_root.get());
 
 		tag(CuisineTags.bamboo_root_spread_on).addTags(BlockTags.DIRT);
-		tag(CuisineTags.bamboo_root_spread_on).addTags(Tags.Blocks.COBBLESTONE_MOSSY);
-		tag(CuisineTags.bamboo_root_spread_on).addTags(Tags.Blocks.GRAVEL);
+		tag(CuisineTags.bamboo_root_spread_on).addTags(Tags.Blocks.COBBLESTONES_MOSSY);
+		tag(CuisineTags.bamboo_root_spread_on).addTags(Tags.Blocks.GRAVELS);
     }
+
+
 }

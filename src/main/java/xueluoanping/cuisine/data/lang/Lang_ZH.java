@@ -2,17 +2,20 @@ package xueluoanping.cuisine.data.lang;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.register.*;
 
 import java.util.function.Supplier;
 
 public class Lang_ZH extends LangHelper {
-	public Lang_ZH(DataGenerator gen, ExistingFileHelper helper) {
+	public Lang_ZH(PackOutput gen, ExistingFileHelper helper) {
 		super(gen, helper, Cuisine.MODID, "zh_cn");
 	}
 
@@ -25,7 +28,7 @@ public class Lang_ZH extends LangHelper {
 	}
 
 	private void addFluid(Supplier<? extends FlowingFluid> key, String name) {
-		String path = key.get().getRegistryName().getPath();
+		String path = BuiltInRegistries.FLUID.getKey(key.get()).getPath();
 		String standard = Cuisine.MODID + "." + path;
 		add("fluid." + standard, name);
 		add("fluid." + standard + "_block", name);
@@ -35,13 +38,13 @@ public class Lang_ZH extends LangHelper {
 	@Override
 	protected void addTranslations() {
 		add(Cuisine.MODID, "料理工艺•追忆（烟火之忆）");
-		addItemGroup(Cuisine.CREATIVE_TAB, "料理工艺•追忆");
+		addItemGroup(ModContent.CREATIVE_TAB, "料理工艺•追忆");
 
 		addBlock(BlockRegister.bamboo_root, "竹根");
 		addBlock(BlockRegister.bamboo_plant, "淡竹笋");
 		addBlock(BlockRegister.bamboo, "淡竹");
 		addBlock(BlockEntityRegister.fire_pit, "火塘");
-		addBlock(BlockRegister.ditch, "灌溉渠");
+
 		addBlock(BlockEntityRegister.barbecue_rack, "烧烤架");
 		addBlock(BlockEntityRegister.wok_on_fire_pit, "火塘与铁锅");
 		addBlock(BlockEntityRegister.mill, "磨");
@@ -55,7 +58,7 @@ public class Lang_ZH extends LangHelper {
 			addBlock(blockRegistryObject, s.replace("陶瓦", "") + "陶盆");
 		});
 
-		addFluid(FluidRegister.juice, "丢失味道的果汁");
+		addFluid(FluidRegister.CUISINE_JUICE, "丢失味道的果汁");
 		add("fluid." + Cuisine.MODID + ".cuisine_juice_with_material", "汁");
 
 		addItem(ItemRegister.flour, "面粉");
@@ -90,7 +93,7 @@ public class Lang_ZH extends LangHelper {
 		addBlock(CropRegister.eggplant, "茄子");
 		addBlock(CropRegister.spinach, "菠菜");
 
-		addItem(IngredientRegister.cubed, "块");
+		addItem(ItemRegister.cubed, "块");
 
 		addDebugKey(ModConstant.DebugKey.try_place_bamboo, "尝试放置竹子");
 	}
