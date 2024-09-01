@@ -353,10 +353,10 @@ public class BlockBasin extends SimpleHorizontalEntityBlock implements EntityBlo
 
     }
 
-    @Override
-    public RenderShape getRenderShape(BlockState p_60550_) {
-        return RenderShape.ENTITYBLOCK_ANIMATED;
-    }
+    // @Override
+    // public RenderShape getRenderShape(BlockState p_60550_) {
+    //     return RenderShape.ENTITYBLOCK_ANIMATED;
+    // }
 
 
 //    @Override

@@ -1,40 +1,45 @@
-package xueluoanping.cuisine.client.renderer.tesr;
+package xueluoanping.cuisine.client.renderer.BER;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 
 
-import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import org.joml.Matrix3f;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.blockentity.firepit.FirePitBlockEntity;
+import xueluoanping.cuisine.blockentity.firepit.AbstractFirepitBlockEntity;
 import xueluoanping.cuisine.client.gui.CuisineGUI;
 
 import java.awt.*;
 
-public class TESRFirePit implements BlockEntityRenderer<FirePitBlockEntity> {
+public class TESRFirePit<T extends AbstractFirepitBlockEntity> implements BlockEntityRenderer<T> {
     public TESRFirePit(BlockEntityRendererProvider.Context pContext) {
     }
 
     @Override
-    public void render(FirePitBlockEntity firePitBlockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLight, int combinedOverlay) {
+    public void render(T pBlockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLight, int combinedOverlay) {
+
+        boolean need = false;
+        if (Minecraft.getInstance().hitResult instanceof BlockHitResult blockHitResult) {
+            need = blockHitResult.getBlockPos().compareTo(pBlockEntity.getBlockPos()) == 0;
+        }
+        // boolean need = Minecraft.getInstance().hitResult.getLocation().closerThan(Vec3.atLowerCornerOf(pBlockEntity.getBlockPos()).add(0.5,0.5,0.5), 0.7071f, 0.7071f);
+
+        if (!need) return;
+
         poseStack.pushPose();
+        Lighting.setupForFlatItems();
         // Minecraft.getInstance().getTextureManager().bindForSetup(CuisineGUI.TEXTURE_ICONS);
 
 //        TextureAtlasSprite level=Minecraft.getInstance().getTextureManager().getTexture().apply(CuisineGUI.TEXTURE_ICONS);
@@ -46,6 +51,7 @@ public class TESRFirePit implements BlockEntityRenderer<FirePitBlockEntity> {
 //        Cuisine.logger(RenderSystem.getShaderTexture(0));
         GlStateManager._disableCull();
         // VertexConsumer buffer = bufferIn.getBuffer(RenderType.cutout());
+        bufferIn = Minecraft.getInstance().renderBuffers().bufferSource();
         VertexConsumer builder = bufferIn.getBuffer(RenderType.entitySmoothCutout(CuisineGUI.TEXTURE_ICONS));
         int colorRGB = Color.GRAY.getRGB();
 
@@ -56,10 +62,10 @@ public class TESRFirePit implements BlockEntityRenderer<FirePitBlockEntity> {
 
         // var vec=Minecraft.getInstance().cameraEntity.getLookAngle();
 
-        double x = -d3 + firePitBlockEntity.getBlockPos().getX();
-        double y = -d4 + firePitBlockEntity.getBlockPos().getY();
-        double z = -d5 + firePitBlockEntity.getBlockPos().getZ();
-        
+        double x = -d3 + pBlockEntity.getBlockPos().getX();
+        double y = -d4 + pBlockEntity.getBlockPos().getY();
+        double z = -d5 + pBlockEntity.getBlockPos().getZ();
+
         // GlStateManager.translate(dx, dy, dz);
         poseStack.translate(0.5, 0, 0.5);
 
@@ -82,41 +88,32 @@ public class TESRFirePit implements BlockEntityRenderer<FirePitBlockEntity> {
         // poseStack.translate(0.5f, 1.2f, 0);
         poseStack.scale(0.25f, 0.25f, 0.25f);
 
-        float f = (System.currentTimeMillis() % 5000) / 5000f;
-        f = Mth.clamp(f, 0.2f, 0.8f);
+        // float f = (System.currentTimeMillis() % 5000) / 5000f;
+        // float f= 1- pBlockEntity.getBlockState().getValue(BlockFirePit.LIGHT_LEVEL)/15f;
+        float light_level = (pBlockEntity.getHeatHandler().getBurnTime() * 1.1f / pBlockEntity.getHeatHandler().getMaxBurnTime());
+        // float f=  pBlockEntity.getHeatHandler().;
+        float f = 1 - Mth.clamp(light_level, 0.2f, 0.8f);
         float nf = (1 - f);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, CuisineGUI.TEXTURE_ICONS);
+
         blitRect(poseStack, builder, combinedLight, OverlayTexture.NO_OVERLAY, 0, nf * 80 * 0.0625f, 0, nf * 80 * 0.0625f, 8 * 0.0625f, 80 * 0.0625f, 256, 256, false);
         blitRect(poseStack, builder, combinedLight, OverlayTexture.NO_OVERLAY, 0, 0, 8 * 0.0625f, 0, 8 * 0.0625f, nf * 80 * 0.0625f, 256, 256, false);
 
+        // poseStack.translate(0.8,5.75,0);
+        // for (int i = 0; i < 3; i++) {
+        //     poseStack.translate(0,-1.25,0);
+        //     BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(Items.APPLE.getDefaultInstance(), pBlockEntity.getLevel(), Minecraft.getInstance().player, 0);
+        //     Minecraft.getInstance().getItemRenderer().render(Items.APPLE.getDefaultInstance(), ItemDisplayContext.GUI, false,
+        //             poseStack, bufferIn, 15728880, OverlayTexture.NO_OVERLAY, bakedmodel);
+        //
+        // }
+
         // blitRect(poseStack, builder, combinedLight, OverlayTexture.NO_OVERLAY, 16* 0.0625f, 0, 8* 0.0625f, 0, 8* 0.0625f, 80* 0.0625f, 256, 256, false);
-
+        Lighting.setupFor3DItems();
         poseStack.popPose();
 
-        poseStack.pushPose();
 
-        // poseStack.translate( 0.5,  0,  0.5);
-        // poseStack.mulPose(new Quaternionf().rotateXYZ(0, 270, 0));
-        // poseStack.translate( -0.5,  0,  -0.5);
-
-
-        poseStack.translate(0.5, 0.7, 0.5);
-        poseStack.scale(0.5f, 0.5f, 0.5f);
-        // GlStateManager.rotate(facing.getHorizontalAngle(), 0, 1, 0.1F);
-        // poseStack.mulPose(new Quaternionf().rotateXYZ(0, 90, 9));
-
-        poseStack.translate(0, 0, -0.4);
-        float rotate = 0.15F;
-        for (int i = 0; i < 3; ++i) {
-            ItemStack stack = Items.BEEF.getDefaultInstance();
-            if (!stack.isEmpty()) {
-                Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, combinedLight, combinedOverlay, poseStack, bufferIn, firePitBlockEntity.getLevel(), 0);
-
-            }
-            poseStack.translate(0, 0, 0.4);
-            rotate *= -1.2;
-            // poseStack.rotate(10, rotate * 1.5F, 0, rotate);
-        }
-        poseStack.popPose();
     }
 
     public static void addVertex(VertexConsumer renderer, PoseStack stack, float x, float y, float z, float u, float v, int RGBA, float alpha, int brightness) {
@@ -155,7 +152,7 @@ public class TESRFirePit implements BlockEntityRenderer<FirePitBlockEntity> {
         // ty0=0;
         // tx1=x1*pixelScale;
         // ty1=y1*pixelScale;
-
+        // packedLight = LightTexture.FULL_BRIGHT;
         builder.addVertex(matrix, x0, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx0, ty1).setOverlay(overlay).setLight(packedLight).setNormal(normal, 0.0F, -1.0F, 0.0F);
         builder.addVertex(matrix, x1, y1, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty1).setOverlay(overlay).setLight(packedLight).setNormal(normal, 0.0F, -1.0F, 0.0F);
         builder.addVertex(matrix, x1, y0, 0.0f).setColor(1.0f, 1.0f, 1.0f, 1.0f).setUv(tx1, ty0).setOverlay(overlay).setLight(packedLight).setNormal(normal, 0.0F, -1.0F, 0.0F);

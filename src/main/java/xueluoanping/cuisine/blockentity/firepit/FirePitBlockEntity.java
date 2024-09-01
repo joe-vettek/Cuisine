@@ -10,6 +10,8 @@ public class FirePitBlockEntity extends AbstractFirepitBlockEntity {
 		super(BlockEntityRegister.fire_pit_entity_type.get(), pos, state);
 	}
 
+
+
 	public static void tickEntity(Level level, BlockPos pos, BlockState state, FirePitBlockEntity entity1) {
 		entity1.tick();
 	}

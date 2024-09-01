@@ -72,6 +72,11 @@ public class ModContent {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BlockEntityRegister.mill_entity_type.get(),
                 (blockEntity, context) -> blockEntity.isRemoved() ? null : (context == Direction.DOWN ? blockEntity.getTankIn() : blockEntity.getTankOut()));
 
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, BlockEntityRegister.barbecue_rack_entity_type.get(),
+                (blockEntity, context) -> blockEntity.isRemoved() ? null : (blockEntity.getInventory()));
+
+
     }
 
 

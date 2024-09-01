@@ -40,8 +40,8 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 
 	public AbstractBasinBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state) {
 		super(blockEntityType, pos, state);
-		inventory = createHandler();
-		tank = createFuildHandler();
+		inventory = createHandler(1);
+		tank = createFuildHandler(Capacity);
 	}
 
 
@@ -61,24 +61,7 @@ public class AbstractBasinBlockEntity extends SyncBlockEntity {
 	}
 
 
-	protected ItemStackHandler createHandler() {
-		return new ItemStackHandler() {
-			@Override
-			public int getSlotLimit(int slot) {
-				return 1;
-			}
 
-			@Override
-			protected void onContentsChanged(int slot) {
-				inventoryChanged();
-			}
-		};
-	}
-
-	protected FluidTank createFuildHandler() {
-		return new FluidTank(Capacity) {
-		};
-	}
 
 
 	public boolean addItem(ItemStack itemStack) {

@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.block.BlockDitch;
 import xueluoanping.cuisine.block.nature.BlockBamboo;
 import xueluoanping.cuisine.block.nature.BlockBambooPlant;
 import xueluoanping.cuisine.block.nature.BlockBambooRoot;

@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.firepit.BlockFirePit;
 import xueluoanping.cuisine.blockentity.SyncBlockEntity;
 import xueluoanping.cuisine.blockentity.handler.FuelHeatHandler;
@@ -66,7 +67,7 @@ public class AbstractFirepitBlockEntity extends SyncBlockEntity {
 
 	public void tick() {
 		FuelHeatHandler handler = getHeatHandler();
-		int light_level = (int) (handler.getBurnTime() * 1.1f / handler.getMaxBurnTime() * 15);
+		int light_level = (int) (handler.getBurnTime() * 1.1f / handler.getMaxBurnTime() * 25);
 		light_level = Mth.clamp(light_level, 0, 15);
 		if (getBlockState().getValue(BlockFirePit.LIGHT_LEVEL) != light_level) {
 			BlockState statenew = getBlockState().setValue(BlockFirePit.LIGHT_LEVEL, light_level);

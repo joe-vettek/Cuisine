@@ -5,10 +5,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 
@@ -38,5 +41,39 @@ public class SyncBlockEntity extends BlockEntity {
 		super.setChanged();
 		if (level != null)
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+	}
+
+	protected ItemStackHandler createHandler(int size) {
+		return new ItemStackHandler(size) {
+
+			@Override
+			protected void onContentsChanged(int slot) {
+				inventoryChanged();
+			}
+		};
+	}
+
+	protected ItemStackHandler createHandler(int size,int stackLimit) {
+		return new ItemStackHandler(size) {
+
+			@Override
+			protected int getStackLimit(int slot, ItemStack stack) {
+				return stackLimit;
+			}
+
+			@Override
+			protected void onContentsChanged(int slot) {
+				inventoryChanged();
+			}
+		};
+	}
+
+	protected FluidTank createFuildHandler(int size) {
+		return new FluidTank(size) {
+			@Override
+			protected void onContentsChanged() {
+				inventoryChanged();
+			}
+		};
 	}
 }

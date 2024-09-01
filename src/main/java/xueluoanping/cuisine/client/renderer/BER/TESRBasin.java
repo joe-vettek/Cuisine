@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.client.renderer.tesr;
+package xueluoanping.cuisine.client.renderer.BER;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -26,7 +26,7 @@ public class TESRBasin implements BlockEntityRenderer<BasinBlockEntity> {
 //		logger.info(mc.player.getLookAngle().toString() + "MCCUISINE");
         //Only render in the world
 		// Cuisine.logger(BlockEntityRegister.getAllBasinBlock());
-        if (!basinBlockEntity.hasLevel() || basinBlockEntity == null)
+        if (!basinBlockEntity.hasLevel())
             return;
 
 
@@ -37,19 +37,19 @@ public class TESRBasin implements BlockEntityRenderer<BasinBlockEntity> {
         if (!basinBlockEntity.hasNoFluid()) {
             // render the fluid
 			matrixStackIn.pushPose();
-            TESRBasic.renderFluid(basinBlockEntity, matrixStackIn, bufferIn, combinedLight, partialTicks);
+            RenderTool.renderFluid(basinBlockEntity, matrixStackIn, bufferIn, combinedLight, partialTicks);
             matrixStackIn.popPose();
         }
         if (!basinStack.isEmpty()) {
             matrixStackIn.pushPose();
             // Center item above the cutting board
-			TESRBasinBase.drawBasinStack(basinStack,direction,basinBlockEntity.getLevel(),combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
+			RenderTool.drawStackItems(basinStack,direction,basinBlockEntity.getLevel(),combinedLight, combinedOverlay, matrixStackIn, bufferIn, posLong);
             matrixStackIn.popPose();
         }
-        matrixStackIn.pushPose();
-        ItemStack stack = basinBlockEntity.getBlockState().getBlock().asItem().getDefaultInstance();
-		TESRBasinBase.drawBasin(stack,combinedLight, combinedOverlay, matrixStackIn, bufferIn,basinBlockEntity.getLevel(), posLong);
-        matrixStackIn.popPose();
+        // matrixStackIn.pushPose();
+        // ItemStack stack = basinBlockEntity.getBlockState().getBlock().asItem().getDefaultInstance();
+		// RenderTool.drawItemInWorld(stack,combinedLight, combinedOverlay, matrixStackIn, bufferIn,basinBlockEntity.getLevel(), posLong);
+        // matrixStackIn.popPose();
     }
 
 

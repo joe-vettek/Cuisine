@@ -22,10 +22,10 @@ public class BlockBasinColored extends BlockBasin{
 		super(builder);
 	}
 
-	@Override
-	public RenderShape getRenderShape(BlockState p_60550_) {
-		return RenderShape.ENTITYBLOCK_ANIMATED;
-	}
+	// @Override
+	// public RenderShape getRenderShape(BlockState p_60550_) {
+	// 	return RenderShape.ENTITYBLOCK_ANIMATED;
+	// }
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pPos, BlockState state) {

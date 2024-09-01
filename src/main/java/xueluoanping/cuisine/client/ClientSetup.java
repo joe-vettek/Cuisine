@@ -15,17 +15,11 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.block.nature.crop.BlockPeanut;
 import xueluoanping.cuisine.client.color.item.BucketItemColors;
-import xueluoanping.cuisine.client.renderer.tesr.TESRBasinColored;
-import xueluoanping.cuisine.client.renderer.tesr.TESRChoppingBoard;
-import xueluoanping.cuisine.client.renderer.tesr.TESRBasin;
-import xueluoanping.cuisine.client.renderer.tesr.TESRFirePit;
-import xueluoanping.cuisine.client.renderer.tesr.TESRMill;
+import xueluoanping.cuisine.client.renderer.BER.*;
 import xueluoanping.cuisine.fluids.TeaFluidType;
 import xueluoanping.cuisine.register.*;
 
@@ -76,6 +70,7 @@ public class ClientSetup {
 
             BlockEntityRenderers.register(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
             BlockEntityRenderers.register(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
+            BlockEntityRenderers.register(BlockEntityRegister.barbecue_rack_entity_type.get(), TESRBarbecueRack::new);
 
 			// ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
 
