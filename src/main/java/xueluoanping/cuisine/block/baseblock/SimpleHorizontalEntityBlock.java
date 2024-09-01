@@ -18,8 +18,8 @@ public abstract class SimpleHorizontalEntityBlock extends SimpleEntityBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
-		super.createBlockStateDefinition(p_49915_.add(FACING));
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder.add(FACING));
 	}
 
 

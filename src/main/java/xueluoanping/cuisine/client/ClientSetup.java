@@ -61,9 +61,8 @@ public class ClientSetup {
                 ItemBlockRenderTypes.setRenderLayer(crop.get(), RenderType.cutoutMipped());
             });
 
-
-            ItemBlockRenderTypes.setRenderLayer(BlockRegister.bamboo.get(), RenderType.solid());
-            ItemBlockRenderTypes.setRenderLayer(BlockRegister.bamboo_plant.get(), ClientSetup::isGlassLanternValidLayer);
+            // ItemBlockRenderTypes.setRenderLayer(BlockRegister.bamboo.get(), RenderType.solid());
+            // ItemBlockRenderTypes.setRenderLayer(BlockRegister.bamboo_plant.get(), ClientSetup::isGlassLanternValidLayer);
 
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE_FLOWING.get(), RenderType.translucent());

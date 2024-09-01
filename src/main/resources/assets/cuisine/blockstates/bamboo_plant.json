@@ -44,7 +44,7 @@
       }
     },
     {
-      "when":  {
+      "when": {
         "AND": [
           {
             "south": "true"
@@ -61,7 +61,7 @@
       }
     },
     {
-      "when":  {
+      "when": {
         "AND": [
           {
             "west": "true"
@@ -78,7 +78,7 @@
       }
     },
     {
-      "when":  {
+      "when": {
         "AND": [
           {
             "north": "true"
@@ -90,6 +90,73 @@
       },
       "apply": {
         "model": "cuisine:block/bamboo_branch",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "east": "true"
+          },
+          {
+            "type": "a_2|a_3|a_4|a_5|a_6"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch_leaves",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "south": "true"
+          },
+          {
+            "type": "a_2|a_3|a_4|a_5|a_6"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch_leaves",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "west": "true"
+          },
+          {
+            "type": "a_2|a_3|a_4|a_5|a_6"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch_leaves",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "north": "true"
+          },
+          {
+            "type": "a_2|a_3|a_4|a_5|a_6"
+          }
+        ]
+      },
+      "apply": {
+        "model": "cuisine:block/bamboo_branch_leaves",
         "y": 270,
         "uvlock": true
       }

@@ -1,22 +1,10 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "cutout_mipped",
 	"textures": {
-		"top": "cuisine:block/bamboo_leaves_top",
-		"leaves": "cuisine:block/bamboo_leaves",
 		"particle": "cuisine:block/bamboo"
 	},
 	"elements": [
-		{
-			"from": [19, 0, 3],
-			"to": [29, 10, 13],
-			"faces": {
-				"north": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
-				"east": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
-				"south": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
-				"west": {"uv": [0, 0, 15, 15], "texture": "#leaves", "tintindex": 0},
-				"up": {"uv": [0, 0, 15, 15], "texture": "#top", "tintindex": 0}
-			}
-		},
 		{
 			"from": [7.5, -0.5, 7],
 			"to": [21.5, 1.5, 9],

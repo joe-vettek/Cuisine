@@ -72,8 +72,8 @@ public class BlockBasin extends SimpleHorizontalEntityBlock implements EntityBlo
 
     // Add all the properties here, or may cause a null point exception.
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_49915_) {
-        super.createBlockStateDefinition(p_49915_.add(LIGHT));
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder.add(LIGHT));
     }
 
     //	Set a ToIntFunction to reflect the function
