@@ -14,6 +14,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.items.ingredients.ItemCubed;
 import xueluoanping.cuisine.register.*;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class CuisineItemModelProvider extends ItemModelProvider {
                 BlockEntityRegister.jar).forEach(
                 b -> simpleParent(blockName(b))
         );
+
         //
         // DynamicFluidContainerModel
         for (var entry : FluidRegister.ITEMS.getEntries()) {
@@ -52,7 +54,6 @@ public class CuisineItemModelProvider extends ItemModelProvider {
             withExistingParent(itemName(entry.value()), ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "item/bucket"))
                     .customLoader(DynamicFluidContainerModelBuilder::begin)
                     .fluid(((BucketItem) entry.get()).content);
-
         }
 
 
@@ -69,14 +70,15 @@ public class CuisineItemModelProvider extends ItemModelProvider {
                 continue;
             if (item0.equals(ItemRegister.spice_bottle))
                 continue;
-            if (item0.equals(ItemRegister.cubed))
+            if (ItemRegister.getIngredients().contains(item0.value()))
                 continue;
             Item item = item0.get();
             withExistingParent(itemName(item), HANDHELD).texture("layer0", resourceItem(itemName(item)));
         }
 
 
-        List.of(ItemRegister.cubed).forEach(itemRegistryObject -> {
+
+        List.of(ItemRegister.cubed,ItemRegister.sliced,ItemRegister.shredded,ItemRegister.diced,ItemRegister.minced,ItemRegister.paste).forEach(itemRegistryObject -> {
             Item item = itemRegistryObject.get();
             withExistingParent(itemName(item), GENERATED).texture("layer0", resourceMaterial(itemName(item)));
         });

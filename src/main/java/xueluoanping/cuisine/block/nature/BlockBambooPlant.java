@@ -45,264 +45,279 @@ import xueluoanping.cuisine.tag.CuisineTags;
 // 用锄头挖掘竹鞭泥土有几率掉落竹笋，挖掘竹笋暂定不获得竹笋或获得老竹笋（老竹笋不适合做菜），耕地变为竹鞭泥土的几率更大
 // 竹子种类命名为淡竹
 public class BlockBambooPlant extends Block implements BonemealableBlock {
-	public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
-	public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
-	public static final BooleanProperty EAST = BlockStateProperties.EAST;
-	public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
-	public static final BooleanProperty WEST = BlockStateProperties.WEST;
+    public static final EnumProperty<Type> TYPE = EnumProperty.create("type", Type.class);
+    public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
+    public static final BooleanProperty EAST = BlockStateProperties.EAST;
+    public static final BooleanProperty SOUTH = BlockStateProperties.SOUTH;
+    public static final BooleanProperty WEST = BlockStateProperties.WEST;
 
-	protected static final VoxelShape BaseShape = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 11.0D, 11.0D);
-	protected static final VoxelShape LeaveShape = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 11.0D, 11.0D);
+    protected static final VoxelShape BaseShape = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 11.0D, 11.0D);
+    protected static final VoxelShape LeaveShape = Block.box(5.0D, 0.0D, 5.0D, 11.0D, 11.0D, 11.0D);
 
-	public BlockBambooPlant(Properties properties) {
-		super(properties.dynamicShape());
-		this.registerDefaultState(this.defaultBlockState().setValue(NORTH, false).setValue(WEST, false).setValue(EAST, false).setValue(SOUTH, false));
-	}
+    public BlockBambooPlant(Properties properties) {
+        super(properties.dynamicShape());
+        this.registerDefaultState(this.defaultBlockState().setValue(NORTH, false).setValue(WEST, false).setValue(EAST, false).setValue(SOUTH, false));
+    }
 
-	//    must all set
-	@Override
-	public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return 60;
-	}
+    //    must all set
+    @Override
+    public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return 60;
+    }
 
-	@Override
-	public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-		return 60;
-	}
+    @Override
+    public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return 60;
+    }
 
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-		stateBuilder.add(TYPE, EAST, NORTH, WEST, SOUTH);
-	}
-
-
-
-	@Override
-	public @Nullable Integer getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
-		return super.getBeaconColorMultiplier(state, level, pos, beaconPos);
-	}
-
-	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		VoxelShape shape_mix = BaseShape;
-		if (state.getValue(EAST)) {
-			shape_mix = Shapes.or(shape_mix, LeaveShape.move(1, 0, 0));
-		}
-		if (state.getValue(WEST)) {
-			shape_mix = Shapes.or(shape_mix, LeaveShape.move(-1, 0, 0));
-		}
-		if (state.getValue(NORTH)) {
-			shape_mix = Shapes.or(shape_mix, LeaveShape.move(0, 0, -1));
-		}
-		if (state.getValue(SOUTH)) {
-			shape_mix = Shapes.or(shape_mix, LeaveShape.move(0, 0, 1));
-		}
-		Vec3 vec3 = state.getOffset(level, pos);
-		return shape_mix.move(vec3.x, vec3.y, vec3.z);
-	}
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+        stateBuilder.add(TYPE, EAST, NORTH, WEST, SOUTH);
+    }
 
 
-	@Override
-	public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-		if (state.getValue(TYPE).ordinal() >= 2)
-			return getShape(state, level, pos, context);
-		return Block.box(0, 0, 0, 0, 0, 0);
-	}
+    @Override
+    public @Nullable Integer getBeaconColorMultiplier(BlockState state, LevelReader level, BlockPos pos, BlockPos beaconPos) {
+        return super.getBeaconColorMultiplier(state, level, pos, beaconPos);
+    }
 
-	public OffsetType getOffsetType() {
-		return OffsetType.XZ;
-	}
+    @Override
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        VoxelShape shape_mix = BaseShape;
+        // if (state.getValue(EAST)) {
+        //     shape_mix = Shapes.or(shape_mix, LeaveShape.move(1, 0, 0));
+        // }
+        // if (state.getValue(WEST)) {
+        //     shape_mix = Shapes.or(shape_mix, LeaveShape.move(-1, 0, 0));
+        // }
+        // if (state.getValue(NORTH)) {
+        //     shape_mix = Shapes.or(shape_mix, LeaveShape.move(0, 0, -1));
+        // }
+        // if (state.getValue(SOUTH)) {
+        //     shape_mix = Shapes.or(shape_mix, LeaveShape.move(0, 0, 1));
+        // }
 
-	public BlockState updateShape(BlockState state, Direction direction, BlockState state1, LevelAccessor level, BlockPos pos, BlockPos pos1) {
-		//        Cuisine.logger(state,state1);
-		switch (direction) {
-			case NORTH:
-				return state.setValue(NORTH, false);
-			case SOUTH:
-				return state.setValue(SOUTH, false);
-			case EAST:
-				return state.setValue(EAST, false);
-			case WEST:
-				return state.setValue(WEST, false);
-		}
-		if ((state1.getBlock() instanceof BambooStalkBlock
-				|| state1.getBlock() instanceof BambooSaplingBlock)
-				&& state.getValue(TYPE).ordinal() < 2) {
-			return state.setValue(TYPE, Type.A_2);
-		}
+        Vec3 vec3 = state.getOffset(level, pos);
+        return shape_mix.move(vec3.x, vec3.y, vec3.z);
+        // return shape_mix;
+    }
 
-		if (!canSurvive(state, level, pos))
-			return Blocks.AIR.defaultBlockState();
-		return super.updateShape(state, direction, state1, level, pos, pos1);
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (state.getValue(TYPE).ordinal() >= 2)
+            return getShape(state, level, pos, context);
+        return Block.box(0, 0, 0, 0, 0, 0);
+    }
 
-	}
+    public OffsetType getOffsetType() {
+        return OffsetType.XZ;
+    }
 
-	@Override
-	public boolean isRandomlyTicking(BlockState state) {
-		return true;
-	}
+    public BlockState updateShape(BlockState state, Direction direction, BlockState pNeighborState, LevelAccessor level, BlockPos pos, BlockPos pos1) {
+        //        Cuisine.logger(state,pNeighborState);
+        if (!pNeighborState.is(BlockRegister.bamboo_branch_leaves))
+            switch (direction) {
+                case NORTH:
+                    return state.setValue(NORTH, false);
+                case SOUTH:
+                    return state.setValue(SOUTH, false);
+                case EAST:
+                    return state.setValue(EAST, false);
+                case WEST:
+                    return state.setValue(WEST, false);
+            }
+        if ((pNeighborState.getBlock() instanceof BambooStalkBlock
+                || pNeighborState.getBlock() instanceof BambooSaplingBlock)
+                && state.getValue(TYPE).ordinal() < 2) {
+            return state.setValue(TYPE, Type.A_2);
+        }
 
-	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (!state.canSurvive(level, pos)) {
-			level.destroyBlock(pos, true);
-		}
-	}
+        if (!canSurvive(state, level, pos))
+            return Blocks.AIR.defaultBlockState();
+        return super.updateShape(state, direction, pNeighborState, level, pos, pos1);
 
-	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-		if (state.getValue(TYPE).ordinal() > 6)
-			return;
-		if (state.getValue(TYPE).ordinal() > 1) {
-			if (random.nextInt(14) == 0)
-				if (level.getBlockState(pos.below()).is(CuisineTags.bamboo_root_spread_on)
-						&& level.getBlockState(pos.below()).getBlock() != BlockRegister.bamboo_root.get()) {
-					level.setBlock(pos.below(), BlockRegister.bamboo_root.get().defaultBlockState(), Block.UPDATE_ALL);
-					level.setBlock(pos, state.cycle(TYPE), 3);
-				}
-		}
+    }
 
-		if (state.getValue(TYPE).ordinal() == 0 && level.isRaining()) {
-			// Cuisine.logger("Is Raining!");
-			if (random.nextInt(14) == 0) {
-				level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
-			}
-		}
-		if (random.nextInt(14) == 0 && !level.isRaining() && level.isEmptyBlock(pos.above()) && level.getRawBrightness(pos.above(), 0) >= 9) {
-			int height = getRandomBambooHeight(level);
-			if (state.getValue(TYPE).ordinal() == 1 && checkIfBambooCanGrow(level, pos, height))
-				this.growBamboo(level, pos, height);
-		}
-	}
+    @Override
+    public boolean isRandomlyTicking(BlockState state) {
+        return true;
+    }
 
-	@Override
-	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		return level.getBlockState(pos.below()).is(BlockTags.BAMBOO_PLANTABLE_ON) &&
-				level.getBlockState(pos.below()).getBlock() != BlockRegister.bamboo.get() &&
-				level.getBlockState(pos.below()).getBlock() != Blocks.BAMBOO_SAPLING;
-	}
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (!state.canSurvive(level, pos)) {
+            level.destroyBlock(pos, true);
+        }
+    }
 
-	@Override
-	public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
-		return level.getBlockState(pos.above()).isAir() && state.getValue(TYPE).ordinal() < 2;
-	}
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (state.getValue(TYPE).ordinal() > 6)
+            return;
+        if (state.getValue(TYPE).ordinal() > 1) {
+            if (random.nextInt(14) == 0)
+                if (level.getBlockState(pos.below()).is(CuisineTags.bamboo_root_spread_on)
+                        && level.getBlockState(pos.below()).getBlock() != BlockRegister.bamboo_root.get()) {
+                    level.setBlock(pos.below(), BlockRegister.bamboo_root.get().defaultBlockState(), Block.UPDATE_ALL);
+                    level.setBlock(pos, state.cycle(TYPE), 3);
+                }
+        }
 
+        if (state.getValue(TYPE).ordinal() == 0 && level.isRaining()) {
+            // Cuisine.logger("Is Raining!");
+            if (random.nextInt(14) == 0) {
+                level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
+            }
+        }
+        if (random.nextInt(14) == 0 && !level.isRaining() && level.isEmptyBlock(pos.above()) && level.getRawBrightness(pos.above(), 0) >= 9) {
+            int height = getRandomBambooHeight(level);
+            if (state.getValue(TYPE).ordinal() == 1 && checkIfBambooCanGrow(level, pos, height))
+                this.growBamboo(level, pos, height);
+        }
+    }
 
-	@Override
-	public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
-		return true;
-	}
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.below()).is(BlockTags.BAMBOO_PLANTABLE_ON) &&
+                level.getBlockState(pos.below()).getBlock() != BlockRegister.bamboo.get() &&
+                level.getBlockState(pos.below()).getBlock() != Blocks.BAMBOO_SAPLING;
+    }
 
-
-	@Override
-	public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-		if (state.getValue(TYPE).ordinal() == 0) {
-			if (random.nextInt(5) > 0)
-				level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
-		} else if (state.getValue(TYPE).ordinal() == 1) {
-
-			if (random.nextInt(5) > 0)
-				this.growBamboo(level, pos, getRandomBambooHeight(level));
-		}
-	}
-
-	@Nullable
-	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		//        Cuisine.logger(defaultBlockState());
-		return this.defaultBlockState();
-	}
-
-	public static int getRandomBambooHeight(Level level) {
-		return Mth.clamp(7 + level.getRandom().nextInt(4),7,10);
-	}
-
-	public static boolean checkIfBambooCanGrow(Level level, BlockPos pos, int height) {
-		pos = pos.above();
-		for (int i = 0; i < height; i++) {
-			if (!level.isEmptyBlock(pos))
-				return false;
-		}
-		return true;
-	}
-
-	public static void growBamboo(Level level, BlockPos pos, int height) {
-		if (!checkIfBambooCanGrow(level, pos, height))
-			return;
-		int lowestBranchHeight = height - 4;
-		// Mth.clamp(3 + level.getRandom().nextInt(3), 5, height);
-
-		for (int i = 0; i < height; i++) {
-			//            Cuisine.logger(pos.above(i), lowestBranchHeight);
-			BlockState de = BlockRegister.bamboo_plant.get().defaultBlockState().setValue(TYPE, Type.A_2);
-			if(i>=lowestBranchHeight)
-			{
-				if (i % 2 == 1) {
-					de = de.setValue(EAST, true);
-					de = de.setValue(WEST, true);
-				} else {
-					de = de.setValue(NORTH, true);
-					de = de.setValue(SOUTH, true);
-				}
-
-			}			// if (i >= lowestBranchHeight) {
-			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).south())) {
-			// 		de = de.setValue(SOUTH, true);
-			// 	}
-			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).west())) {
-			// 		de = de.setValue(WEST, true);
-			// 	}
-			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).north())) {
-			// 		de = de.setValue(NORTH, true);
-			// 	}
-			// 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).east())) {
-			// 		de = de.setValue(EAST, true);
-			// 	}
-			// }
-			level.setBlock(pos.above(i), de, Block.UPDATE_ALL);
-		}
-	}
-
-	@Override
-	public void destroy(LevelAccessor p_49860_, BlockPos p_49861_, BlockState p_49862_) {
-		super.destroy(p_49860_, p_49861_, p_49862_);
-	}
-
-	@Override
-	public float getDestroyProgress(BlockState p_48901_, Player p_48902_, BlockGetter p_48903_, BlockPos p_48904_) {
-		return p_48902_.getMainHandItem().canPerformAction(ItemAbilities.AXE_DIG) ? 1.0F
-				: super.getDestroyProgress(p_48901_, p_48902_, p_48903_, p_48904_);
-	}
+    @Override
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+        return level.getBlockState(pos.above()).isAir() && state.getValue(TYPE).ordinal() < 2;
+    }
 
 
-	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-		int ordinal = state.getValue(TYPE).ordinal();
-		if (ordinal < 2) {
-			return BlockRegister.bamboo_shoot.get().getDefaultInstance();
-		} else if (ordinal < 7) {
-			return BlockRegister.bamboo_item.get().getDefaultInstance();
-		} else {
-			return ItemStack.EMPTY;
-		}
-	}
+    @Override
+    public boolean isBonemealSuccess(Level pLevel, RandomSource pRandom, BlockPos pPos, BlockState pState) {
+        return true;
+    }
 
-	@Override
-	public RenderShape getRenderShape(BlockState p_60550_) {
-		return RenderShape.MODEL;
-	}
 
-	public boolean isPathfindable(BlockState p_48906_, BlockGetter p_48907_, BlockPos p_48908_, PathComputationType p_48909_) {
-		return false;
-	}
+    @Override
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
+        if (state.getValue(TYPE).ordinal() == 0) {
+            if (random.nextInt(5) > 0)
+                level.setBlock(pos, state.setValue(TYPE, Type.A_1), 3);
+        } else if (state.getValue(TYPE).ordinal() == 1) {
 
-	public enum Type implements StringRepresentable {
-		// A for Age, B for Branch
-		A_0, A_1, A_2, A_3, A_4, A_5, A_6, B_S, B_W, B_N, B_E;
+            if (random.nextInt(5) > 0)
+                this.growBamboo(level, pos, getRandomBambooHeight(level));
+        }
+    }
 
-		@Override
-		public String getSerializedName() {
-			return toString().toLowerCase(Locale.ROOT);
-		}
-	}
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        //        Cuisine.logger(defaultBlockState());
+        return this.defaultBlockState();
+    }
+
+    public static int getRandomBambooHeight(Level level) {
+        return Mth.clamp(7 + level.getRandom().nextInt(4), 7, 10);
+    }
+
+    public static boolean checkIfBambooCanGrow(Level level, BlockPos pos, int height) {
+        pos = pos.above();
+        for (int i = 0; i < height; i++) {
+            if (!level.isEmptyBlock(pos))
+                return false;
+        }
+        return true;
+    }
+
+    public static void growBamboo(Level level, BlockPos pos, int height) {
+        if (!checkIfBambooCanGrow(level, pos, height))
+            return;
+        int lowestBranchHeight = height - 4;
+        // Mth.clamp(3 + level.getRandom().nextInt(3), 5, height);
+
+        for (int i = 0; i < height; i++) {
+            //            Cuisine.logger(pos.above(i), lowestBranchHeight);
+            BlockState de = BlockRegister.bamboo_plant.get().defaultBlockState().setValue(TYPE, Type.A_2);
+            if (i >= lowestBranchHeight) {
+                if (i % 2 == 1) {
+                    de = de.setValue(EAST, true);
+                    de = de.setValue(WEST, true);
+                } else {
+                    de = de.setValue(NORTH, true);
+                    de = de.setValue(SOUTH, true);
+                }
+
+            }            // if (i >= lowestBranchHeight) {
+            // 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).south())) {
+            // 		de = de.setValue(SOUTH, true);
+            // 	}
+            // 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).west())) {
+            // 		de = de.setValue(WEST, true);
+            // 	}
+            // 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(lowestBranchHeight + i).north())) {
+            // 		de = de.setValue(NORTH, true);
+            // 	}
+            // 	if (level.getRandom().nextBoolean() && level.isEmptyBlock(pos.above(i).east())) {
+            // 		de = de.setValue(EAST, true);
+            // 	}
+            // }
+
+            if (de.getValue(EAST)) {
+                level.setBlock(pos.above(i).east(), BlockRegister.bamboo_branch_leaves.value().defaultBlockState().setValue(BlockBambooLeaves.FACING, Direction.EAST.getOpposite()), Block.UPDATE_CLIENTS);
+            }
+            if (de.getValue(WEST)) {
+                level.setBlock(pos.above(i).west(), BlockRegister.bamboo_branch_leaves.value().defaultBlockState().setValue(BlockBambooLeaves.FACING, Direction.WEST.getOpposite()), Block.UPDATE_CLIENTS);
+            }
+            if (de.getValue(SOUTH)) {
+                level.setBlock(pos.above(i).south(), BlockRegister.bamboo_branch_leaves.value().defaultBlockState().setValue(BlockBambooLeaves.FACING, Direction.SOUTH.getOpposite()), Block.UPDATE_CLIENTS);
+            }
+            if (de.getValue(NORTH)) {
+                level.setBlock(pos.above(i).north(), BlockRegister.bamboo_branch_leaves.value().defaultBlockState().setValue(BlockBambooLeaves.FACING, Direction.NORTH.getOpposite()), Block.UPDATE_CLIENTS);
+            }
+            level.setBlock(pos.above(i), de, Block.UPDATE_CLIENTS);
+
+        }
+    }
+
+    @Override
+    public void destroy(LevelAccessor p_49860_, BlockPos p_49861_, BlockState p_49862_) {
+        super.destroy(p_49860_, p_49861_, p_49862_);
+    }
+
+    @Override
+    public float getDestroyProgress(BlockState p_48901_, Player p_48902_, BlockGetter p_48903_, BlockPos p_48904_) {
+        return p_48902_.getMainHandItem().canPerformAction(ItemAbilities.AXE_DIG) ? 1.0F
+                : super.getDestroyProgress(p_48901_, p_48902_, p_48903_, p_48904_);
+    }
+
+
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
+        int ordinal = state.getValue(TYPE).ordinal();
+        if (ordinal < 2) {
+            return BlockRegister.bamboo_shoot.get().getDefaultInstance();
+        } else if (ordinal < 7) {
+            return BlockRegister.bamboo_item.get().getDefaultInstance();
+        } else {
+            return ItemStack.EMPTY;
+        }
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState p_60550_) {
+        return RenderShape.MODEL;
+    }
+
+    public boolean isPathfindable(BlockState p_48906_, BlockGetter p_48907_, BlockPos p_48908_, PathComputationType p_48909_) {
+        return false;
+    }
+
+
+    public enum Type implements StringRepresentable {
+        // A for Age, B for Branch
+        A_0, A_1, A_2, A_3, A_4, A_5, A_6, B_S, B_W, B_N, B_E;
+
+        @Override
+        public String getSerializedName() {
+            return toString().toLowerCase(Locale.ROOT);
+        }
+    }
 }

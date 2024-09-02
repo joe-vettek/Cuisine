@@ -69,43 +69,17 @@ public class TESRBarbecueRack extends TESRFirePit<BarbecueRackBlockEntity> {
         }
         poseStack.popPose();
 
-        boolean need = false;
-        if (Minecraft.getInstance().hitResult instanceof BlockHitResult blockHitResult) {
-            need = blockHitResult.getBlockPos().compareTo(blockEntity.getBlockPos()) == 0;
-        }
-        // boolean need = Minecraft.getInstance().hitResult.getLocation().closerThan(Vec3.atLowerCornerOf(pBlockEntity.getBlockPos()).add(0.5,0.5,0.5), 0.7071f, 0.7071f);
-
-        if (!need) return;
+        if (!isLookingAt()) return;
 
         poseStack.pushPose();
         Lighting.setupForFlatItems();
         GlStateManager._disableCull();
         bufferIn = Minecraft.getInstance().renderBuffers().bufferSource();
-        builder = bufferIn.getBuffer(RenderType.guiOverlay());
-        int colorRGB = Color.GRAY.getRGB();
 
-        var entity = Minecraft.getInstance().cameraEntity;
-        double d3 = entity.getX();
-        double d4 = entity.getEyeY();
-        double d5 = entity.getZ();
-
-        // var vec=Minecraft.getInstance().cameraEntity.getLookAngle();
-
-        double x = -d3 + blockEntity.getBlockPos().getX();
-        double y = -d4 + blockEntity.getBlockPos().getY();
-        double z = -d5 + blockEntity.getBlockPos().getZ();
-
-        // GlStateManager.translate(dx, dy, dz);
-        poseStack.translate(0.5, 0, 0.5);
-
-        float scale = 0.8f / Mth.sqrt((float) (x * x + z * z));
-        poseStack.translate(z * scale, 0.2, -x * scale);
-
-        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        poseStack.mulPose(camera.rotation());
+        toGui(blockEntity.getBlockPos(),poseStack);
 
         // poseStack.translate(0.5f, 1.2f, 0);
-        poseStack.scale(0.25f, 0.25f, 0.25f);
+        // poseStack.scale(0.25f, 0.25f, 0.25f);
 
         poseStack.translate(0.8, 5.75, 0);
         for (int i = 0; i < 3; ++i) {
@@ -115,27 +89,13 @@ public class TESRBarbecueRack extends TESRFirePit<BarbecueRackBlockEntity> {
                 BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(stack, blockEntity.getLevel(), Minecraft.getInstance().player, 0);
                 Minecraft.getInstance().getItemRenderer().render(stack, ItemDisplayContext.GUI, false,
                         poseStack, bufferIn, combinedLight, OverlayTexture.NO_OVERLAY, bakedmodel);
-                // drawCircle(poseStack.last(), 0, 0, 5, 16, 0XFFFFFFFF);
 
-                RenderSystem.enableBlend();
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                var buffer = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION);
+
                 float r = 0.5f;
                 float presice = 100;
                 // float pef = (System.currentTimeMillis() % 5000) / 5000f;
-                float pef = 1-blockEntity.getRemainPercent(i);
-                for (int index = 0; index < presice * pef; index++) {
-                    buffer.addVertex(poseStack.last(), 0, 0, 0).setColor(1, 1, 1, 1);
-                    float rad = Mth.DEG_TO_RAD * ((index / presice) * 360 + 90);
-                    buffer.addVertex(poseStack.last(), -Mth.cos(rad) * r, Mth.sin(rad) * r, 0).setColor(1, 1, 1, 1);
-                    float rad2 = Mth.DEG_TO_RAD * (((index + 1) / presice) * 360 + 90);
-                    buffer.addVertex(poseStack.last(), -Mth.cos(rad2) * r, Mth.sin(rad2) * r, 0).setColor(1, 1, 1, 1);
-                }
-
-                var meta = buffer.build();
-                if (meta != null)
-                    BufferUploader.drawWithShader(meta);
-                RenderSystem.disableBlend();
+                float pef = 1 - blockEntity.getRemainPercent(i);
+                drawCircle(poseStack.last(), r, presice, pef);
             }
         }
 
@@ -143,4 +103,6 @@ public class TESRBarbecueRack extends TESRFirePit<BarbecueRackBlockEntity> {
         Lighting.setupFor3DItems();
         poseStack.popPose();
     }
+
+
 }

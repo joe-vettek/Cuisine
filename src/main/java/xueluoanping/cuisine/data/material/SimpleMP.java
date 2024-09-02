@@ -1,7 +1,11 @@
 package xueluoanping.cuisine.data.material;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.api.Form;
@@ -9,9 +13,15 @@ import xueluoanping.cuisine.api.MaterialCategory;
 import xueluoanping.cuisine.api.prefab.MaterialBuilder;
 import xueluoanping.cuisine.internal.material.MaterialWithEffect;
 
-public class SimpleMP extends MaterialProvider{
+import java.util.List;
+
+
+// 定义Ingredient
+public class SimpleMP extends MaterialProvider {
     public SimpleMP(DataGenerator gen) {
         super(gen, Cuisine.MODID);
+        var c=new JsonArray();
+        Ingredient.LIST_CODEC_NONEMPTY.encode(List.of(Ingredient.of(Items.APPLE.getDefaultInstance())), JsonOps.INSTANCE,c);
         add(MaterialBuilder.of("example").build(),
                 MaterialBuilder.of("peanut").rawColor(-8531).category(MaterialCategory.NUT).form(Form.MINCED, Form.PASTE).build(),
                 MaterialBuilder.of("sesame").rawColor(-15000805).category(MaterialCategory.GRAIN).build(),
@@ -30,7 +40,7 @@ public class SimpleMP extends MaterialProvider{
                 MaterialBuilder.of("onion").rawColor(-17409).category(MaterialCategory.VEGETABLES).form(Form.ALL_FORMS_INCLUDING_JUICE).build(),
                 MaterialBuilder.of("eggplant").rawColor(0xdcd295).category(MaterialCategory.VEGETABLES).form(Form.ALL_FORMS).build(),
                 MaterialBuilder.of("melon").rawColor(-769226).category(MaterialCategory.FRUIT).form(Form.CUBED, Form.SLICED, Form.DICED, Form.MINCED, Form.PASTE, Form.JUICE).build(),
-               MaterialBuilder.of("potato").rawColor(-3764682).heatValue(2).saturation(2f).category(MaterialCategory.GRAIN).form(Form.ALL_FORMS).build(),
+                MaterialBuilder.of("potato").rawColor(-3764682).heatValue(2).saturation(2f).category(MaterialCategory.GRAIN).form(Form.ALL_FORMS).build(),
                 MaterialBuilder.of("beetroot").rawColor(-8442327).category(MaterialCategory.VEGETABLES).form(Form.ALL_FORMS_INCLUDING_JUICE).build(),
                 MaterialBuilder.of("mushroom").rawColor(-10006976).category(MaterialCategory.VEGETABLES).form(Form.ALL_FORMS).build(),
                 MaterialBuilder.of("egg").rawColor(-3491187).saturation(0.2f).category(MaterialCategory.PROTEIN).build(),
@@ -49,11 +59,11 @@ public class SimpleMP extends MaterialProvider{
                 MaterialBuilder.of("lemon").rawColor(0xebca4b).saturation(-0.1f).category(MaterialCategory.FRUIT).form(Form.JUICE).build(),
                 MaterialBuilder.of("grapefruit").rawColor(0xf4502b).saturation(-0.1f).category(MaterialCategory.FRUIT).form(Form.JUICE).build(),
                 MaterialBuilder.of("lime").rawColor(0xcada76).saturation(-0.1f).category(MaterialCategory.FRUIT).form(Form.JUICE).build()
-                );
+        );
     }
 
     @Override
     public String getName() {
-        return "in SimpleMaterialProvider: "+Cuisine.MODID;
+        return "in SimpleMaterialProvider: " + Cuisine.MODID;
     }
 }

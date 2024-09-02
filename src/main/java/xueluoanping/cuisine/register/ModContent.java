@@ -9,8 +9,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.items.base.FluidContainerItem;
+import xueluoanping.cuisine.items.base.ItemContainerItem;
 
 import static xueluoanping.cuisine.Cuisine.MODID;
 
@@ -44,6 +47,8 @@ public class ModContent {
                                 output.accept(new ItemStack(reg.get()));
                             });
 
+                            ItemRegister.spice_bottle.value().fillItemGroup(output);
+
                         })
                         .build();
                 helper.register(Cuisine.rl(MODID), CREATIVE_TAB);
@@ -56,6 +61,10 @@ public class ModContent {
     // SimpleFluidContent
     @SubscribeEvent
     public static void onRegisterCapabilitiesEvent(RegisterCapabilitiesEvent event) {
+        event.registerItem(Capabilities.FluidHandler.ITEM, (s, a) -> ((FluidContainerItem) s.getItem()).transferToFluidHandler(s),
+                ItemRegister.spice_bottle.value());
+        event.registerItem(Capabilities.ItemHandler.ITEM, (s, a) -> ((ItemContainerItem) s.getItem()).transferToItemHandler(s),
+                ItemRegister.spice_bottle.value());
 
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, BlockEntityRegister.basin_entity_type.get(),
                 (blockEntity, context) -> blockEntity.isRemoved() ? null : (blockEntity.getInventory()));
@@ -76,6 +85,11 @@ public class ModContent {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, BlockEntityRegister.barbecue_rack_entity_type.get(),
                 (blockEntity, context) -> blockEntity.isRemoved() ? null : (blockEntity.getInventory()));
 
+
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, BlockEntityRegister.wok_on_fire_pit_entity_type.get(),
+                (blockEntity, context) -> blockEntity.isRemoved() ? null : (new CombinedInvWrapper(blockEntity.getSeasonings(),blockEntity.getInventory())));
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BlockEntityRegister.wok_on_fire_pit_entity_type.get(),
+                (blockEntity, context) -> blockEntity.isRemoved() ? null : blockEntity.getSeasoningLiquids());
 
     }
 

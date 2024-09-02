@@ -2,6 +2,7 @@ package xueluoanping.cuisine.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
-import xueluoanping.cuisine.block.firepit.BlockFirePit;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
 public class BlockDrinkro extends SimpleHorizontalEntityBlock {
@@ -21,8 +21,7 @@ public class BlockDrinkro extends SimpleHorizontalEntityBlock {
         super(p_49795_);
         registerDefaultState(defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER));
     }
-
-
+    
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder.add(HALF));
@@ -39,6 +38,16 @@ public class BlockDrinkro extends SimpleHorizontalEntityBlock {
     }
 
 
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
+        return state.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.MODEL : RenderShape.INVISIBLE;
+    }
 
-
+    @Override
+    protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
+        if (pState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            pLevel.setBlock(pPos.above(), pState.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_CLIENTS);
+        }
+    }
 }

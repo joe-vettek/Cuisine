@@ -9,5 +9,4 @@ public class BlockItemDrinkro extends DoubleHighBlockItem {
         super(block, properties);
     }
 
-
 }

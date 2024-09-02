@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.items.BehaviorArmDispense;
 import xueluoanping.cuisine.items.Behavior_JuiceBucket;
@@ -20,8 +21,6 @@ import java.util.HashSet;
 // 所有和初始化相关的事件都是在Mod总线内，其他所有事件都在Forge总线内。
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class ModSetUp {
-    // public static RecipeType<BasinSqueezingRecipe> TYPE = null;
-    // public static BasinSqueezingRecipe.Serializer SERIALIZER = null;
     // static DispenseItemBehavior dispenseItemBehavior_Bucket = new Behavior_JuiceBucket();
     // static DispenseItemBehavior dispenseItemBehavior_woodenArm = new BehaviorArmDispense();
 
@@ -60,6 +59,7 @@ public class ModSetUp {
         });
         ComposterBlock.COMPOSTABLES.put(CropRegister.chili_item.get(), 0.7f);
 
+        // TODO：改成为施肥 NeoForgeDataMaps.COMPOSTABLES
         // WorkAtComposter.COMPOSTABLE_ITEMS = new ArrayList<>(WorkAtComposter.COMPOSTABLE_ITEMS);
         // CropRegister.getAllCrops().forEach(itemRegistryObject -> {
         //     WorkAtComposter.COMPOSTABLE_ITEMS.add(itemRegistryObject.get());
@@ -68,6 +68,9 @@ public class ModSetUp {
 
     public static void registerCustomVillagerNeed( FMLCommonSetupEvent event) {
         Cuisine.logger("Register CustomVillagerNeed");
+
+        // use SpecialPlantable instead of Villager.WANTED_ITEMS
+        // TODO：Villager.FOOD_POINTS
         // HarvestFarmland 帮忙种地的逻辑是itemstack.getItem() instanceof net.minecraftforge.common.IPlantable
         // event.enqueueWork(() -> {
         //     Villager.FOOD_POINTS = new HashMap<>(Villager.FOOD_POINTS);
@@ -81,13 +84,4 @@ public class ModSetUp {
 
     }
 
-    //    @SubscribeEvent
-    //    public void registerRecipe(final RegistryEvent.Register<RecipeSerializer<?>> event) {
-    //        Cuisine.logger("Register Recipe");
-    //        SERIALIZER = (BasinSqueezingRecipe.Serializer) new BasinSqueezingRecipe.Serializer()
-    //                .setRegistryName(Cuisine.MODID + ":squeezing");
-    //        event.getRegistry().register(SERIALIZER);
-    //        TYPE = RecipeType.register(Cuisine.MODID + ":squeezing");
-    //
-    //    }
 }

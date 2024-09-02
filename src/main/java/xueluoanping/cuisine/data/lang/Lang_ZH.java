@@ -61,6 +61,7 @@ public class Lang_ZH extends LangHelper {
 		addFluid(FluidRegister.CUISINE_JUICE, "丢失味道的果汁");
 		add("fluid." + Cuisine.MODID + ".cuisine_juice_with_material", "汁");
 
+
 		addItem(ItemRegister.flour, "面粉");
 		addItem(ItemRegister.rice_powder, "米粉");
 		addItem(ItemRegister.wooden_handle, "木手柄");

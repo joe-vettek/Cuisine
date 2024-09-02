@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,6 +20,8 @@ import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.client.color.item.BucketItemColors;
+import xueluoanping.cuisine.client.color.item.IngreItemColors;
+import xueluoanping.cuisine.client.color.item.SpiceBottletItemColors;
 import xueluoanping.cuisine.client.renderer.BER.*;
 import xueluoanping.cuisine.fluids.TeaFluidType;
 import xueluoanping.cuisine.register.*;
@@ -67,11 +70,9 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE_FLOWING.get(), RenderType.translucent());
 
-            BlockEntityRenderers.register(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
-            BlockEntityRenderers.register(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
-            BlockEntityRenderers.register(BlockEntityRegister.barbecue_rack_entity_type.get(), TESRBarbecueRack::new);
+          
 
-			// ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
+            // ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
 
         });
     }
@@ -82,19 +83,23 @@ public class ClientSetup {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         Cuisine.logger("Register Renderer");
         event.registerBlockEntityRenderer(BlockEntityRegister.basin_entity_type.get(), TESRBasin::new);
-		event.registerBlockEntityRenderer(BlockEntityRegister.basin_colored_entity_type.get(), TESRBasinColored::new);
-		event.registerBlockEntityRenderer(BlockEntityRegister.chopping_board_entity_type.get(), TESRChoppingBoard::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.basin_colored_entity_type.get(), TESRBasinColored::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.chopping_board_entity_type.get(), TESRChoppingBoard::new);
 
+        event.registerBlockEntityRenderer(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
+        // event.registerBlockEntityRenderer(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.barbecue_rack_entity_type.get(), TESRBarbecueRack::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.wok_on_fire_pit_entity_type.get(), TESWok::new);
     }
 
     //    go to BlockColors class for more help
     @SubscribeEvent
 
     public static void onColorSetup(RegisterColorHandlersEvent.Block event) {
-        event.getBlockColors().register((state, blockAndTintGetter, pos, tintIndex) -> {
+        event.register((state, blockAndTintGetter, pos, tintIndex) -> {
             return blockAndTintGetter != null && pos != null ?
                     BiomeColors.getAverageFoliageColor(blockAndTintGetter, pos) : -1;
-        }, BlockRegister.bamboo.get(), BlockRegister.bamboo_plant.get());
+        }, BlockRegister.bamboo.get(), BlockRegister.bamboo_plant.get(), BlockRegister.bamboo_branch_leaves.get());
         // new BlockColor(){
         //     @Override
         //     public int getColor(BlockState p_92567_, @Nullable BlockAndTintGetter p_92568_, @Nullable BlockPos p_92569_, int p_92570_) {
@@ -106,14 +111,12 @@ public class ClientSetup {
     @SubscribeEvent
 
     public static void onColorItemSetup(RegisterColorHandlersEvent.Item event) {
-        event.getItemColors().register((itemStack, meta) -> {
-            return Color.CYAN.getRGB();
-        }, ItemRegister.cubed.get());
+        event.register(new IngreItemColors(), ItemRegister.getIngredients().toArray(new Item[0]));
 
         var buckColors = new BucketItemColors();
-
-        FluidRegister.ITEMS.getEntries().forEach(itemRegistryObject -> event.register(buckColors, itemRegistryObject.get()));
-
+        var buckColors2 = new SpiceBottletItemColors();
+        FluidRegister.ITEMS.getEntries().forEach(itemRegistryObject -> event.register(buckColors, itemRegistryObject.value()));
+        event.register(buckColors2, ItemRegister.spice_bottle.value());
     }
-    
+
 }

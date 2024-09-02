@@ -1,6 +1,6 @@
 {
 	"credit": "Made with Blockbench",
-	"render_type": "cutout_mipped",
+	"render_type": "cutout",
 	"textures": {
 		"particle": "cuisine:block/bamboo"
 	},
@@ -8,10 +8,10 @@
 		{
 			"from": [7.5, -0.5, 7],
 			"to": [21.5, 1.5, 9],
-			"rotation": {"angle": 22.5, "axis": "z", "origin": [7.5, 5.5, 7]},
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [7.5, 5.5, 7],"rescale": true},
 			"faces": {
 				"north": {"uv": [5, 0, 11, 16], "rotation": 90, "texture": "#particle", "tintindex": 0},
-				"east": {"uv": [5, 5, 0, 0], "rotation": 90, "texture": "#particle"},
+				"east": {"uv": [5, 5, 0, 0], "rotation": 90, "texture": "#particle", "tintindex": 0},
 				"south": {"uv": [5, 0, 11, 16], "rotation": 270, "texture": "#particle", "tintindex": 0},
 				"up": {"uv": [5, 0, 11, 16], "rotation": 270, "texture": "#particle", "tintindex": 0},
 				"down": {"uv": [11, 16, 5, 0], "rotation": 90, "texture": "#particle", "tintindex": 0}

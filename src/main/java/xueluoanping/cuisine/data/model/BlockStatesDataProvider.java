@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -30,9 +31,11 @@ import java.util.List;
 public class BlockStatesDataProvider extends BlockStateProvider {
 
 
-    public BlockStatesDataProvider(PackOutput output, ExistingFileHelper exFileHelper) {
+    private final ExistingFileHelper existingFileHelper;
 
-        super(output, Cuisine.MODID, exFileHelper);
+    public BlockStatesDataProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, Cuisine.MODID, existingFileHelper);
+        this.existingFileHelper=existingFileHelper;
     }
 
     @Override
@@ -40,8 +43,15 @@ public class BlockStatesDataProvider extends BlockStateProvider {
         simpleBlock(BlockRegister.bamboo_root.get());
         simpleBlock(BlockRegister.tofu_block.get());
 
+
+
+        simpleBlock(BlockRegister.bamboo_branch_leaves.get(), ConfiguredModel.builder().modelFile(new BlockModelBuilder(resourceBlock(blockName(BlockRegister.bamboo_branch_leaves.get())), existingFileHelper)).build());
+
+        // getVariantBuilder(BlockRegister.bamboo_branch_leaves.get())
+        //         .partialState().setModels());
+
         for (DeferredHolder<Block, ? extends Block> entry : FluidRegister.BLOCKS.getEntries()) {
-            simpleBlock(entry.value(),ConfiguredModel.builder().modelFile(models().withExistingParent("water",ResourceLocation.withDefaultNamespace("water"))).build());
+            simpleBlock(entry.value(), ConfiguredModel.builder().modelFile(models().withExistingParent("water", ResourceLocation.withDefaultNamespace("water"))).build());
         }
 
         // this.customStageBlock(CropRegister.tomato.get(), resourceBlock("cross_crop"), "crop", BlockCuisineCrops.AGE, Arrays.asList(0,0, 1,1, 2,2,2, 3 ));
@@ -115,7 +125,7 @@ public class BlockStatesDataProvider extends BlockStateProvider {
     }
 
     public ResourceLocation resourceVanillaBlock(String path) {
-        return  ResourceLocation.withDefaultNamespace("block/" + path);
+        return ResourceLocation.withDefaultNamespace("block/" + path);
     }
 
 }

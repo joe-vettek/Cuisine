@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import xueluoanping.cuisine.block.blockitem.BlockItemDish;
+import xueluoanping.cuisine.block.blockitem.BlockItemDrinkro;
 import xueluoanping.cuisine.block.firepit.BlockBarbecueRack;
 import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.block.BlockBasinColored;
@@ -71,12 +73,12 @@ public class BlockEntityRegister {
 
 	//	plate
 	public static final DeferredHolder<Block, BlockPlate> plate = DREntityBlocks.register("plate", () -> new BlockPlate(BlockBehaviour.Properties.of().strength(2.0f).sound(SoundType.STONE).noOcclusion()));
-	public static final DeferredHolder<Item, BlockItem> plate_item = DREntityBlockItems.register("plate", () -> new BlockItem(plate.get(), (new Item.Properties())));
+	public static final DeferredHolder<Item, BlockItem> plate_item = DREntityBlockItems.register("plate", () -> new BlockItemDish(plate.get(), (new Item.Properties())));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlateBlockEntity>> plate_entity_type = DRBlockEntities.register("plate", () -> BlockEntityType.Builder.of(PlateBlockEntity::new, BlockEntityRegister.plate.get()).build(null));
 
-	//	plate
+	//	drinkro
 	public static final DeferredHolder<Block, BlockDrinkro> drinkro = DREntityBlocks.register("drinkro", () -> new BlockDrinkro(BlockBehaviour.Properties.of().strength(2.0f).sound(SoundType.STONE).noOcclusion()));
-	public static final DeferredHolder<Item, BlockItem> drinkro_item = DREntityBlockItems.register("drinkro", () -> new BlockItem(drinkro.get(), (new Item.Properties())));
+	public static final DeferredHolder<Item, BlockItem> drinkro_item = DREntityBlockItems.register("drinkro", () -> new BlockItemDrinkro(drinkro.get(), (new Item.Properties())));
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DrinkroBlockEntity>> drinkro_type = DRBlockEntities.register("drinkro", () -> BlockEntityType.Builder.of(DrinkroBlockEntity::new, BlockEntityRegister.drinkro.get()).build(null));
 
 	//	fire_pit

@@ -19,8 +19,6 @@ import xueluoanping.cuisine.register.FeatureRegister;
 
 import java.util.List;
 
-// @Mod.EventBusSubscriber(modid = Cuisine.MODID)
-// 订阅FML和forge事件不要用上面的
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME)
 public class ModContents {
 

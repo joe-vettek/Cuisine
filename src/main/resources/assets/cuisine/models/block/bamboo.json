@@ -1,6 +1,5 @@
 {
 	"__comment": "Designed by YurisCat with Cubik Studio - https://cubik.studio",
-	"render_type": "cutout_mipped",
 	"textures": {
 		"particle": "cuisine:block/bamboo"
 	},
