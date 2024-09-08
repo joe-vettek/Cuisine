@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
 
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -34,9 +33,9 @@ public class network extends SimpleJsonResourceReloadListener {
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> objects, ResourceManager manager, ProfilerFiller profiler) {
         Cuisine.logger("Hello Profile");
-        objects.forEach((res,json)->{
-            Cuisine.logger(json.toString(),res);
-			// Cuisine.logger(Minecraft.getInstance().isLocalServer());
+        objects.forEach((res, json) -> {
+            Cuisine.logger(json.toString(), res);
+            // Cuisine.logger(Minecraft.getInstance().isLocalServer());
         });
     }
 

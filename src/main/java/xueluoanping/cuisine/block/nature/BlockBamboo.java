@@ -2,9 +2,11 @@ package xueluoanping.cuisine.block.nature;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,5 +71,10 @@ public class BlockBamboo extends Block implements SimpleWaterloggedBlock {
             accessor.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(accessor));
         }
         return super.updateShape(state, direction, state1, accessor, pos, pos1);
+    }
+
+    @Override
+    public boolean isLadder(BlockState state, LevelReader level, BlockPos pos, LivingEntity entity) {
+        return true;
     }
 }

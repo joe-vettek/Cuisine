@@ -70,7 +70,8 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(FluidRegister.CUISINE_JUICE_FLOWING.get(), RenderType.translucent());
 
-          
+
+            ItemBlockRenderTypes.setRenderLayer(BlockEntityRegister.drinkro.get(), RenderType.translucent());
 
             // ItemProperties.register(BlockEntityRegister.hide_fire_pit_item.get(), new ResourceLocation(Cuisine.MODID, "component"), ClientSetup::firepit);
 

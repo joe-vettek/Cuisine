@@ -11,6 +11,6 @@ import java.awt.*;
 public class IngreItemColors implements ItemColor {
     @Override
     public int getColor(ItemStack itemStack, int tintIndex) {
-        return Color.CYAN.getRGB();
+        return -3392460;
     }
 }

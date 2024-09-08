@@ -21,7 +21,7 @@ public class BlockDrinkro extends SimpleHorizontalEntityBlock {
         super(p_49795_);
         registerDefaultState(defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER));
     }
-    
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder.add(HALF));
@@ -45,6 +45,7 @@ public class BlockDrinkro extends SimpleHorizontalEntityBlock {
 
     @Override
     protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+
         super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
         if (pState.getValue(HALF) == DoubleBlockHalf.LOWER) {
             pLevel.setBlock(pPos.above(), pState.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_CLIENTS);

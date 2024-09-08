@@ -13,6 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.common.Constants;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -44,12 +45,10 @@ public class SqueezingCategory implements IRecipeCategory<BasinSqueezingRecipe> 
         ResourceLocation backgroundImage = Cuisine.rl("textures/gui/jei.png");
         background = helper.createDrawable(backgroundImage, 100, 100, 74, 32);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockEntityRegister.basin.get()));
-        itemContainer = helper.createDrawable(JEICompact.VANILLA_RECIPE_GUI, 0, 96, 16, 16);
+        itemContainer = helper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 227, 18, 19).build();
         fluidContainer = helper.createDrawable(backgroundImage, 0, 33, 20, 10);
-        arrow = helper.createDrawable(JEICompact.VANILLA_RECIPE_GUI, 25, 133, 22, 15);
-        arrowOverlay = helper.drawableBuilder(JEICompact.VANILLA_RECIPE_GUI, 82, 128, 24, 17).buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
-
-        Cuisine.logger(backgroundImage);
+        arrow = helper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 25, 133, 22, 15).build();
+        arrowOverlay = helper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 128, 24, 17).buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
     }
 
 
@@ -96,8 +95,9 @@ public class SqueezingCategory implements IRecipeCategory<BasinSqueezingRecipe> 
 
     public void setRecipe(IRecipeLayoutBuilder builder, BasinSqueezingRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 2, 3)
-                .setBackground(itemContainer, 0, 0)
-                .addIngredients((Ingredient) recipe.getIngredients().get(0));
+                // .setBackground(itemContainer, 0, 0)
+                .setBackground(itemContainer, -1, -2)
+                .addIngredients(recipe.getIngredients().get(0));
         FluidStack showing = recipe.getResult().get(0).copy();
 //		if(showing.getAmount()>500)
 //		showing.setAmount(500);
@@ -109,38 +109,4 @@ public class SqueezingCategory implements IRecipeCategory<BasinSqueezingRecipe> 
                 .setFluidRenderer(500, false, 16, 8);
 
     }
-
-
-//	@Override
-//	public void setRecipe(IRecipeLayoutBuilder builder, DebugRecipe recipe, IFocusGroup focuses) {
-//		IRecipeSlotBuilder inputSlot = builder.addSlot(RecipeIngredientRole.INPUT, 0, 0)
-//				.addItemStacks(List.of(
-//						new ItemStack(Items.BUCKET),
-//						new ItemStack(Items.WATER_BUCKET),
-//						new ItemStack(Items.LAVA_BUCKET),
-//						new ItemStack(Items.POWDER_SNOW_BUCKET),
-//						new ItemStack(Items.AXOLOTL_BUCKET),
-//						new ItemStack(Items.SALMON_BUCKET),
-//						new ItemStack(Items.COD_BUCKET),
-//						new ItemStack(Items.PUFFERFISH_BUCKET),
-//						new ItemStack(Items.TROPICAL_FISH_BUCKET)
-//				));
-//
-//		IRecipeSlotBuilder outputSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 20, 0)
-//				.addItemStack(ItemStack.EMPTY)
-//				.addIngredients(VanillaTypes.FLUID, List.of(
-//						new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME),
-//						new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME)
-//				))
-//				.addItemStacks(List.of(
-//						new ItemStack(Items.SNOW_BLOCK),
-//						new ItemStack(Items.AXOLOTL_SPAWN_EGG),
-//						new ItemStack(Items.SALMON),
-//						new ItemStack(Items.COD),
-//						new ItemStack(Items.PUFFERFISH),
-//						new ItemStack(Items.TROPICAL_FISH)
-//				));
-//
-//		builder.createFocusLink(inputSlot, outputSlot);
-//	}
 }

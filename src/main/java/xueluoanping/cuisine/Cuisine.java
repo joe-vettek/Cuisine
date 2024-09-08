@@ -44,6 +44,7 @@ public final class Cuisine {
 
     public Cuisine(IEventBus modEventBus, ModContainer modContainer) {
 
+
         ItemRegister.DRItems.register(modEventBus);
 
         BlockRegister.DRBlocks.register(modEventBus);
