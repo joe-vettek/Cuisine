@@ -141,6 +141,9 @@ dependencies {
     onlyMainRuntimeOnly ("curse.maven:journeymap-32274:5541925")
     onlyMainRuntimeOnly ("curse.maven:irisshaders-455508:5654735")
     onlyMainImplementation "maven.modrinth:sodium:mc1.21-0.6.0-beta.1-neoforge"
+
+    onlyMainRuntimeOnly "maven.modrinth:patchouli:1.21-87-neoforge"
+
 //    runtimeOnly ("curse.maven:spark-361579:5434153")
     
     // Example optional mod dependency with JEI

@@ -76,6 +76,7 @@ public class ItemRegister {
     public static final DeferredHolder<Item, Item> minced = DRItems.register("minced", () -> new ItemCubed(new Item.Properties()));
     public static final DeferredHolder<Item, Item> paste = DRItems.register("paste", () -> new ItemCubed(new Item.Properties()));
 
+    public static final DeferredHolder<Item, Item> manual = DRItems.register("manual", () -> new Item(new Item.Properties()));
 
     public static List<Item> getIngredients() {
         return Stream.of(ItemRegister.cubed,
