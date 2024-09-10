@@ -27,6 +27,9 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.items.base.ItemHolder;
+import xueluoanping.cuisine.register.FluidRegister;
+import xueluoanping.cuisine.register.ModCapabilities;
 import xueluoanping.cuisine.register.RecipeRegister;
 
 import java.util.Optional;
@@ -40,6 +43,9 @@ public class BasinSqueezingRecipe implements Recipe<RecipeWrapper> {
         this.group = group;
         this.input = input;
         this.result = result;
+
+        if (this.result.is(FluidRegister.CUISINE_JUICE))
+            this.result.set(ModCapabilities.SIMPLE_ITEM, new ItemHolder(this.input.getItems()[0]));
     }
 
     public BasinSqueezingRecipe(String group, Ingredient input, SizedFluidIngredient result) {

@@ -6,18 +6,25 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 import xueluoanping.cuisine.Cuisine;
+import xueluoanping.cuisine.event.DataListenerClient;
+import xueluoanping.cuisine.items.base.ItemHolder;
 import xueluoanping.cuisine.register.FluidRegister;
+import xueluoanping.cuisine.register.ModCapabilities;
 
 public class TeaFluidType extends FluidType {
 
     private ResourceLocation STILL_TEXTURE;
     private ResourceLocation FLOWING_TEXTURE;
-    private int colourTint= 0XFFFFFFFF;
+    private int colourTint = 0XFFFFFFFF;
 
     public TeaFluidType(Properties properties) {
         this(properties, FluidRegister.WATER_STILL_TEXTURE, FluidRegister.WATER_FLOW_TEXTURE);
@@ -39,14 +46,29 @@ public class TeaFluidType extends FluidType {
         return new TeaFluidTypeExtension(teaFluidType.STILL_TEXTURE, teaFluidType.FLOWING_TEXTURE, teaFluidType.colourTint);
     }
 
+    public static IClientFluidTypeExtensions getCuisineIClientFluidTypeExtensions(TeaFluidType teaFluidType) {
+        return new CuisineFluidType(teaFluidType.STILL_TEXTURE, teaFluidType.FLOWING_TEXTURE, teaFluidType.colourTint);
+    }
+
     public TeaFluidType texture(String fluid) {
         this.STILL_TEXTURE = Cuisine.rl("block/" + fluid + "_still");
         this.FLOWING_TEXTURE = Cuisine.rl("block/" + fluid + "_flow");
         return this;
     }
 
-    public record TeaFluidTypeExtension(ResourceLocation STILL_TEXTURE, ResourceLocation FLOWING_TEXTURE,
-                                        int colourTint) implements IClientFluidTypeExtensions {
+    public static class TeaFluidTypeExtension implements IClientFluidTypeExtensions {
+        private final ResourceLocation FLOWING_TEXTURE;
+        private final ResourceLocation STILL_TEXTURE;
+        private final int colourTint;
+
+        public TeaFluidTypeExtension(ResourceLocation STILL_TEXTURE,
+                                     ResourceLocation FLOWING_TEXTURE,
+                                     int colourTint) {
+            this.STILL_TEXTURE = STILL_TEXTURE;
+            this.FLOWING_TEXTURE = FLOWING_TEXTURE;
+            this.colourTint = colourTint;
+        }
+
         @Override
         public ResourceLocation getStillTexture() {
             return this.STILL_TEXTURE;
@@ -81,6 +103,24 @@ public class TeaFluidType extends FluidType {
             var alpha = ((float) (((color >> 24) & 255) / 255.0));
             RenderSystem.setShaderFogStart(0.125F);
             RenderSystem.setShaderFogEnd(2.0F + 3.0F * (1 - alpha));
+        }
+    }
+
+
+    public static class CuisineFluidType extends TeaFluidTypeExtension {
+
+        public CuisineFluidType(ResourceLocation STILL_TEXTURE, ResourceLocation FLOWING_TEXTURE, int colourTint) {
+            super(STILL_TEXTURE, FLOWING_TEXTURE, colourTint);
+        }
+
+        @Override
+        public int getTintColor(FluidStack fluidStack) {
+            var itemStack = fluidStack.getOrDefault(ModCapabilities.SIMPLE_ITEM, new ItemHolder(ItemStack.EMPTY)).stack();
+            if (!itemStack.isEmpty()) {
+                Item item = itemStack.getItem();
+                return DataListenerClient.getFluidColorsMap().get(item).getRGB();
+            }
+            return super.getTintColor(fluidStack);
         }
     }
 

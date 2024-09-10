@@ -7,6 +7,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
@@ -98,7 +99,8 @@ public class ItemSpineBottle extends Item implements FluidContainerItem, ItemCon
                 itemStack.setCount(1);
                 var sss = new ItemStack(item1);
                 sss.setCount(getStackLimit(0,sss));
-                itemStack.set(ModCapabilities.SIMPLE_ITEM, new ItemHolder(sss));
+                // itemStack.set(ModCapabilities.SIMPLE_ITEM, new ItemHolder(sss));
+                itemStack.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(List.of(sss)));
                 group.accept(itemStack);
             }
         }

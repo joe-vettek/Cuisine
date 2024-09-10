@@ -47,8 +47,13 @@ public class ClientSetup {
         FluidRegister.FLUIDS.getEntries().forEach(holder -> {
 
             if (holder.get().getFluidType() instanceof TeaFluidType teaFluidType
-                    && holder.get() instanceof BaseFlowingFluid.Source baseFlowingFluid)
-                event.registerFluidType(TeaFluidType.getIClientFluidTypeExtensions(teaFluidType), baseFlowingFluid.getFluidType());
+                    && holder.get() instanceof BaseFlowingFluid.Source baseFlowingFluid) {
+                if (teaFluidType == FluidRegister.JUICE_TYPE.get()) {
+                    event.registerFluidType(TeaFluidType.getCuisineIClientFluidTypeExtensions(teaFluidType), baseFlowingFluid.getFluidType());
+                } else {
+                    event.registerFluidType(TeaFluidType.getIClientFluidTypeExtensions(teaFluidType), baseFlowingFluid.getFluidType());
+                }
+            }
         });
 
     }

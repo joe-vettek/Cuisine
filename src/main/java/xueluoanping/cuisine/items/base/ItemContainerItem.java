@@ -1,7 +1,9 @@
 package xueluoanping.cuisine.items.base;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -29,7 +31,9 @@ public interface ItemContainerItem {
 
             @Override
             public ItemStack getStackInSlot(int slot) {
-                return stack.getOrDefault(ModCapabilities.SIMPLE_ITEM, new ItemHolder(ItemStack.EMPTY)).stack();
+                var con = stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
+                if (con.getSlots() == 0) return ItemStack.EMPTY;
+                return stack.getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).getStackInSlot(0);
             }
 
             @Override
