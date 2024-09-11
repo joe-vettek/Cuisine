@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
@@ -22,11 +21,10 @@ import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.client.color.item.BucketItemColors;
 import xueluoanping.cuisine.client.color.item.IngreItemColors;
 import xueluoanping.cuisine.client.color.item.SpiceBottletItemColors;
-import xueluoanping.cuisine.client.renderer.BER.*;
+import xueluoanping.cuisine.client.renderer.block.*;
 import xueluoanping.cuisine.fluids.TeaFluidType;
 import xueluoanping.cuisine.register.*;
 
-import java.awt.*;
 import java.util.*;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -88,14 +86,14 @@ public class ClientSetup {
 
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         Cuisine.logger("Register Renderer");
-        event.registerBlockEntityRenderer(BlockEntityRegister.basin_entity_type.get(), TESRBasin::new);
-        event.registerBlockEntityRenderer(BlockEntityRegister.basin_colored_entity_type.get(), TESRBasinColored::new);
-        event.registerBlockEntityRenderer(BlockEntityRegister.chopping_board_entity_type.get(), TESRChoppingBoard::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.basin_entity_type.get(), BasinRenderer::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.basin_colored_entity_type.get(), BasinColoredRenderer::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.chopping_board_entity_type.get(), ChoppingBoardRenderer::new);
 
-        event.registerBlockEntityRenderer(BlockEntityRegister.mill_entity_type.get(), TESRMill::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.mill_entity_type.get(), MillRenderer::new);
         // event.registerBlockEntityRenderer(BlockEntityRegister.fire_pit_entity_type.get(), TESRFirePit::new);
-        event.registerBlockEntityRenderer(BlockEntityRegister.barbecue_rack_entity_type.get(), TESRBarbecueRack::new);
-        event.registerBlockEntityRenderer(BlockEntityRegister.wok_on_fire_pit_entity_type.get(), TESWok::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.barbecue_rack_entity_type.get(), BarbecueRackRenderer::new);
+        event.registerBlockEntityRenderer(BlockEntityRegister.wok_on_fire_pit_entity_type.get(), WokRenderer::new);
     }
 
     //    go to BlockColors class for more help

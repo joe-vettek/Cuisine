@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -9,9 +9,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.blockentity.BasinColorBlockEntity;
+import xueluoanping.cuisine.client.renderer.RenderTool;
 
-public class TESRBasinColored implements BlockEntityRenderer<BasinColorBlockEntity> {
-	public TESRBasinColored(BlockEntityRendererProvider.Context pContext) {
+public class BasinColoredRenderer implements BlockEntityRenderer<BasinColorBlockEntity> {
+	public BasinColoredRenderer(BlockEntityRendererProvider.Context pContext) {
 	}
 	@Override
 	public void render(BasinColorBlockEntity basinBlockEntity, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLight, int combinedOverlay) {

@@ -91,6 +91,8 @@ public class ModContent {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BlockEntityRegister.wok_on_fire_pit_entity_type.get(),
                 (blockEntity, context) -> blockEntity.isRemoved() ? null : blockEntity.getSeasoningLiquids());
 
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, BlockEntityRegister.chopping_board_entity_type.get(),
+                (blockEntity, context) -> blockEntity.isRemoved() ? null : (blockEntity.getInventory()));
     }
 
 

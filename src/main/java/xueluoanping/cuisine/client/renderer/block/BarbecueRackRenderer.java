@@ -1,12 +1,9 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer.block;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -16,21 +13,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
 import xueluoanping.cuisine.blockentity.firepit.BarbecueRackBlockEntity;
-import xueluoanping.cuisine.blockentity.firepit.FirePitBlockEntity;
-import xueluoanping.cuisine.client.gui.CuisineGUI;
 
-import java.awt.*;
-
-public class TESRBarbecueRack extends TESRFirePit<BarbecueRackBlockEntity> {
+public class BarbecueRackRenderer extends FirePitRenderer<BarbecueRackBlockEntity> {
 
 
-    public TESRBarbecueRack(BlockEntityRendererProvider.Context pContext) {
+    public BarbecueRackRenderer(BlockEntityRendererProvider.Context pContext) {
         super(pContext);
     }
 

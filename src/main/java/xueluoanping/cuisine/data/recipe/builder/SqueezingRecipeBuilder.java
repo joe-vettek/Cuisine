@@ -1,21 +1,13 @@
 package xueluoanping.cuisine.data.recipe.builder;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
-import org.jetbrains.annotations.Nullable;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.craft.BasinSqueezingRecipe;
 import xueluoanping.cuisine.register.RecipeRegister;
-
-import java.util.function.Consumer;
 
 public class SqueezingRecipeBuilder {
     private final Ingredient input;

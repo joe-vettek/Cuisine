@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -18,14 +18,10 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
-import xueluoanping.cuisine.blockentity.AbstractBasinBlockEntity;
 import xueluoanping.cuisine.blockentity.BasinBlockEntity;
-
-import java.util.Optional;
 
 import static net.minecraft.world.inventory.InventoryMenu.BLOCK_ATLAS;
 
@@ -148,7 +144,7 @@ public class RenderTool {
         matrixStackIn.scale(0.6F, 0.6F, 0.6F);
     }
 
-    static void drawStackItems(ItemStack basinStack, Direction direction, Level level, int combinedLight, int combinedOverlay, PoseStack matrixStackIn, MultiBufferSource bufferIn, int posLong) {
+    public static void drawStackItems(ItemStack basinStack, Direction direction, Level level, int combinedLight, int combinedOverlay, PoseStack matrixStackIn, MultiBufferSource bufferIn, int posLong) {
         matrixStackIn.translate(0.5D, 0.12D, 0.5D);
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         boolean isBlockItem = itemRenderer.getModel(basinStack, level, null, 0).isGui3d();
@@ -181,7 +177,7 @@ public class RenderTool {
         }
     }
 
-    static void drawItemInWorld(ItemStack stack, int combinedLight, int combinedOverlay, PoseStack matrixStackIn, MultiBufferSource bufferIn, Level level, int posLong) {
+    public static void drawItemInWorld(ItemStack stack, int combinedLight, int combinedOverlay, PoseStack matrixStackIn, MultiBufferSource bufferIn, Level level, int posLong) {
         matrixStackIn.translate(0.5,0.5,0.5);
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE, combinedLight, combinedOverlay, matrixStackIn, bufferIn,level, posLong);
     }

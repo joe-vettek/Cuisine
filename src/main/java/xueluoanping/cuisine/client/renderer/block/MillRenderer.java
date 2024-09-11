@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -13,8 +13,8 @@ import net.minecraft.world.item.component.CustomModelData;
 import xueluoanping.cuisine.blockentity.MillBlockEntity;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 
-public class TESRMill implements BlockEntityRenderer<MillBlockEntity> {
-    public TESRMill(BlockEntityRendererProvider.Context pContext) {
+public class MillRenderer implements BlockEntityRenderer<MillBlockEntity> {
+    public MillRenderer(BlockEntityRendererProvider.Context pContext) {
     }
 
     @Override

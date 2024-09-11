@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -9,10 +9,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import xueluoanping.cuisine.block.BlockBasin;
 import xueluoanping.cuisine.blockentity.BasinBlockEntity;
+import xueluoanping.cuisine.client.renderer.RenderTool;
 
 
-public class TESRBasin implements BlockEntityRenderer<BasinBlockEntity> {
-    public TESRBasin(BlockEntityRendererProvider.Context pContext) {
+public class BasinRenderer implements BlockEntityRenderer<BasinBlockEntity> {
+    public BasinRenderer(BlockEntityRendererProvider.Context pContext) {
     }
 
     @Override

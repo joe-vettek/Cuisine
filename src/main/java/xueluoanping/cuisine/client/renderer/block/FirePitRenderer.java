@@ -1,4 +1,4 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer.block;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
@@ -17,18 +17,15 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import xueluoanping.cuisine.blockentity.firepit.AbstractFirepitBlockEntity;
 import xueluoanping.cuisine.client.gui.CuisineGUI;
 
-import java.awt.*;
-
-public class TESRFirePit<T extends AbstractFirepitBlockEntity> implements BlockEntityRenderer<T> {
+public class FirePitRenderer<T extends AbstractFirepitBlockEntity> implements BlockEntityRenderer<T> {
 
     private boolean isLookingAt = false;
 
-    public TESRFirePit(BlockEntityRendererProvider.Context pContext) {
+    public FirePitRenderer(BlockEntityRendererProvider.Context pContext) {
     }
 
     public boolean isLookingAt() {

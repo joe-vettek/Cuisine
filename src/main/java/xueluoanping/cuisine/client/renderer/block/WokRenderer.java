@@ -1,43 +1,30 @@
-package xueluoanping.cuisine.client.renderer.BER;
+package xueluoanping.cuisine.client.renderer.block;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.joml.Quaternionf;
-import xueluoanping.cuisine.Cuisine;
-import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
-import xueluoanping.cuisine.blockentity.BasinBlockEntity;
-import xueluoanping.cuisine.blockentity.firepit.BarbecueRackBlockEntity;
 import xueluoanping.cuisine.blockentity.firepit.WokOnFirePitbBlockEntity;
-
-import java.awt.*;
+import xueluoanping.cuisine.client.renderer.RenderTool;
 
 import static net.minecraft.world.inventory.InventoryMenu.BLOCK_ATLAS;
 
-public class TESWok extends TESRFirePit<WokOnFirePitbBlockEntity> {
+public class WokRenderer extends FirePitRenderer<WokOnFirePitbBlockEntity> {
 
 
-    public TESWok(BlockEntityRendererProvider.Context pContext) {
+    public WokRenderer(BlockEntityRendererProvider.Context pContext) {
         super(pContext);
     }
 
