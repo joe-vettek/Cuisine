@@ -2,7 +2,9 @@ package xueluoanping.cuisine.block;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,12 +45,15 @@ public class BlockDrinkro extends SimpleHorizontalEntityBlock {
         return state.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.MODEL : RenderShape.INVISIBLE;
     }
 
-    @Override
-    protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
 
-        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
-        if (pState.getValue(HALF) == DoubleBlockHalf.LOWER) {
-            pLevel.setBlock(pPos.above(), pState.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_CLIENTS);
+    @Override
+    protected BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+        if ((pDirection == Direction.UP && pState.getValue(HALF) == DoubleBlockHalf.LOWER) ||
+                (pDirection == Direction.DOWN && pState.getValue(HALF) == DoubleBlockHalf.UPPER)) {
+            if (!pNeighborState.is(this)) {
+                return Blocks.AIR.defaultBlockState();
+            }
         }
+        return super.updateShape(pState, pDirection, pNeighborState, pLevel, pPos, pNeighborPos);
     }
 }
