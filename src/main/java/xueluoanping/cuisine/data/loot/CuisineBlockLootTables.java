@@ -61,7 +61,6 @@ public class CuisineBlockLootTables extends BlockLootSubProvider {
             //     continue;
             // }
             add(block, createSingleItemTable(block));
-                Cuisine.logger(block, new ArrayList<>((List) getKnownBlocks()).contains(Blocks.AIR));
         }
     }
 
@@ -69,9 +68,8 @@ public class CuisineBlockLootTables extends BlockLootSubProvider {
     protected void generate() {
         Set<Block> blocks = BuiltInRegistries.BLOCK.stream()
                 .filter(block -> Cuisine.MODID.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())).collect(Collectors.toSet())
-                .stream().filter(block -> ! block.getLootTable().equals( BuiltInLootTables.EMPTY))
-                .collect(Collectors.toSet())
-                ;
+                .stream().filter(block -> !block.getLootTable().equals(BuiltInLootTables.EMPTY))
+                .collect(Collectors.toSet());
         blocks.remove(BlockEntityRegister.basin.get());
         blocks.remove(BlockRegister.bamboo_plant.get());
 

@@ -25,30 +25,30 @@ public class BehaviorArmDispense extends DefaultDispenseItemBehavior {
     public ItemStack execute(BlockSource source, ItemStack stack) {
 
         Direction facing = source.state().getValue(BlockStateProperties.FACING);
-        BlockPos destination = source.pos().offset(facing.getNormal());
+        BlockPos destination = source.pos().relative(facing);
 
-        ServerLevel currentWorld = source.level();
+        ServerLevel level = source.level();
         //
-        //        if (!(currentWorld instanceof ServerLevel))
+        //        if (!(level instanceof ServerLevel))
         //        {
         //            return stack;
         //        }
         // Current it's always serverLevel
         //
-        FakePlayer player = CuisineFakePlayer.getInstance(currentWorld);
+        FakePlayer player = CuisineFakePlayer.getInstance(level);
         player.setPos(source.pos().getX(), source.pos().getY(), source.pos().getZ());
-        BlockState targetBlockState = currentWorld.getBlockState(destination);
+        BlockState targetBlockState = level.getBlockState(destination);
 
-        // Cuisine.logger(currentWorld.getBlockEntity(destination).serializeNBT());
+        // Cuisine.logger(level.getBlockEntity(destination).serializeNBT());
         // 判定是否是战利品箱子，问题不大
-        BlockEntity facingBlockEntity = currentWorld.getBlockEntity(destination);
+        BlockEntity facingBlockEntity = level.getBlockEntity(destination);
         if (facingBlockEntity != null)
 
             if (facingBlockEntity.saveWithFullMetadata(facingBlockEntity.getLevel().registryAccess()).contains("LootTable")) {
                 return stack;
             }
 
-        BlockHitResult target = new BlockHitResult(new Vec3(0.5F, 0.5F, 0F), facing, player.getOnPos(), true);
+        BlockHitResult target = new BlockHitResult(new Vec3(0.5F, 0.5F, 0F), facing, destination, true);
         PlayerInteractEvent.RightClickBlock evt = new PlayerInteractEvent.RightClickBlock(player, InteractionHand.MAIN_HAND, destination, target);
         if (!NeoForge.EVENT_BUS.post(evt).isCanceled())
             targetBlockState.useWithoutItem(source.level(), player, target);
