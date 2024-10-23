@@ -30,7 +30,7 @@ public final class Cuisine {
     // 开发环境未读取config之前可能用不了
     public static void logger(Object... x) {
 
-        // if (General.bool.get())
+        if (General.bool.get())
         {
             StringBuilder output = new StringBuilder();
             for (Object i : x) {
