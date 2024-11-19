@@ -59,7 +59,6 @@ public class BlockRice extends BlockDoubleCrops implements LiquidBlockContainer
         // 水稻、水、土
         // Cuisine.logger(state0, resource.getBlockState(pos.above()), resource.getBlockState(pos.above().above()));
         BlockState state1 = resource.getBlockState(pos.above());
-        BlockState state2 = resource.getBlockState(pos.above().above());
         if (!state1.is(this))
             return state0.is(BlockTags.DIRT)
                     && resource.getBlockState(pos.above()).getFluidState().isSource()

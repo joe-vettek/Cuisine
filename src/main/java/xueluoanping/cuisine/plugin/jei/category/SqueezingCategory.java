@@ -14,6 +14,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.common.Constants;
+import mezz.jei.common.Internal;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -45,10 +46,10 @@ public class SqueezingCategory implements IRecipeCategory<BasinSqueezingRecipe> 
         ResourceLocation backgroundImage = Cuisine.rl("textures/gui/jei.png");
         background = helper.createDrawable(backgroundImage, 100, 100, 74, 32);
         icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockEntityRegister.basin.get()));
-        itemContainer = helper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 227, 18, 19).build();
+        itemContainer = Internal.getTextures().getSlot();
         fluidContainer = helper.createDrawable(backgroundImage, 0, 33, 20, 10);
-        arrow = helper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 25, 133, 22, 15).build();
-        arrowOverlay = helper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 128, 24, 17).buildAnimated(200, IDrawableAnimated.StartDirection.LEFT, false);
+        arrow = Internal.getTextures().getRecipeArrow();
+        arrowOverlay = Internal.getTextures().getRecipeArrowFilled();
     }
 
 
@@ -88,7 +89,8 @@ public class SqueezingCategory implements IRecipeCategory<BasinSqueezingRecipe> 
         stack.pushPose();
         stack.translate(26, 10, 0);
         arrow.draw(guiGraphics);
-        arrowOverlay.draw(guiGraphics);
+        // arrowOverlay.draw(guiGraphics);
+        Internal.getTextures().getRecipeArrowFilled().draw(guiGraphics,0, 1,0,0,0, 21-(int) (System.currentTimeMillis()%6600/300));
         stack.popPose();
         IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
     }

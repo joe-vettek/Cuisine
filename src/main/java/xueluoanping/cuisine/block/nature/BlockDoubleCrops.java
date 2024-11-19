@@ -123,7 +123,6 @@ public class BlockDoubleCrops extends BlockCuisineCrops {
                                 Blocks.AIR.defaultBlockState();
                 level.setBlock(blockpos, blockstate1, 35);
                 level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
-
             }
         } else {
             level.setBlock(pos.above(), Blocks.AIR.defaultBlockState(), 35);
