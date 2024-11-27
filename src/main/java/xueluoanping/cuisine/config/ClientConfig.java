@@ -2,6 +2,7 @@ package xueluoanping.cuisine.config;
 
 
 import net.neoforged.neoforge.common.ModConfigSpec;
+import xueluoanping.cuisine.plugin.CompatManager;
 
 public class ClientConfig {
     public static ModConfigSpec CLIENT_CONFIG;
@@ -16,6 +17,9 @@ public class ClientConfig {
         CLIENT_BUILDER.comment("Waila settings").push("Display");
         showlimit = CLIENT_BUILDER.comment("Set the direct show amounts limit.").defineInRange("showlimit",9,3,24);
         CLIENT_BUILDER.pop();
+
+        CompatManager.initConfig(CLIENT_BUILDER,false);
+
         CLIENT_CONFIG = CLIENT_BUILDER.build();
     }
 }

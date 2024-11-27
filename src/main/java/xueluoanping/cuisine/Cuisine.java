@@ -5,16 +5,20 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import xueluoanping.cuisine.config.ClientConfig;
 import xueluoanping.cuisine.config.General;
+import xueluoanping.cuisine.plugin.CompatManager;
 import xueluoanping.cuisine.register.*;
 import xueluoanping.cuisine.util.Platform;
 
@@ -81,7 +85,10 @@ public final class Cuisine {
         if (Platform.isPhysicalClient())
             modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CLIENT_CONFIG);
 
-        ModList.get().isLoaded("create");
+        if (FMLLoader.getDist() == Dist.CLIENT)
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+
+        CompatManager.init(modEventBus);
     }
 
 

@@ -140,6 +140,8 @@ dependencies {
 
     onlyMainRuntimeOnly ("curse.maven:journeymap-32274:5541925")
 
+    compileOnly("curse.maven:irisshaders-455508:5910090")
+
     onlyMainRuntimeOnly("curse.maven:irisshaders-455508:5910090")
     onlyMainRuntimeOnly "maven.modrinth:sodium:mc1.21.1-0.6.0-neoforge"
 
