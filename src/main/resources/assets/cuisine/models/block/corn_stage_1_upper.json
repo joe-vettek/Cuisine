@@ -1,0 +1,6 @@
+{
+    "parent": "cuisine:block/double_cross_crop_upper",
+    "textures": {
+        "upper": "cuisine:block/corn_upper_1"
+    }
+}

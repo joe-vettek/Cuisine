@@ -34,11 +34,11 @@ public class TSIrisPlugin {
                             shaderpack = nowshaderpack;
                             simpleCopyAddGrassUpper(CropRegister.rice.get());
 
-                            var upper = Blocks.OAK_LEAVES.defaultBlockState()
-                                    // .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)
+                            var upper = Blocks.TALL_GRASS.defaultBlockState()
+                                    .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)
                                     ;
-                            var lower = Blocks.OAK_LEAVES.defaultBlockState()
-                                    // .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
+                            var lower = Blocks.TALL_GRASS.defaultBlockState()
+                                    .setValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
                                     ;
 
                             for (DeferredHolder<Block, ? extends Block> allCropBlock : CropRegister.getAllCropBlocks()) {
