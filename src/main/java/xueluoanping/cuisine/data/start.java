@@ -14,6 +14,7 @@ import xueluoanping.cuisine.data.loot.CuisineLootTableProvider;
 import xueluoanping.cuisine.data.loot.GLMProvider;
 import xueluoanping.cuisine.data.material.SimpleMP;
 import xueluoanping.cuisine.data.model.BlockStatesDataProvider;
+import xueluoanping.cuisine.data.model.CuisineBlockModelProvider;
 import xueluoanping.cuisine.data.model.CuisineItemModelProvider;
 import xueluoanping.cuisine.data.tag.CuisineItemTagsProvider;
 import xueluoanping.cuisine.data.tag.TagsDataProvider;
@@ -60,14 +61,10 @@ public class start {
                 //            generator.addProvider(new ItemTags(generator, blockTags, Cuisine.MODID, helper));
             }
             if (event.includeClient()) {
+                generator.addProvider(event.includeClient(), new CuisineBlockModelProvider(packOutput,MODID, helper));
                 generator.addProvider(event.includeClient(), new BlockStatesDataProvider(packOutput, helper));
                 generator.addProvider(event.includeClient(), new CuisineItemModelProvider(packOutput, MODID, helper));
-                // generator.addProvider(new BlockStatesDataProvider(generator, helper));
-
-                //            BlockStates blockStates = new BlockStates(generator, helper);
-                //            generator.addProvider(blockStates);
-                //            generator.addProvider(new ItemModels(generator, blockStates.models().existingFileHelper));
-            }
+                          }
 
 
         }

@@ -1,6 +1,0 @@
-{
-  "parent": "cuisine:block/aqueduct",
-  "textures": {
-    "4": "block/dirt_path_top"
-  }
-}

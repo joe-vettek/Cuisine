@@ -1,7 +1,6 @@
 package xueluoanping.cuisine.data.model;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -10,13 +9,16 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import xueluoanping.cuisine.Cuisine;
 import xueluoanping.cuisine.block.BlockBasin;
+import xueluoanping.cuisine.block.BlockPlate;
 import xueluoanping.cuisine.block.firepit.BlockFirePit;
 import xueluoanping.cuisine.block.baseblock.SimpleHorizontalEntityBlock;
 import xueluoanping.cuisine.block.nature.BlockCuisineCrops;
+import xueluoanping.cuisine.block.nature.BlockDoubleCrops;
 import xueluoanping.cuisine.register.BlockEntityRegister;
 import xueluoanping.cuisine.register.BlockRegister;
 import xueluoanping.cuisine.register.CropRegister;
@@ -56,18 +58,15 @@ public class BlockStatesDataProvider extends BlockStateProvider {
 
         // this.customStageBlock(CropRegister.tomato.get(), resourceBlock("cross_crop"), "crop", BlockCuisineCrops.AGE, Arrays.asList(0,0, 1,1, 2,2,2, 3 ));
 
-        ArrayList<DeferredHolder<Block, ? extends Block>> cropBlockList = new ArrayList<>();
-        cropBlockList.addAll(CropRegister.DRBlocks.getEntries());
-        cropBlockList.remove(CropRegister.rice);
-        cropBlockList.remove(CropRegister.corn);
-        cropBlockList.remove(CropRegister.cucumber);
+        ArrayList<DeferredHolder<Block, ? extends Block>> cropBlockList = new ArrayList<>(CropRegister.DRBlocks.getEntries());
+        cropBlockList.removeIf(bh->bh.get() instanceof BlockDoubleCrops);
+        // cropBlockList.remove(CropRegister.rice);
+        // cropBlockList.remove(CropRegister.corn);
+        // cropBlockList.remove(CropRegister.cucumber);
         cropBlockList.forEach(crop -> {
             this.customStageBlock(crop.get(), resourceBlock("cross_crop"), "crop", BlockCuisineCrops.AGE, Arrays.asList(0, 0, 1, 1, 2, 2, 2, 3));
         });
 
-        if (BlockEntityRegister.basinColored.size() == 0)
-            throw new RuntimeException("空");
-        // BlockEntityRegister.basinColored.forEach();
         BlockEntityRegister.basinColored.forEach((dyeColor, blockRegistryObject) -> {
             getVariantBuilder(blockRegistryObject.get()).forAllStatesExcept(state -> {
                 return ConfiguredModel.builder()
@@ -78,24 +77,36 @@ public class BlockStatesDataProvider extends BlockStateProvider {
         });
 
 
-        getVariantBuilder(BlockEntityRegister.fire_pit.get()).forAllStatesExcept(state -> {
-            return ConfiguredModel.builder()
-                    .modelFile(models().withExistingParent(blockName(BlockEntityRegister.fire_pit.get()), resourceBlock("fire_pit_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
-                    .build();
-        }, BlockFirePit.LIGHT_LEVEL);
+        // getVariantBuilder(BlockEntityRegister.fire_pit.get()).forAllStatesExcept(state -> {
+        //     return ConfiguredModel.builder()
+        //             .modelFile(models().withExistingParent(blockName(BlockEntityRegister.fire_pit.get()), resourceBlock("fire_pit_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
+        //             .build();
+        // }, BlockFirePit.LIGHT_LEVEL);
+        //
+        // getVariantBuilder(BlockEntityRegister.barbecue_rack.get()).forAllStatesExcept(state -> {
+        //     return ConfiguredModel.builder()
+        //             .modelFile(models().withExistingParent(blockName(BlockEntityRegister.barbecue_rack.get()), resourceBlock("fire_pit_with_sticks_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
+        //             .build();
+        // }, BlockFirePit.LIGHT_LEVEL);
+        // getVariantBuilder(BlockEntityRegister.wok_on_fire_pit.get()).forAllStatesExcept(state -> {
+        //     return ConfiguredModel.builder()
+        //             .modelFile(models().withExistingParent(blockName(BlockEntityRegister.wok_on_fire_pit.get()), resourceBlock("fire_pit_with_wok_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
+        //             .build();
+        // }, BlockFirePit.LIGHT_LEVEL);
 
-        getVariantBuilder(BlockEntityRegister.barbecue_rack.get()).forAllStatesExcept(state -> {
-            return ConfiguredModel.builder()
-                    .modelFile(models().withExistingParent(blockName(BlockEntityRegister.barbecue_rack.get()), resourceBlock("fire_pit_with_sticks_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
-                    .build();
-        });
-        getVariantBuilder(BlockEntityRegister.wok_on_fire_pit.get()).forAllStatesExcept(state -> {
-            return ConfiguredModel.builder()
-                    .modelFile(models().withExistingParent(blockName(BlockEntityRegister.wok_on_fire_pit.get()), resourceBlock("fire_pit_with_wok_obj"))).rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
-                    .build();
-        });
+        for (DeferredHolder<Block, ? extends BlockFirePit> blockDeferredHolder : List.of(BlockEntityRegister.barbecue_rack, BlockEntityRegister.wok_on_fire_pit, BlockEntityRegister.fire_pit)) {
+            getVariantBuilder(blockDeferredHolder.get()).forAllStatesExcept(state -> ConfiguredModel.builder()
+                    .modelFile(new ModelFile.ExistingModelFile(resourceBlock(blockDeferredHolder.getId().getPath()),existingFileHelper))
+                    .rotationY(SimpleHorizontalEntityBlock.getRotateYByFacing(state))
+                    .build()
+                    , BlockFirePit.LIGHT_LEVEL);
+        }
+        getVariantBuilder(BlockEntityRegister.plate.get()).forAllStatesExcept(state -> ConfiguredModel.builder()
+                .modelFile(new ModelFile.ExistingModelFile(resourceBlock("dish/" +state.getValue(BlockPlate.PLATE_TYPE).getSerializedName()),existingFileHelper))
+                .build());
 
     }
+
 
 
     // Thanks vectorwing，great work

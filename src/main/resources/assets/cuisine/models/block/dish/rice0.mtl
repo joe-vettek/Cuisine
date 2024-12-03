@@ -1,0 +1,14 @@
+newmtl 01___Default
+map_Kd minecraft:block/quartz_block_bottom
+
+newmtl 02___Default
+map_Kd cuisine:block/misc/rice
+
+newmtl 03___Default
+map_Kd cuisine:block/misc/red_deco
+
+newmtl 08___Default
+map_Kd cuisine:block/misc/yellow_deco
+
+newmtl 07___Default
+map_Kd cuisine:block/misc/vege

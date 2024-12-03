@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "plate_type=fish0": {
+      "model": "cuisine:block/dish/fish0"
+    },
+    "plate_type=meat0": {
+      "model": "cuisine:block/dish/meat0"
+    },
+    "plate_type=meat1": {
+      "model": "cuisine:block/dish/meat1"
+    },
+    "plate_type=mixed0": {
+      "model": "cuisine:block/dish/mixed0"
+    },
+    "plate_type=mixed1": {
+      "model": "cuisine:block/dish/mixed1"
+    },
+    "plate_type=plate": {
+      "model": "cuisine:block/dish/plate"
+    },
+    "plate_type=rice0": {
+      "model": "cuisine:block/dish/rice0"
+    },
+    "plate_type=veges0": {
+      "model": "cuisine:block/dish/veges0"
+    },
+    "plate_type=veges1": {
+      "model": "cuisine:block/dish/veges1"
+    }
+  }
+}
