@@ -33,7 +33,6 @@ public class CuisineBlockModelProvider extends BlockModelProvider {
                     .texture("particle", ResourceLocation.withDefaultNamespace("block/quartz_block_bottom"))
                     .customLoader(ObjModelBuilder::begin)
                     .flipV(true)
-                    .automaticCulling(true)
                     .modelLocation(objResource("dish/" + cuisineType.getSerializedName()));
         }
 
@@ -42,9 +41,8 @@ public class CuisineBlockModelProvider extends BlockModelProvider {
                     .texture("particle", ResourceLocation.withDefaultNamespace("block/cobblestone"))
                     .customLoader(ObjModelBuilder::begin)
                     .flipV(true)
-                    .automaticCulling(true)
                     .modelLocation(objResource(blockDeferredHolder.getId().getPath()
-                            .replace("wok_on_fire_pit","fire_pit_with_sticks")
+                            .replace("wok_on_fire_pit","fire_pit_with_wok")
                             .replace("barbecue_rack","fire_pit_with_sticks")));
         }
 

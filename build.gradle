@@ -142,8 +142,8 @@ dependencies {
 
     compileOnly("curse.maven:irisshaders-455508:5910090")
 
-    onlyMainRuntimeOnly("curse.maven:irisshaders-455508:5910090")
-    onlyMainRuntimeOnly "maven.modrinth:sodium:mc1.21.1-0.6.0-neoforge"
+//    onlyMainRuntimeOnly("curse.maven:irisshaders-455508:5910090")
+//    onlyMainRuntimeOnly "maven.modrinth:sodium:mc1.21.1-0.6.0-neoforge"
 
     runtimeOnly "maven.modrinth:patchouli:1.21-87-neoforge"
 

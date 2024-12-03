@@ -1,6 +1,5 @@
 {
   "parent": "minecraft:block/block",
-  "automatic_culling": true,
   "flip_v": true,
   "loader": "neoforge:obj",
   "model": "cuisine:models/block/dish/meat0.obj",
